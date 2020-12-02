@@ -1,3 +1,2 @@
 
-export const test: number = 23
-console.log("tudo deu certo", test)
+export const add = (a: number, b: number) => a + b

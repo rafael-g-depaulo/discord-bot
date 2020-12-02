@@ -22,5 +22,8 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "watch": "jest --watch"
+  },
+  "dependencies": {
+    "@discord-bot/lib-test": "*"
   }
 }
