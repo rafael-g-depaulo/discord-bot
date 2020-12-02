@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.json",
+
+  "compilerOptions": {
+
+    // baseUrl for absolute imports
+    "baseUrl": "src",
+
+    // buil/source file location
+    "rootDir": "./src",
+    "outDir": "./dist",
+
+  },
+}

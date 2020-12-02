@@ -1,0 +1,35 @@
+{
+  "name": "discord-bot",
+  "version": "1.0.0",
+  "description": "Bot for dice-rolling in my discord server",
+  "repository": "git@github.com:rafael-g-depaulo/discord-bot.git",
+  "author": "Rafael G. de Paulo <rafael.g.depaulo@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "libs/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "build:libs": "ultra -r -b --filter \"+libs/*\" build",
+    "build:libs:watch": "ultra -r -b --filter \"+libs/*\" build:watch",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.10",
+    "jest": "^26.6.3",
+    "lerna": "^3.22.1",
+    "typescript": "^4.1.2"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "if-env": "^1.0.4",
+    "ts-node-dev": "^1.0.0",
+    "tsconfig-paths": "^3.9.0",
+    "ultra-runner": "^3.6.0"
+  },
+  "engines": {
+    "node": "12.x",
+    "yarn": "1.x"
+  }
+}
