@@ -1,6 +1,6 @@
 {
   "name": "@discord-bot/app-test",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Main connection to discord bot",
   "author": "Rafael G. de Paulo <rafael.g.depaulo@gmail.com>",
   "homepage": "https://github.com/rafael-g-depaulo/discord-bot#readme",
@@ -24,6 +24,6 @@
     "watch": "jest --watch"
   },
   "dependencies": {
-    "@discord-bot/lib-test": "*"
+    "@discord-bot/lib-test": "^0.2.0"
   }
 }
