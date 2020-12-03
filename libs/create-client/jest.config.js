@@ -1,8 +1,13 @@
 module.exports = {
-  name: 'lib-test',
+  name: 'create-client',
   displayName: {
-    name: 'LIB: LIB-TEST',
+    name: 'LIB: CREATE-CLIENT',
     color: 'cyan',
   },
   
+  testEnvironment: 'node',
+
+  testPathIgnorePatterns: [
+    "dist/",
+  ],
 }
