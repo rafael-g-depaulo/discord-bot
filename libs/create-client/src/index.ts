@@ -13,7 +13,7 @@ type ClientState = LoginState
 
 // client type
 export type Client = LoginClient & {
-  client: Discord.Client,
+  discordClient: Discord.Client,
 }
 
 // create client function
@@ -23,16 +23,16 @@ const createClient: CreateClient = (options) => {
     discordLib = Discord
   } = options ?? {}
 
-  const client = new discordLib.Client()
+  const discordClient = new discordLib.Client()
 
-  const state = { client } as ClientState
+  const state = { discordClient } as ClientState
 
   const clientThing = Object.assign({},
     CreateLoginClient(state),
   )
 
   return {
-    client,
+    discordClient,
     ...clientThing,
   }
 }

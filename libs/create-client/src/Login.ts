@@ -2,7 +2,7 @@ import Discord from "discord.js"
 import { Composable } from "./Composer"
 
 export interface LoginState {
-  client: Discord.Client
+  discordClient: Discord.Client
 }
 
 export interface LoginClient {
@@ -11,13 +11,13 @@ export interface LoginClient {
 
 export const CreateLoginClient: Composable<LoginState, LoginClient> = (state) => {
   const {
-    client
+    discordClient,
   } = state
 
   const login: (token?: string) => Promise<string> = token => {
-    return client.login(token)
+    return discordClient.login(token)
   }
-  
+
   return {
     login,
   }
