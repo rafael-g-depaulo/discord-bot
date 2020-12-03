@@ -24,6 +24,6 @@
     "watch": "jest --watch"
   },
   "dependencies": {
-    "@discord-bot/lib-test": "^0.4.0"
+    "@discord-bot/lib-test": "*"
   }
 }

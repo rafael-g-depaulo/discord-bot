@@ -1,11 +1,11 @@
-# `Lib-test`
+# `Dice`
 
 > TODO: description
 
 ## Usage
 
 ```typescript
-import discordConnection from '@discord-bot/lib-test'
+import discordConnection from '@discord-bot/dice'
 
 // TODO: DEMONSTRATE API
 ```
