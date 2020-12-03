@@ -1,5 +1,5 @@
 import Discord from "discord.js"
-import { CreateLoginClient, LoginClient, LoginState } from "./Login"
+import { CreateLoginClient, LoginClient, LoginState } from "LoginClient"
 
 export type DiscordLib = typeof Discord
 

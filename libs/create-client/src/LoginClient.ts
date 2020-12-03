@@ -1,5 +1,5 @@
 import Discord from "discord.js"
-import { Composable } from "./Composer"
+import { Composable } from "Composer"
 
 export interface LoginState {
   discordClient: Discord.Client
