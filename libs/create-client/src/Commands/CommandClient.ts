@@ -1,10 +1,18 @@
 import Discord from "discord.js"
 import { Composable } from "Composer"
+import addCommand from "./addCommand"
 
-export interface Command {
+export interface DefaultCommand {
   test: (message: Discord.Message) => boolean,
   execute: (message: Discord.Message) => void,
 }
+
+export interface RegexCommand {
+  test: RegExp,
+  execute: (message: Discord.Message, results: RegExpExecArray) => void,
+}
+
+export type Command = DefaultCommand | RegexCommand
 
 export interface CommandState {
   discordClient: Discord.Client,
@@ -16,24 +24,10 @@ export interface CommandClient {
 }
 
 export const CreateCommandClient: Composable<CommandState, CommandClient> = (state) => {
-  const {
-    discordClient,
-    commands = [],
-  } = state
-
-  const addCommand = (cmd: Command) => {
-    commands.push(cmd)
-    discordClient.on("message", msg => {
-      
-      // if from bot, ignore
-      if (msg.author.bot) return
-
-      // if is command, execute it
-      if (cmd.test(msg)) cmd.execute(msg)
-    })
-  }
-
+  
+  state.commands = []
+  
   return {
-    addCommand,
+    addCommand: addCommand(state),
   }
 }

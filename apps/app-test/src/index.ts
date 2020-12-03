@@ -3,9 +3,10 @@ import createClient, { Client } from "@discord-bot/create-client"
 const bot: Client = createClient()
 
 bot.addCommand({
-  test: () => true,
-  execute: (msg) => {
-    msg.author.send("fuck")
+  test: /^!test\s*(?<Rest>.*)$/,
+  execute: (msg, result) => {
+    const { groups } = result
+    msg.author.send(`fuck you and your ${groups!.Rest}`)
   }
 })
 

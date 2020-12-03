@@ -18,6 +18,11 @@ export type Client = LoginClient & CommandClient & {
   discordClient: Discord.Client,
 }
 
+// export message type
+export { Message } from "discord.js"
+// export command Type so users may use it
+export { Command } from "./Commands/CommandClient"
+
 // create client function
 export type CreateClient = (options?: ClientOptions) => Client
 const createClient: CreateClient = (options) => {
