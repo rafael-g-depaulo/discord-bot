@@ -1,4 +1,4 @@
-import createClient, { ClientOptions, DiscordLib } from "."
+import createClient from "."
 
 describe('create-client', () => {
   
