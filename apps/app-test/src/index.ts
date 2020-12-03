@@ -1,4 +1,6 @@
-import { add } from '@discord-bot/lib-test'
+import createClient from "@discord-bot/create-client"
 
-export const test: number = add(20, 3)
-console.log("tudo deu certo", test)
+const bot = createClient()
+
+bot.login(process.env.TOKEN)
+  // .then((a) => console.log("logged in fucker", a))
