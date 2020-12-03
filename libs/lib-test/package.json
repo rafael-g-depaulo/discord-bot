@@ -1,6 +1,6 @@
 {
   "name": "@discord-bot/lib-test",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Implement connection with discord server and bot account",
   "author": "Rafael G. de Paulo <rafael.g.depaulo@gmail.com>",
   "homepage": "https://github.com/rafael-g-depaulo/discord-bot#readme",
