@@ -1,3 +1,7 @@
+// a Die represents a single dice, that can be rolled multiple times.
+// dieMax represents the dice type (d6, d8, d20, etc.)
+// each roll is a different roll of the die
+
 import { RandFn } from "index"
 
 export interface DieOptions {
@@ -32,3 +36,5 @@ export const createDie: CreateDie = (props) => {
     roll,
   }
 }
+
+export default createDie
