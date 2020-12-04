@@ -4,6 +4,9 @@
 // a dice roll is composed of only one kind of dice
 //! (this may be changed in the future if it makes sense. if this is ever change, remove this fucking comment please)
 
+// Dice.roll simply rolls the dice and returns the result, while Dice.detailedRoll returns the result of all
+// individual die rolls, and a bunch of other details
+
 import { RandFn } from "./index"
 import createDie, { Die } from "./die"
 
@@ -18,12 +21,26 @@ export interface DiceOptions {
   explode?: boolean | number,
 }
 
-interface DiceState {
-  die: Die
+interface DieRollResult {
+  value: number,      // the value of the die roll
+  ignored?: boolean,  // wether or not the roll should be ignored because of advantage or disadvantage
+  exploded?: boolean, // wether or not the roll has exploded
+  a?: string,
 }
 
+interface TempDieRollResult extends DieRollResult {
+  i: number,
+}
+export interface DiceRollResults {
+  rolls: DieRollResult[],
+}
 export interface Dice {
   roll: () => number,
+  detailedRoll: () => DiceRollResults,
+}
+
+interface DiceState {
+  die: Die
 }
 
 type CreateDice = (props: DiceOptions) => Dice
@@ -66,7 +83,7 @@ export const createDice: CreateDice = (props) => {
   }
 
   // roll, using advantage and stuff
-  const roll = () => {
+  const roll: () => number = () => {
     
     // roll an ammount of dice equal to the final ammount plus the absolute ammount of (dis)advantage
     return ArrayOfSize(dieAmmount + Math.abs(advantage))
@@ -83,8 +100,72 @@ export const createDice: CreateDice = (props) => {
       .reduce((acc, cur) => acc + cur, bonus)
   }
 
+  const detailedDieRoll: () => DieRollResult = () => ({ value: state.die.roll() })
+  const detailedRoll: () => DiceRollResults = () => {
+
+    // create rolls
+    let tempRolls: TempDieRollResult[] = ArrayOfSize(dieAmmount + Math.abs(advantage))
+      .map(() => (detailedDieRoll()))
+      .map((roll, i) => ({ ...roll, i }))
+
+    // if there is advantage or disadvantage, ignore the lower/higher rolls, respectively
+    if (advantage !== 0) tempRolls
+      // make a shallow copy of the array
+      .slice()
+      // sort them
+      .sort((a, b) => a.value === b.value
+        // if a and b are the same, use the one closest to the start
+        ? b.i - a.i
+        // ? a.i - b.i
+        // else, sort according to advantage
+        : advantage > 0
+          ? b.value - a.value
+          : a.value - b.value
+      )
+      // remove the higher/lower rolls
+      .forEach((roll, i) => {
+        // roll.a = `${i}, ${roll.value}`
+        return (i >= dieAmmount) && (roll.ignored = true)
+      })
+
+    // if there is explosion, explode the dice
+    if (explode !== false) tempRolls = tempRolls
+      .flatMap((roll) => {
+        // if roll should be ignored because of disadvantage, don't explode it
+        if (roll.ignored) return roll
+
+        // array of rolls
+        const rollArr = [roll]
+
+        // minimum roll required for die explosion
+        const explosionRange = explode === true
+          ? dieMax
+          : dieMax - explode + 1
+
+        // while the last roll exploded, roll another dice and check again
+        while (rollArr[rollArr.length-1].value >= explosionRange) {
+          rollArr[rollArr.length-1].exploded = true
+          rollArr.push({ ...detailedDieRoll(), i: rollArr.length })
+        }
+        
+        // return array of rolls
+        return rollArr
+      })
+      
+    // remove index from tempRolls
+    const rolls: DieRollResult[] = tempRolls
+      .map(({ i, ...roll}) => roll)
+
+    // calculate result
+
+    return {
+      rolls,
+    }
+  }
+
   return {
     roll,
+    detailedRoll,
   }
 }
 

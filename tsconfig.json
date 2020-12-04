@@ -8,6 +8,7 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "target": "es5",
+    "lib": ["ES2020"],
 
     // baseUrl for absolute imports
     // "baseUrl": "src",              //! (this should be in the package's tsconfig, not this one)
