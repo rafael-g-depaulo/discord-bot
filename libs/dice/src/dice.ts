@@ -15,6 +15,7 @@ export interface DiceOptions {
   bonus?: number,
   advantage?: number,
   dieAmmount?: number,
+  explode?: boolean | number,
 }
 
 interface DiceState {
@@ -34,10 +35,34 @@ export const createDice: CreateDice = (props) => {
     bonus = 0,
     advantage = 0,
     dieAmmount = 1,
+    explode = false,
   } = props
+
+  // throw if props are invalid
+  if (typeof explode === 'number' && explode < 0) throw new Error(`Dice: "explode" prop must be undefined, boolean, 0 or positive integer!`)
+  if (dieAmmount <= 0) throw new Error(`Dice: "dieAmmount" prop must be a positive integer above 0!`)
 
   const state: DiceState = {
     die: createDie({ dieMax, randomFn })
+  }
+
+  // roll die and explode if needed
+  const rollAndExplode: () => number = () => {
+    const rollResult = state.die.roll()
+
+    // if no explosion, return roll
+    if (explode === false) return rollResult
+
+    // if simple explosion, explode and return if dieMax reached
+    if (explode === true)
+    return rollResult === dieMax
+      ? rollResult + rollAndExplode()
+      : rollResult
+
+    // if explode is a number
+    return rollResult >= dieMax - explode
+      ? rollResult + rollAndExplode()
+      : rollResult
   }
 
   // roll, using advantage and stuff
@@ -45,7 +70,7 @@ export const createDice: CreateDice = (props) => {
     
     // roll an ammount of dice equal to the final ammount plus the absolute ammount of (dis)advantage
     return ArrayOfSize(dieAmmount + Math.abs(advantage))
-      .map(() => state.die.roll())
+      .map(() => rollAndExplode())
       // if has disadvantage sort acending
       // if has advantage sort descending
       // if there isnt (dis)advantage, this doesn't matter

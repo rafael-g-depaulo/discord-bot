@@ -25,9 +25,9 @@ export const createDie: CreateDie = (props) => {
     randNum = Math.max(0, randNum) // don't allow numbers below 0
     randNum = Math.min(1, randNum) // don't allow numbers above 1
 
-    const rollResult = randNum * dieMax === dieMax
-      ? dieMax
-      : Math.floor(randNum * dieMax) + 1
+    const rollResult = randNum === 0
+      ? 1
+      : Math.ceil(randNum * dieMax)
 
     return rollResult
   }
