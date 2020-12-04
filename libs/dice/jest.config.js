@@ -5,4 +5,10 @@ module.exports = {
     color: 'cyan',
   },
   
+  testPathIgnorePatterns: [
+    "dist/",
+  ],
+
+  testEnvironment: 'node',
+
 }
