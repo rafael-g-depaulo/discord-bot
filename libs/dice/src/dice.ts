@@ -7,7 +7,7 @@
 import { RandFn } from "./index"
 import createDie, { Die } from "./die"
 
-const ArrayOfSize = n => Array(n).fill(null)
+const ArrayOfSize = (n: number) => Array(n - n % 1).fill(null)
 
 export interface DiceOptions {
   randomFn?: RandFn,
@@ -40,30 +40,22 @@ export const createDice: CreateDice = (props) => {
     die: createDie({ dieMax, randomFn })
   }
 
-  // basic roll adding the bonus
-  const baseRoll = () => ArrayOfSize(dieAmmount)
-    .map(() => state.die.roll())  // roll "dieAmmount" dies
-    .reduce((acc, cur) => acc + cur, bonus) // then sum it all, and add the bonus
-
   // roll, using advantage and stuff
   const roll = () => {
     
-    // base roll
-    let rollResult = baseRoll()
-    // deal with (dis)advantage, if it exists
-    let adv = advantage
-    while (adv !== 0) {
-      if (adv > 0) {
-        rollResult = Math.max(rollResult, baseRoll())
-        adv--
-      }
-      if (adv < 0) {
-        rollResult = Math.min(rollResult, baseRoll())
-        adv++
-      }
-    }
-
-    return rollResult
+    // roll an ammount of dice equal to the final ammount plus the absolute ammount of (dis)advantage
+    return ArrayOfSize(dieAmmount + Math.abs(advantage))
+      .map(() => state.die.roll())
+      // if has disadvantage sort acending
+      // if has advantage sort descending
+      // if there isnt (dis)advantage, this doesn't matter
+      .sort((a, b) => advantage >= 0 ? b-a : a-b)
+      // if there is advantage, only keep the dieAmmount highest rolls
+      // if there is disadvantage, only keep the dieAmmount lowest rolls
+      // if there isnt (dis)advantage, this doesn't matter
+      .filter((_, i) => i < dieAmmount)
+      // then sum it all, and add the bonus
+      .reduce((acc, cur) => acc + cur, bonus)
   }
 
   return {
