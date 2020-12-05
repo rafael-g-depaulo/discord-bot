@@ -1,2 +1,5 @@
 export * from "./dice"
+export { default as createDice } from "./dice"
 export * from "./die"
+export { default as createDie } from "./die"
+export * from "./getDiceRoll"
