@@ -1,3 +1,2 @@
-export type RandFn = () => number
-
-export const add = (a: number, b: number) => a + b
+export * from "./dice"
+export * from "./die"
