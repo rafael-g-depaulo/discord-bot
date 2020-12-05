@@ -26,13 +26,29 @@ describe('testDiceRoll', () => {
     }
   })
 
-  
   it(`works with bonus ammount (ex: 1d8+5)`, () => {
     const rolls = [
       "2 d6  - 22",
       " 24 d 46 +  05",
       "2 D 10-009",
     ]
+    for (const roll of rolls) {
+      expect(testDiceRoll(roll)).toBe(true)
+    }
+  })
+  
+  it(`works with advantage (ex: d20+5 adv+2)`, () => {
+    const rolls = [
+      "6d6 adv",
+      "d20 dis",
+      "2d10 adv+2",
+      "2d10 adv  +  2",
+      "2d10-5 adv- 5",
+      "2d12 +4dis-4",
+      "2d10 +4dis+ 4",
+      "2 d  16 +4  dis - 4",
+    ]
+
     for (const roll of rolls) {
       expect(testDiceRoll(roll)).toBe(true)
     }
@@ -86,10 +102,10 @@ describe('getDiceRoll', () => {
   it(`works with advantage (ex: d20+5 adv+2)`, () => {
     const rolls: ExpectedResult[] = [
       ["6d6 adv",      { dieMax: 6,  advantage: 1,  dieAmmount: 6 }],
-      ["d20 dis",      { dieMax: 22, advantage: -1 }],
+      ["d20 dis",      { dieMax: 20, advantage: -1 }],
       ["2d10 adv+2",   { dieMax: 10, advantage: 2,  dieAmmount: 2 }],
       ["2d10-5 adv-5", { dieMax: 10, advantage: -5, dieAmmount: 2, bonus: -5 }],
-      ["2d10 +4dis-4", { dieMax: 10, advantage: -4, dieAmmount: 2, bonus: +4 }],
+      ["2d12 +4dis-4", { dieMax: 12, advantage: -4, dieAmmount: 2, bonus: +4 }],
       ["2d10 +4dis+4", { dieMax: 10, advantage: -4, dieAmmount: 2, bonus: +4 }],
     ]
 

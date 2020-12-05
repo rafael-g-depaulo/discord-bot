@@ -10,7 +10,9 @@ export const capture = (groupName: string, regex: RegExp) => new RegExp(`(?<${gr
 export const optional = (regex: RegExp) => new RegExp(`(?:${regex.source})?`, regex.flags)
 
 // make and anternation between 2 regexes
-export const or = (reg1: RegExp, reg2: RegExp) => new RegExp(`(?:${reg1.source})|(?:${reg2.source})`, mergeFlags(reg1, reg2))
+export const or = (...regexes: RegExp[]) => new RegExp(regexes.map(r => `${r.source}`).join("|"), mergeFlags(...regexes))
+
+// `(?:${reg1.source})|(?:${reg2.source})`
 
 // make a regex that matches 1 single word that belongs to the wordList
-export const fromList = (wordList: string[], flags?: string) => new RegExp(`(?:${wordList.map(word => `\\b${word}\\b`).join("|")})`, flags)
+export const fromList = (wordList: string[], flags?: string) => new RegExp(`(?:${wordList.map(word => `[^\d\s\w]*${word}[^\d\s\w]*`).join("|")})`, flags)
