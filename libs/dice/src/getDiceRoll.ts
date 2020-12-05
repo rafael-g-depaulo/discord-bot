@@ -1,3 +1,4 @@
+import { type } from "os"
 import { advantageWords, disadvantageWords } from "./advWords"
 import { DiceOptions } from "./dice"
 import { capture, concat, fromList, optional, or } from "./regexUtil"
@@ -22,6 +23,9 @@ const soleDieRegex = concat(/d/, optionalSpace, capture("dieMax", numRegex))
   // captures the "5" as dieAmmount group
 const diceRegex = concat(optional(capture("dieAmmount", numRegex)), optionalSpace, soleDieRegex)
 
+// captures the ! for a dice explosion
+const explosionRegex = capture("explode", /!+/)
+
 // regex for a positive or negative bonus
   // ex: " - 5" captures the 5 as a negative bonus
   // ex: "+13"  captures the 13 as a positive bonus
@@ -40,7 +44,7 @@ const boolDisRegex = capture("boolDis", fromList(disadvantageWords, "i"))
 // regex for any kind of advantage
 const advRegex = or(posAdvRegex, negAdvRegex, posDisRegex, negDisRegex, boolDisRegex, boolAdvRegex)
 
-export const diceRollRegex = concat(diceRegex, optionalSpace, optional(bonusRegex), optionalSpace, optional(advRegex))
+export const diceRollRegex = concat(diceRegex, optionalSpace, optional(explosionRegex), optionalSpace, optional(bonusRegex), optionalSpace, optional(advRegex))
 
 // const test1 = concat(diceRegex, optionalSpace, optional(advRegex))
 // const test2 = optional(advRegex)
@@ -95,6 +99,8 @@ export const getDiceRoll: GetDiceRoll = (str) => {
   if (typeof regexGroups.negAdv === "string") groups.advantage = -string2Num(regexGroups.negAdv)
   if (typeof regexGroups.posDis === "string") groups.advantage = -string2Num(regexGroups.posDis)
   if (typeof regexGroups.negDis === "string") groups.advantage = -string2Num(regexGroups.negDis)
+
+  if (typeof regexGroups.explode === "string") groups.explode = regexGroups.explode.length
 
   return groups
 

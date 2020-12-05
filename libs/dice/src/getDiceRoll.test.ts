@@ -26,6 +26,17 @@ describe('testDiceRoll', () => {
     }
   })
 
+  it(`works with die explosion (ex: 6d8!)`, () => {
+    const rolls = [
+      "2 d6 !   ",
+      "  8D22 !!",
+      "2 D 10! ",
+    ]
+    for (const roll of rolls) {
+      expect(testDiceRoll(roll)).toBe(true)
+    }
+  })
+  
   it(`works with bonus ammount (ex: 1d8+5)`, () => {
     const rolls = [
       "2 d6  - 22",
@@ -85,12 +96,23 @@ describe('getDiceRoll', () => {
     }
   })
   
-  it(`works with bonus ammount (ex: 1d8+5)`, () => {
+  it(`works with die explosion (ex: 6d8!)`, () => {
+    const rolls: ExpectedResult[] = [
+      ["2 d6 !   ", { dieAmmount: 2, dieMax: 6,  explode: 1}],
+      ["  8D22 !!", { dieAmmount: 8, dieMax: 22, explode: 2}],
+      ["2 D 10! ",  { dieAmmount: 2, dieMax: 10, explode: 1}],
+    ]
+    for (const roll of rolls) {
+      expect(getDiceRoll(roll[0])).toMatchObject(roll[1])
+    }
+  })
+  
+  it(`works with bonus ammount (ex: 1d8!+5)`, () => {
     const rolls: ExpectedResult[] = [
       [" 6 d6-2",   { dieMax: 6,  bonus: -2, dieAmmount: 6 }],
-      ["D 22 +6",   { dieMax: 22, bonus: +6, }],
-      ["2d6 +  05", { dieMax: 6,  bonus: +5, dieAmmount: 2}],
-      ["2D 10-009", { dieMax: 10, bonus: -9, dieAmmount: 2}],
+      ["D 22 !+6",   { dieMax: 22, bonus: +6, }],
+      ["2d6!!+  05", { dieMax: 6,  bonus: +5, dieAmmount: 2}],
+      ["2D 10! -009", { dieMax: 10, bonus: -9, dieAmmount: 2}],
       ["2 D 10 -0", { dieMax: 10, bonus: -0, dieAmmount: 2 }],
     ]
 
@@ -99,14 +121,14 @@ describe('getDiceRoll', () => {
     }
   })
   
-  it(`works with advantage (ex: d20+5 adv+2)`, () => {
+  it(`works with advantage (ex: 5d20!!+5 adv+2)`, () => {
     const rolls: ExpectedResult[] = [
-      ["6d6 adv",      { dieMax: 6,  advantage: 1,  dieAmmount: 6 }],
-      ["d20 dis",      { dieMax: 20, advantage: -1 }],
-      ["2d10 adv+2",   { dieMax: 10, advantage: 2,  dieAmmount: 2 }],
-      ["2d10-5 adv-5", { dieMax: 10, advantage: -5, dieAmmount: 2, bonus: -5 }],
-      ["2d12 +4dis-4", { dieMax: 12, advantage: -4, dieAmmount: 2, bonus: +4 }],
-      ["2d10 +4dis+4", { dieMax: 10, advantage: -4, dieAmmount: 2, bonus: +4 }],
+      ["6d6 adv",         { dieMax: 6,  advantage: 1,  dieAmmount: 6 }],
+      ["d20 ! dis",       { dieMax: 20, advantage: -1, explode: 1, }],
+      ["2d10 !!adv+2",    { dieMax: 10, advantage: 2,  explode: 2, dieAmmount: 2 }],
+      ["2d10!!!-5 adv-5", { dieMax: 10, advantage: -5, explode: 3, dieAmmount: 2, bonus: -5 }],
+      ["2d12 !!+4dis-4",  { dieMax: 12, advantage: -4, explode: 2, dieAmmount: 2, bonus: +4 }],
+      ["2d10! +4dis+4",   { dieMax: 10, advantage: -4, explode: 1, dieAmmount: 2, bonus: +4 }],
     ]
 
     for (const roll of rolls) {
