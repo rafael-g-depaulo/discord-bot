@@ -25,7 +25,6 @@ interface DieRollResult {
   value: number,      // the value of the die roll
   ignored?: boolean,  // wether or not the roll should be ignored because of advantage or disadvantage
   exploded?: boolean, // wether or not the roll has exploded
-  a?: string,
 }
 
 interface TempDieRollResult extends DieRollResult {
@@ -33,6 +32,8 @@ interface TempDieRollResult extends DieRollResult {
 }
 export interface DiceRollResults {
   rolls: DieRollResult[],
+  bonus: number,
+  total: number,
 }
 export interface Dice {
   roll: () => number,
@@ -123,10 +124,7 @@ export const createDice: CreateDice = (props) => {
           : a.value - b.value
       )
       // remove the higher/lower rolls
-      .forEach((roll, i) => {
-        // roll.a = `${i}, ${roll.value}`
-        return (i >= dieAmmount) && (roll.ignored = true)
-      })
+      .forEach((roll, i) => (i >= dieAmmount) && (roll.ignored = true))
 
     // if there is explosion, explode the dice
     if (explode !== false) tempRolls = tempRolls
@@ -156,10 +154,13 @@ export const createDice: CreateDice = (props) => {
     const rolls: DieRollResult[] = tempRolls
       .map(({ i, ...roll}) => roll)
 
-    // calculate result
+    // calculate total dice roll (with bonus)
+    const total = rolls.reduce((acc, cur) => cur.ignored ? acc : acc + cur.value, bonus)
 
     return {
       rolls,
+      bonus,
+      total,
     }
   }
 
