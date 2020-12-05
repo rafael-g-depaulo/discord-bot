@@ -1,10 +1,9 @@
-import { type } from "os"
 import { advantageWords, disadvantageWords } from "./advWords"
 import { DiceOptions } from "./dice"
 import { capture, concat, fromList, optional, or } from "./regexUtil"
 
 // regex for a whole number
-const numRegex = /\d+/i
+const numRegex = /\d+/
 
 // regex for optional space
 const optionalSpace = /\s*/
@@ -17,7 +16,7 @@ const negNum = (groupName: string) => concat(/-/, optionalSpace, capture(groupNa
 
 // regex for a "d20" format
   // captures the "20" as dieMax group
-const soleDieRegex = concat(/d/, optionalSpace, capture("dieMax", numRegex))
+const soleDieRegex = concat(/d/i, optionalSpace, capture("dieMax", numRegex))
 
 // regex for a "5d20" format
   // captures the "5" as dieAmmount group
@@ -44,25 +43,8 @@ const boolDisRegex = capture("boolDis", fromList(disadvantageWords, "i"))
 // regex for any kind of advantage
 const advRegex = or(posAdvRegex, negAdvRegex, posDisRegex, negDisRegex, boolDisRegex, boolAdvRegex)
 
+// final regex for checking if something is a dice roll
 export const diceRollRegex = concat(diceRegex, optionalSpace, optional(explosionRegex), optionalSpace, optional(bonusRegex), optionalSpace, optional(advRegex))
-
-// const test1 = concat(diceRegex, optionalSpace, optional(advRegex))
-// const test2 = optional(advRegex)
-
-// console.log(test1, test1.exec("2d10+5dis-5")?.groups)
-// console.log(test2, test2.exec("2d10+5dis-5")?.groups)
-
-// const test = or(posAdvRegex, negAdvRegex, posDisRegex, negDisRegex, boolDisRegex, boolAdvRegex)
-
-// // console.log(test)
-// console.log(test.exec(" adv ")?.groups)
-// console.log(test.exec(" adv+3 ")?.groups)
-// console.log(test.exec(" adv-23 ")?.groups)
-// console.log(test.exec(" dis+3 ")?.groups)
-// console.log(test.exec(" dis - 7 ")?.groups)
-// console.log(test.exec(" dis ")?.groups)
-
-// export const diceRollRegex = /(?<dieAmmount>\d+)?\s*d\s*(?<dieMax>\d+)\s*(?<bonus>[\+-]\s*\d+)?/i
 
 export const testDiceRoll = (str: string) => {
   return diceRollRegex.test(str)
