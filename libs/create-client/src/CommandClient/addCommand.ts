@@ -1,7 +1,7 @@
 import { Command, CommandProps, isRegexCommand } from "./index"
 
-export const addCommand = (state: CommandProps) => (cmd: Command) => {
-  const { commands = [], discordClient } = state
+export const CreateAddCommand = (props: CommandProps) => (cmd: Command) => {
+  const { commands = [], discordClient } = props
 
   // add command to list
   commands.push(cmd)
@@ -30,4 +30,4 @@ export const addCommand = (state: CommandProps) => (cmd: Command) => {
   }
 }
 
-export default addCommand
+export default CreateAddCommand

@@ -5,8 +5,8 @@ import { CreateLoginClient, LoginClient, LoginProps } from "./LoginClient"
 
 export type DiscordLib = typeof Discord
 
-// options for client creation
-export interface ClientOptions {
+// props for client creation
+export interface ClientProps {
   discordLib?: DiscordLib
 }
 
@@ -24,7 +24,7 @@ export { Message } from "discord.js"
 export { Command } from "./CommandClient"
 
 // create client function
-export type CreateClient = (options?: ClientOptions) => Client
+export type CreateClient = (options?: ClientProps) => Client
 const createClient: CreateClient = (options) => {
   const {
     discordLib = Discord
@@ -33,7 +33,7 @@ const createClient: CreateClient = (options) => {
   const discordClient = new discordLib.Client()
 
   const state: ClientState = {
-    discordClient
+    discordClient,
   }
 
   const clientThing = Object.assign({},

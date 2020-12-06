@@ -1,6 +1,6 @@
 import Discord from "discord.js"
 import { Composable } from "Composer"
-import addCommand from "./addCommand"
+import CreateAddCommand from "./addCommand"
 
 export interface DefaultCommand {
   test: (message: Discord.Message) => boolean,
@@ -40,7 +40,12 @@ export const CreateCommandClient: Composable<CommandProps, CommandClient> = (pro
 
   const commands: Command[] = commandsProp
   
+  // create addCommand
+  const addCommand = CreateAddCommand({ discordClient, commands })
+  // add all prop commands to client
+  commands.forEach(command => addCommand(command))
+
   return {
-    addCommand: addCommand({ discordClient, commands }),
+    addCommand,
   }
 }
