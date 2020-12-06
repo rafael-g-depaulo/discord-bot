@@ -1,7 +1,7 @@
 import Discord from "discord.js"
 
-import { CommandClient, CommandState, CreateCommandClient } from "./CommandClient"
-import { CreateLoginClient, LoginClient, LoginState } from "./LoginClient"
+import { CommandClient, CommandProps, CreateCommandClient } from "./CommandClient"
+import { CreateLoginClient, LoginClient, LoginProps } from "./LoginClient"
 
 export type DiscordLib = typeof Discord
 
@@ -11,7 +11,7 @@ export interface ClientOptions {
 }
 
 // inner state used by client (not available to library user)
-type ClientState = LoginState & CommandState
+type ClientState = LoginProps & CommandProps
 
 // client type
 export type Client = LoginClient & CommandClient & {

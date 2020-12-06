@@ -1,6 +1,6 @@
-import { Command, CommandState, isRegexCommand } from "./index"
+import { Command, CommandProps, isRegexCommand } from "./index"
 
-export const addCommand = (state: CommandState) => (cmd: Command) => {
+export const addCommand = (state: CommandProps) => (cmd: Command) => {
   const { commands = [], discordClient } = state
 
   // add command to list

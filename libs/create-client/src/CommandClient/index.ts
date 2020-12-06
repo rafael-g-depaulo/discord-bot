@@ -22,7 +22,7 @@ export const isRegexCommand = <(cmd: Command) => cmd is RegexCommand>((cmd) => {
 
 export type Command = DefaultCommand | RegexCommand
 
-export interface CommandState {
+export interface CommandProps {
   discordClient: Discord.Client,
   commands?: Command[]
 }
@@ -31,11 +31,16 @@ export interface CommandClient {
   addCommand: (cmd: Command) => void
 }
 
-export const CreateCommandClient: Composable<CommandState, CommandClient> = (state) => {
+export const CreateCommandClient: Composable<CommandProps, CommandClient> = (props) => {
   
-  state.commands = []
+  const {
+    discordClient,
+    commands: commandsProp = [],
+  } = props
+
+  const commands: Command[] = commandsProp
   
   return {
-    addCommand: addCommand(state),
+    addCommand: addCommand({ discordClient, commands }),
   }
 }
