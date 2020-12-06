@@ -53,8 +53,11 @@ const createDice: CreateDice = (props) => {
     bonus = 0,
     advantage = 0,
     dieAmmount = 1,
-    explode = false,
+    explode: explodeProp = false,
   } = props
+
+  // if explode is a number above dieMax, make it 1 under dieMax to avoid infinite loops
+  const explode = typeof explodeProp !== "string" ? explodeProp : Math.min(explodeProp, dieMax-1)
 
   // throw if props are invalid
   if (typeof explode === 'number' && explode < 0) throw new Error(`Dice: "explode" prop must be undefined, boolean, 0 or positive integer!`)
