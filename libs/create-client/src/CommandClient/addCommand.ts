@@ -1,6 +1,4 @@
-import is from "@sindresorhus/is"
-
-import { Command, CommandState, RegexCommand, DefaultCommand } from "."
+import { Command, CommandState, RegexCommand, DefaultCommand, isRegexCommand } from "./index"
 
 export const addCommand = (state: CommandState) => (cmd: Command) => {
   const { commands = [], discordClient } = state
@@ -9,7 +7,7 @@ export const addCommand = (state: CommandState) => (cmd: Command) => {
   commands.push(cmd)
 
   // if is a regex-style command
-  if (is.regExp(cmd.test)) {
+  if (isRegexCommand(cmd)) {
 
     discordClient.on("message", msg => {
       // assert command type
