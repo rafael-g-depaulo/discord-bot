@@ -1,6 +1,6 @@
 import Discord from "discord.js"
 
-import { CommandClient, CommandState, CreateCommandClient } from "./Commands/CommandClient"
+import { CommandClient, CommandState, CreateCommandClient } from "./CommandClient"
 import { CreateLoginClient, LoginClient, LoginState } from "./LoginClient"
 
 export type DiscordLib = typeof Discord
@@ -21,7 +21,7 @@ export type Client = LoginClient & CommandClient & {
 // export message type
 export { Message } from "discord.js"
 // export command Type so users may use it
-export { Command } from "./Commands/CommandClient"
+export { Command } from "./CommandClient"
 
 // create client function
 export type CreateClient = (options?: ClientOptions) => Client

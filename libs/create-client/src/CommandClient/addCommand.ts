@@ -1,6 +1,6 @@
 import is from "@sindresorhus/is"
 
-import { Command, CommandState, RegexCommand, DefaultCommand } from "./CommandClient"
+import { Command, CommandState, RegexCommand, DefaultCommand } from "."
 
 export const addCommand = (state: CommandState) => (cmd: Command) => {
   const { commands = [], discordClient } = state
