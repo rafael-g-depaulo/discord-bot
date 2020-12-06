@@ -1,4 +1,4 @@
-import { Command, CommandState, RegexCommand, DefaultCommand, isRegexCommand } from "./index"
+import { Command, CommandState, isRegexCommand } from "./index"
 
 export const addCommand = (state: CommandState) => (cmd: Command) => {
   const { commands = [], discordClient } = state
@@ -10,30 +10,22 @@ export const addCommand = (state: CommandState) => (cmd: Command) => {
   if (isRegexCommand(cmd)) {
 
     discordClient.on("message", msg => {
-      // assert command type
-      const command = cmd as RegexCommand
-
       // if from bot, ignore
       if (msg.author.bot) return
-
       // if message is command, execute it
-      const commandRegex = command.test
+      const commandRegex = cmd.test
       const result = commandRegex.exec(msg.content)
-      if (result) command.execute(msg, result)
+      if (result) cmd.execute(msg, result)
     })
   }
 
   // if default command type
   else {
     discordClient.on("message", msg => {
-
-      // assert command type
-      const command = cmd as DefaultCommand
-
       // if from bot, ignore
       if (msg.author.bot) return
       // if message is command, execute it
-      if (command.test(msg)) command.execute(msg)
+      if (cmd.test(msg)) cmd.execute(msg)
     })
   }
 }
