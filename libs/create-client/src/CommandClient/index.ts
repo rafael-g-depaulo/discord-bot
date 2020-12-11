@@ -1,6 +1,7 @@
 import Discord from "discord.js"
 import { Composable } from "Composer"
 import CreateAddCommand from "./addCommand"
+import CreateRemoveCommand from "./removeCommand"
 
 export interface DefaultCommand {
   id: string,
@@ -35,7 +36,8 @@ export interface CommandState {
 }
 
 export interface CommandClient {
-  addCommand: (cmd: Command) => void
+  addCommand: (cmd: Command) => void,
+  removeCommand: (cmd: Command) => void,
 }
 
 export const CreateCommandClient: Composable<CommandProps, CommandClient> = (props) => {
@@ -50,11 +52,15 @@ export const CreateCommandClient: Composable<CommandProps, CommandClient> = (pro
   
   // create addCommand
   const addCommand = CreateAddCommand(props, state)
+  
+  // create removeCommand
+  const removeCommand = CreateRemoveCommand(props, state)
 
   // add all prop commands to client
   state.commands.forEach(({ command }) => addCommand(command))
 
   return {
     addCommand,
+    removeCommand,
   }
 }
