@@ -8,9 +8,11 @@ describe("addCommand", () => {
   const mockAddCommand = (discordClient: Client) => CreateAddCommand({ discordClient }, { commands: [] })
 
   it("adds the command to commandList", () => {
-    const commands = [] as CommandState["commands"]
+    const state: CommandState = {
+      commands: [],
+    }
     const discordClient = mockClientWithMessage("message test")
-    const addCommand = CreateAddCommand({ discordClient }, { commands })
+    const addCommand = CreateAddCommand({ discordClient }, state)
 
     const id = "test"
     const test = jest.fn()
@@ -18,7 +20,12 @@ describe("addCommand", () => {
     const cmd = { id, test, execute }
     addCommand(cmd)
 
-    expect(commands).toEqual([{ command: cmd, id: cmd.id }])
+    expect(state.commands.length).toBe(1)
+    expect(state.commands).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ command: cmd, id: cmd.id }),
+      ])
+    )
   })
 
   describe("with DefaultCommand", () => {

@@ -1,4 +1,4 @@
-import Discord from "discord.js"
+import Discord, { Message } from "discord.js"
 import { Composable } from "Composer"
 import CreateAddCommand from "./addCommand"
 import CreateRemoveCommand from "./removeCommand"
@@ -24,7 +24,11 @@ export const isRegexCommand = <(cmd: Command) => cmd is RegexCommand>((cmd) => {
 })
 
 export type Command = DefaultCommand | RegexCommand
-type CommandList = { command: Command, id: string }[]
+type CommandList = {
+  command: Command,
+  id: string,
+  eventListener?: (msg: Message) => void
+}[]
 
 export interface CommandProps {
   discordClient: Discord.Client,
@@ -37,7 +41,7 @@ export interface CommandState {
 
 export interface CommandClient {
   addCommand: (cmd: Command) => void,
-  removeCommand: (cmd: Command) => void,
+  removeCommand: (cmd: Command | string) => void,
 }
 
 export const CreateCommandClient: Composable<CommandProps, CommandClient> = (props) => {
