@@ -24,7 +24,7 @@
     "watch": "jest --watch"
   },
   "dependencies": {
-    "@discord-bot/lib-test": "*",
+    "@discord-bot/create-client": "*",
     "@discord-bot/dice": "*"
   }
 }

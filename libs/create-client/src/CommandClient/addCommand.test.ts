@@ -11,9 +11,10 @@ describe("addCommand", () => {
       const addCommand = CreateAddCommand({ discordClient })
       
       // run addCommand
+      const id = "test"
       const test = jest.fn(() => true)
       const execute = jest.fn()
-      addCommand({ test, execute })
+      addCommand({ test, execute, id })
       
       // test if test passed and if execute was called correctly
       expect(test).toBeCalledTimes(1)
@@ -27,9 +28,10 @@ describe("addCommand", () => {
       const addCommand = CreateAddCommand({ discordClient })
       
       // run addCommand
+      const id = "test"
       const test = jest.fn(() => false)
       const execute = jest.fn()
-      addCommand({ test, execute })
+      addCommand({ test, execute, id })
       
       // test if test failed and if execute was not called
       expect(test).toBeCalledTimes(1)
@@ -45,6 +47,7 @@ describe("addCommand", () => {
       const passingCmd = {
         test: jest.fn(({ content }) => content === "message test"),
         execute: jest.fn(),
+        id: "passingCmd",
       }
       addCommand(passingCmd)
       
@@ -57,6 +60,7 @@ describe("addCommand", () => {
       const failingCmd = {
         test: jest.fn(({ content }) => content !== "message test"),
         execute: jest.fn(),
+        id: "failingCmd",
       }
       addCommand(failingCmd)
       
@@ -72,9 +76,10 @@ describe("addCommand", () => {
       const addCommand = CreateAddCommand({ discordClient })
       
       // run addCommand
+      const id = "test"
       const test = jest.fn(() => true)
       const execute = jest.fn()
-      addCommand({ test, execute })
+      addCommand({ test, execute, id })
       
       // test if test passed and if execute was called correctly
       expect(test).toBeCalledTimes(1)
@@ -92,9 +97,10 @@ describe("addCommand", () => {
       const addCommand = CreateAddCommand({ discordClient })
       
       // run addCommand
+      const id = "test"
       const test = /MESSAGE/i
       const execute = jest.fn()
-      addCommand({ test, execute })
+      addCommand({ test, execute, id })
       
       // test if test passed and if execute was called correctly
       expect(execute).toBeCalledTimes(1)
@@ -107,9 +113,10 @@ describe("addCommand", () => {
       const addCommand = CreateAddCommand({ discordClient })
       
       // run addCommand
+      const id = "test"
       const test = /failed regex/i
       const execute = jest.fn()
-      addCommand({ test, execute })
+      addCommand({ test, execute, id })
       
       // test if test failed and if execute was not called
       expect(execute).toBeCalledTimes(0)
@@ -121,9 +128,10 @@ describe("addCommand", () => {
       const addCommand = CreateAddCommand({ discordClient })
       
       // run addCommand
+      const id = "test"
       const test = /test/
       const execute = jest.fn()
-      addCommand({ test, execute })
+      addCommand({ test, execute, id })
       
       // test if test passed and if execute was called correctly
       expect(execute).toBeCalledTimes(1)
@@ -137,9 +145,10 @@ describe("addCommand", () => {
       const addCommand = CreateAddCommand({ discordClient })
       
       // run addCommand
+      const id = "test"
       const test = /'(\w+)'\s*"(?<groupTest>\w+)"/
       const execute = jest.fn()
-      addCommand({ test, execute })
+      addCommand({ test, execute, id })
       
       // test if test passed and if execute was called correctly
       expect(execute).toBeCalledTimes(1)
