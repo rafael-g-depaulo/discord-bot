@@ -30,6 +30,10 @@ export interface CommandProps {
   commands?: Command[]
 }
 
+export interface CommandState {
+  commands: CommandList,
+}
+
 export interface CommandClient {
   addCommand: (cmd: Command) => void
 }
@@ -37,16 +41,15 @@ export interface CommandClient {
 export const CreateCommandClient: Composable<CommandProps, CommandClient> = (props) => {
   
   const {
-    discordClient,
     commands: commandsProp = [],
   } = props
 
-  const state: { commands: CommandList } = {
+  const state: CommandState = {
     commands: commandsProp.map(command => ({ command, id: command.id }))
   } 
   
   // create addCommand
-  const addCommand = CreateAddCommand({ discordClient, commands: commandsProp })
+  const addCommand = CreateAddCommand(props, state)
 
   // add all prop commands to client
   state.commands.forEach(({ command }) => addCommand(command))

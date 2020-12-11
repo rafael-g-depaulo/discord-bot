@@ -1,14 +1,32 @@
 import CreateAddCommand from "./addCommand"
 import { mockClientWithMessage } from "../mockDiscord"
+import { Client } from "discord.js"
+import { CommandState } from "CommandClient"
 
 describe("addCommand", () => {
+
+  const mockAddCommand = (discordClient: Client) => CreateAddCommand({ discordClient }, { commands: [] })
+
+  it("adds the command to commandList", () => {
+    const commands = [] as CommandState["commands"]
+    const discordClient = mockClientWithMessage("message test")
+    const addCommand = CreateAddCommand({ discordClient }, { commands })
+
+    const id = "test"
+    const test = jest.fn()
+    const execute = jest.fn()
+    const cmd = { id, test, execute }
+    addCommand(cmd)
+
+    expect(commands).toEqual([{ command: cmd, id: cmd.id }])
+  })
 
   describe("with DefaultCommand", () => {
 
     it("calls Command.execute when test passes", () => {
       // mock client and create addCommand
       const discordClient = mockClientWithMessage("message test")
-      const addCommand = CreateAddCommand({ discordClient })
+      const addCommand = mockAddCommand(discordClient)
       
       // run addCommand
       const id = "test"
@@ -25,7 +43,7 @@ describe("addCommand", () => {
     it("doesn't call Command.execute when test fails", () => {
       // mock client and create addCommand
       const discordClient = mockClientWithMessage("test1")
-      const addCommand = CreateAddCommand({ discordClient })
+      const addCommand = mockAddCommand(discordClient)
       
       // run addCommand
       const id = "test"
@@ -41,7 +59,7 @@ describe("addCommand", () => {
     it("calls Command.test with the correct parameters", () => {
       // mock client and create addCommand
       const discordClient = mockClientWithMessage("message test")
-      const addCommand = CreateAddCommand({ discordClient })
+      const addCommand = mockAddCommand(discordClient)
       
       // add Command that should pass
       const passingCmd = {
@@ -73,7 +91,7 @@ describe("addCommand", () => {
     it("calls Command.execute with the correct parameters", () => {
       // mock client and create addCommand
       const discordClient = mockClientWithMessage("message test")
-      const addCommand = CreateAddCommand({ discordClient })
+      const addCommand = mockAddCommand(discordClient)
       
       // run addCommand
       const id = "test"
@@ -94,7 +112,7 @@ describe("addCommand", () => {
     it("calls Command.execute when test passes", () => {
       // mock client and create addCommand
       const discordClient = mockClientWithMessage("message test")
-      const addCommand = CreateAddCommand({ discordClient })
+      const addCommand = mockAddCommand(discordClient)
       
       // run addCommand
       const id = "test"
@@ -110,7 +128,7 @@ describe("addCommand", () => {
     it("doesn't call Command.execute when test fails", () => {
       // mock client and create addCommand
       const discordClient = mockClientWithMessage("message test")
-      const addCommand = CreateAddCommand({ discordClient })
+      const addCommand = mockAddCommand(discordClient)
       
       // run addCommand
       const id = "test"
@@ -125,7 +143,7 @@ describe("addCommand", () => {
     it("calls Command.execute with the correct message parameters", () => {
       // mock client and create addCommand
       const discordClient = mockClientWithMessage("message test")
-      const addCommand = CreateAddCommand({ discordClient })
+      const addCommand = mockAddCommand(discordClient)
       
       // run addCommand
       const id = "test"
@@ -142,7 +160,7 @@ describe("addCommand", () => {
       // mock client and create addCommand
       const messageContent = `'Hello'   "World"`
       const discordClient = mockClientWithMessage(messageContent)
-      const addCommand = CreateAddCommand({ discordClient })
+      const addCommand = mockAddCommand(discordClient)
       
       // run addCommand
       const id = "test"

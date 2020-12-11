@@ -1,10 +1,10 @@
-import { Command, CommandProps, isRegexCommand } from "./index"
+import { Command, CommandProps, CommandState, isRegexCommand } from "./index"
 
-export const CreateAddCommand = (props: CommandProps) => (cmd: Command) => {
-  const { commands = [], discordClient } = props
+export const CreateAddCommand = (props: CommandProps, state: CommandState) => (cmd: Command) => {
+  const { discordClient } = props
 
   // add command to list
-  commands.push(cmd)
+  state.commands.push({ command: cmd, id: cmd.id })
 
   // if is a regex-style command
   if (isRegexCommand(cmd)) {
