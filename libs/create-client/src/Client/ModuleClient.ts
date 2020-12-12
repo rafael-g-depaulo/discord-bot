@@ -1,5 +1,5 @@
-import { Composable } from "Composer"
-import { Command } from "CommandClient"
+import { Composable } from "../Composer"
+import { Command } from "./CommandClient"
 
 export interface Module {
   commands: Command[],

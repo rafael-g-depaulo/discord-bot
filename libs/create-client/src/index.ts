@@ -1,8 +1,8 @@
 import Discord from "discord.js"
 
-import { CreateModuleClient } from "./ModuleClient"
-import { CommandClient, CommandProps, CreateCommandClient } from "./CommandClient"
-import { CreateLoginClient, LoginClient, LoginProps } from "./LoginClient"
+import { CreateModuleClient } from "./Client/ModuleClient"
+import { CommandClient, CommandProps, CreateCommandClient } from "./Client/CommandClient"
+import { CreateLoginClient, LoginClient, LoginProps } from "./Client/LoginClient"
 
 export type DiscordLib = typeof Discord
 
@@ -22,7 +22,7 @@ export type Client = LoginClient & CommandClient & {
 // export message type
 export { Message } from "discord.js"
 // export command Type so users may use it
-export { Command } from "./CommandClient"
+export { Command } from "./Client/CommandClient"
 
 // create client function
 export type CreateClient = (options?: ClientProps) => Client

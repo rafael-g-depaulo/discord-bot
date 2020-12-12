@@ -1,6 +1,6 @@
 import CreateAddCommand from "./addCommand"
-import { mockClientWithMessage } from "../mockDiscord"
-import { CommandState } from "CommandClient"
+import { mockClientWithMessage } from "../../mockDiscord"
+import { CommandState } from "Client/CommandClient"
 import CreateRemoveCommand from "./removeCommand"
 
 describe("removeCommand", () => {

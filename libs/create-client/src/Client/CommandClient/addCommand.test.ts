@@ -1,7 +1,7 @@
 import CreateAddCommand from "./addCommand"
-import { mockClientWithMessage } from "../mockDiscord"
+import { mockClientWithMessage } from "../../mockDiscord"
 import { Client } from "discord.js"
-import { CommandState } from "CommandClient"
+import { CommandState } from "Client/CommandClient"
 
 describe("addCommand", () => {
 
