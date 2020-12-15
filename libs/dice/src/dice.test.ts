@@ -413,5 +413,17 @@ describe('dice', () => {
       ])
     })
 
+    it("returns a copy of the dice roll props", () => {
+      const diceProps: DiceProps = {
+        dieMax: 6,
+        explode: 3,
+        dieAmmount: 3,
+        bonus: -2,
+        advantage: -2,
+      }
+      const rollResults = createDice(diceProps).detailedRoll()
+
+      expect(rollResults.diceArgs).toMatchObject(diceProps)
+    })
   })
 })

@@ -34,6 +34,7 @@ export interface DiceRollResults {
   rolls: DieRollResult[],
   bonus: number,
   total: number,
+  diceArgs: DiceProps,
 }
 export interface Dice {
   roll: () => number,
@@ -165,6 +166,7 @@ const createDice: CreateDice = (props) => {
       rolls,
       bonus,
       total,
+      diceArgs: {...props},
     }
   }
 
