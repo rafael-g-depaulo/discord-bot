@@ -13,7 +13,7 @@ describe('dice', () => {
       }
       const dice = createDice(rollArgs)
 
-      expect(dice.props).toMatchObject(rollArgs)
+      expect(dice.args).toMatchObject(rollArgs)
     })
   })
 

@@ -21,6 +21,11 @@ export interface DiceProps {
   explode?: boolean | number,
 }
 
+// generic to remove property from type
+type Without<T, K> = Pick<T, Exclude<keyof T, K>>
+// type to be returned by dice.args and dice.detailedRoll().diceArgs
+export interface DiceArgs extends Without<DiceProps, "randomFn"> {}
+
 interface DieRollResult {
   value: number,      // the value of the die roll
   ignored?: boolean,  // wether or not the roll should be ignored because of advantage or disadvantage
@@ -33,12 +38,12 @@ interface TempDieRollResult extends DieRollResult {
 export interface DiceRollResults {
   rolls: DieRollResult[],
   total: number,
-  diceArgs: DiceProps,
+  diceArgs: DiceArgs,
 }
 export interface Dice {
   roll: () => number,
   detailedRoll: () => DiceRollResults,
-  props: DiceProps,
+  args: DiceArgs,
 }
 
 interface DiceState {
@@ -61,7 +66,7 @@ const createDice: CreateDice = (props) => {
   const explode = typeof explodeProp !== "string" ? explodeProp : Math.min(explodeProp, dieMax-1)
 
   // create a new props object with all of the optional properties filled with their default values
-  const filledProps: DiceProps = {
+  const diceArgs: DiceArgs = {
     dieMax,
     dieAmmount,
     bonus,
@@ -173,14 +178,14 @@ const createDice: CreateDice = (props) => {
     return {
       rolls,
       total,
-      diceArgs: filledProps,
+      diceArgs,
     }
   }
 
   return {
     roll,
     detailedRoll,
-    props: filledProps,
+    args: diceArgs,
   }
 }
 
