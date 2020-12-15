@@ -114,6 +114,7 @@ describe('getDiceRoll', () => {
       ["2d6!!+  05", { dieMax: 6,  bonus: +5, dieAmmount: 2}],
       ["2D 10! -009", { dieMax: 10, bonus: -9, dieAmmount: 2}],
       ["2 D 10 -0", { dieMax: 10, bonus: -0, dieAmmount: 2 }],
+      ["1d8+2", { dieMax: 8, bonus: +2, dieAmmount: 1 }],
     ]
 
     for (const roll of rolls) {
@@ -125,8 +126,10 @@ describe('getDiceRoll', () => {
     const rolls: ExpectedResult[] = [
       ["6d6 adv",         { dieMax: 6,  advantage: 1,  dieAmmount: 6 }],
       ["d20 ! dis",       { dieMax: 20, advantage: -1, explode: 1, }],
+      ["6d6+12adv",       { dieMax: 6,  advantage: 1,  dieAmmount: 6, bonus: +12 }],
       ["2d10 !!adv+2",    { dieMax: 10, advantage: 2,  explode: 2, dieAmmount: 2 }],
       ["2d10!!!-5 adv-5", { dieMax: 10, advantage: -5, explode: 3, dieAmmount: 2, bonus: -5 }],
+      ["67d12!!!-3dis-8", { dieMax: 12, advantage: -8, explode: 3, dieAmmount: 67, bonus: -3 }],
       ["2d12 !!+4dis-4",  { dieMax: 12, advantage: -4, explode: 2, dieAmmount: 2, bonus: +4 }],
       ["2d10! +4dis+4",   { dieMax: 10, advantage: -4, explode: 1, dieAmmount: 2, bonus: +4 }],
     ]
