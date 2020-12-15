@@ -1,11 +1,26 @@
-import createDice, { DiceOptions } from "./dice"
+import createDice, { DiceProps } from "./dice"
 
 describe('dice', () => {
+
+  describe("args", () => {
+    it("correctly references the dice arguments", () => {
+      const rollArgs: DiceProps = {
+        dieMax: 20,
+        dieAmmount: 3,
+        advantage: -2,
+        bonus: 2,
+        explode: true,
+      }
+      const dice = createDice(rollArgs)
+
+      expect(dice.props).toMatchObject(rollArgs)
+    })
+  })
 
   describe("roll", () => {
 
     it("works", () => {
-      const options: DiceOptions = {
+      const options: DiceProps = {
         dieMax: 20,
       }
       const initiativeRoll = createDice(options)
@@ -17,7 +32,7 @@ describe('dice', () => {
     })
 
     it("works with bonus", () => {
-      const options: DiceOptions = {
+      const options: DiceProps = {
         dieMax: 10,
         bonus: 4,
         randomFn: jest.fn(() => 1)
@@ -38,7 +53,7 @@ describe('dice', () => {
           .mockReturnValueOnce(0)
           .mockReturnValueOnce(0.5)
           .mockReturnValueOnce(0.8)
-        const options: DiceOptions = {
+        const options: DiceProps = {
           dieMax: 6,
           bonus: 2,
           advantage: 1,
@@ -53,7 +68,7 @@ describe('dice', () => {
           .mockReturnValueOnce(0)
           .mockReturnValueOnce(0.5)
           .mockReturnValueOnce(0.8)
-        const options: DiceOptions = {
+        const options: DiceProps = {
           dieMax: 10,
           advantage: 2,
           randomFn,
@@ -67,7 +82,7 @@ describe('dice', () => {
         minThenMax.mockReturnValueOnce(0)
         minThenMax.mockReturnValue(1)
 
-        const options: DiceOptions = {
+        const options: DiceProps = {
           dieMax: 8,
           bonus: 0,
           advantage: -1,
@@ -83,7 +98,7 @@ describe('dice', () => {
           .mockReturnValueOnce(0.8)
           .mockReturnValueOnce(0.2)
 
-        const options: DiceOptions = {
+        const options: DiceProps = {
           dieMax: 10,
           advantage: -2,
           randomFn,
@@ -102,7 +117,7 @@ describe('dice', () => {
           .mockReturnValueOnce(0.5) // 10
           .mockReturnValueOnce(0)   // 1
         
-        const options: DiceOptions = {
+        const options: DiceProps = {
           dieMax: 20,
           dieAmmount: 3,
           randomFn,
@@ -117,7 +132,7 @@ describe('dice', () => {
           .mockReturnValueOnce(0.5) // 5
           .mockReturnValueOnce(0)   // 1
         
-        const options: DiceOptions = {
+        const options: DiceProps = {
           dieMax: 10,
           dieAmmount: 2,
           bonus: -2,
@@ -133,7 +148,7 @@ describe('dice', () => {
           .mockReturnValueOnce(0)   // 1
           .mockReturnValue(0.5)     // 5
         
-        const options: DiceOptions = {
+        const options: DiceProps = {
           dieMax: 10,
           dieAmmount: 2,
           advantage: 1,
@@ -149,7 +164,7 @@ describe('dice', () => {
         const randomFn = jest.fn()
           .mockReturnValueOnce(1)   // 6
           .mockReturnValue(0)       // 1
-        const options: DiceOptions = {
+        const options: DiceProps = {
           dieMax: 6,
           explode: true,
           randomFn
@@ -161,7 +176,7 @@ describe('dice', () => {
         const randomFn = jest.fn()
           .mockReturnValueOnce(1)   // 6
           .mockReturnValue(0)       // 1
-        const options: DiceOptions = {
+        const options: DiceProps = {
           dieMax: 6,
           explode: false,
           randomFn
@@ -173,7 +188,7 @@ describe('dice', () => {
         const randomFn = jest.fn()
           .mockReturnValueOnce(1)   // 6
           .mockReturnValue(0)       // 1
-        const options: DiceOptions = {
+        const options: DiceProps = {
           dieMax: 6,
           explode: 1,
           randomFn
@@ -185,7 +200,7 @@ describe('dice', () => {
         const randomFn = jest.fn()
           .mockReturnValueOnce(4/6) // 4
           .mockReturnValue(0)       // 1
-        const options: DiceOptions = {
+        const options: DiceProps = {
           dieMax: 6,
           explode: 2,
           randomFn,
@@ -197,7 +212,7 @@ describe('dice', () => {
         const randomFn = jest.fn()
           .mockReturnValueOnce(0.5) // 3
           .mockReturnValue(0)       // 1
-          const options: DiceOptions = {
+          const options: DiceProps = {
             dieMax: 6,
             explode: 2,
             randomFn,

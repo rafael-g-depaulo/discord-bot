@@ -1,4 +1,4 @@
-import { DiceOptions } from "./dice"
+import { DiceProps } from "./dice"
 import getDiceRoll, { testDiceRoll } from "./getDiceRoll"
 
 describe('testDiceRoll', () => {
@@ -69,7 +69,7 @@ describe('testDiceRoll', () => {
 
 describe('getDiceRoll', () => {
 
-  type ExpectedResult = [string, DiceOptions]
+  type ExpectedResult = [string, DiceProps]
 
   it(`works in simple case (ex: "d20")`, () => {
     const rolls: ExpectedResult[] = [

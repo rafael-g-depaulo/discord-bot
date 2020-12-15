@@ -1,7 +1,5 @@
-// import { advantageWords, disadvantageWords } from "./advWords"
-import { DiceOptions } from "./dice"
+import { DiceProps } from "./dice"
 import diceRollRegex from "./regex"
-// import { capture, concat, fromList, optional, or } from "./Utils/regex"
 
 export const testDiceRoll = (str: string) => {
   return diceRollRegex.test(str)
@@ -13,7 +11,7 @@ const string2Num = (str: string) => {
   return result
 }
 
-type GetDiceRoll = (str: string) => DiceOptions
+type GetDiceRoll = (str: string) => DiceProps
 export const getDiceRoll: GetDiceRoll = (str) => {
   
   const regexGroups = diceRollRegex.exec(str)?.groups ?? {}
@@ -22,7 +20,7 @@ export const getDiceRoll: GetDiceRoll = (str) => {
   if (!regexGroups) throw new Error("Dice.getDiceRoll: invalid dice roll arguments")
 
   // get dieMax
-  const groups: DiceOptions = {
+  const groups: DiceProps = {
     dieMax: string2Num(regexGroups.dieMax),
   }
 

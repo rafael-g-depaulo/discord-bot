@@ -4,6 +4,7 @@ import { createDice, getDiceRoll, testDiceRoll } from "@discord-bot/dice"
 const bot: Client = createClient()
 
 bot.addCommand({
+    id: "test_command",
   test: /^!test\s*(?<Rest>.*)$/,
   execute: (msg, result) => {
     const { groups } = result
@@ -12,6 +13,7 @@ bot.addCommand({
 })
 
 bot.addCommand({
+  id: "roll_dice",
   test: (msg) => {
     if (msg.content[0] !== "!") return false
     return testDiceRoll(msg.content)
@@ -28,7 +30,7 @@ bot.addCommand({
       }${
         diceOptions.bonus === undefined ? "" : 
         diceOptions.bonus > 0 ? " +"+diceOptions.bonus :
-        diceOptions.bonus < 0 ? " -"+diceOptions.bonus :
+        diceOptions.bonus < 0 ? " "+diceOptions.bonus :
         ""
       }${
         diceOptions.advantage === undefined ? "" :

@@ -12,7 +12,7 @@ import createDie, { Die } from "./die"
 
 const ArrayOfSize = (n: number) => Array(n - n % 1).fill(null)
 
-export interface DiceOptions {
+export interface DiceProps {
   randomFn?: RandFn,
   dieMax: number,
   bonus?: number,
@@ -38,13 +38,14 @@ export interface DiceRollResults {
 export interface Dice {
   roll: () => number,
   detailedRoll: () => DiceRollResults,
+  props: DiceProps,
 }
 
 interface DiceState {
   die: Die
 }
 
-type CreateDice = (props: DiceOptions) => Dice
+type CreateDice = (props: DiceProps) => Dice
 const createDice: CreateDice = (props) => {
   
   const {
@@ -170,6 +171,7 @@ const createDice: CreateDice = (props) => {
   return {
     roll,
     detailedRoll,
+    props: {...props},
   }
 }
 
