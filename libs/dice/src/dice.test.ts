@@ -234,7 +234,6 @@ describe('dice', () => {
 
       expect(rollResults.rolls).toEqual([{ value: 5 }])
       expect(rollResults.total).toBe(5)
-      expect(rollResults.bonus).toBe(0)
     })
     
     it("works with dieAmmount", () => {
@@ -250,7 +249,6 @@ describe('dice', () => {
       }).detailedRoll()
 
       expect(rollResults.total).toBe(26)
-      expect(rollResults.bonus).toBe(0)
       expect(rollResults.rolls).toEqual([
         { value: 11 },
         { value: 14 },
@@ -271,7 +269,6 @@ describe('dice', () => {
       }).detailedRoll()
 
       expect(rollResults.total).toBe(14)
-      expect(rollResults.bonus).toBe(0)
       expect(rollResults.rolls).toEqual([
         { value: 7, ignored: true },
         { value: 14 },
@@ -292,7 +289,6 @@ describe('dice', () => {
       }).detailedRoll()
 
       expect(rollResults.total).toBe(5)
-      expect(rollResults.bonus).toBe(0)
       expect(rollResults.rolls).toEqual([
         { value: 7, ignored: true },
         { value: 14, ignored: true },
@@ -327,7 +323,7 @@ describe('dice', () => {
       }).detailedRoll()
 
       expect(rollResults1.total).toBe(25)
-      expect(rollResults1.bonus).toBe(4)
+      expect(rollResults1.diceArgs.bonus).toBe(4)
       expect(rollResults1.rolls).toEqual([
         { value: 7 },
         { value: 14 },
@@ -335,7 +331,7 @@ describe('dice', () => {
       ])
 
       expect(rollResults2.total).toBe(-7)
-      expect(rollResults2.bonus).toBe(-14)
+      expect(rollResults2.diceArgs.bonus).toBe(-14)
       expect(rollResults2.rolls).toEqual([
         { value: 6, },
         { value: 11, ignored: true },
@@ -365,7 +361,7 @@ describe('dice', () => {
       }).detailedRoll()
       
       expect(rollResults1.total).toBe(15)
-      expect(rollResults1.bonus).toBe(0)
+      expect(rollResults1.diceArgs.bonus).toBe(0)
       expect(rollResults1.rolls).toEqual([
         { value: 6, exploded: true },
         { value: 5, exploded: true },
@@ -373,7 +369,7 @@ describe('dice', () => {
       ])
       
       expect(rollResults2.total).toBe(13)
-      expect(rollResults2.bonus).toBe(0)
+      expect(rollResults2.diceArgs.bonus).toBe(0)
       expect(rollResults2.rolls).toEqual([
         { value: 8, exploded: true },
         { value: 5 },
@@ -402,7 +398,7 @@ describe('dice', () => {
       const rollResults = dice1.detailedRoll()
 
       expect(rollResults.total).toBe(12)
-      expect(rollResults.bonus).toBe(-2)
+      expect(rollResults.diceArgs.bonus).toBe(-2)
       expect(rollResults.rolls).toEqual([
         { value: 2, },
         { value: 6, ignored: true },

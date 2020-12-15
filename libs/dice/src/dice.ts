@@ -32,7 +32,6 @@ interface TempDieRollResult extends DieRollResult {
 }
 export interface DiceRollResults {
   rolls: DieRollResult[],
-  bonus: number,
   total: number,
   diceArgs: DiceProps,
 }
@@ -57,9 +56,18 @@ const createDice: CreateDice = (props) => {
     dieAmmount = 1,
     explode: explodeProp = false,
   } = props
-
+  
   // if explode is a number above dieMax, make it 1 under dieMax to avoid infinite loops
   const explode = typeof explodeProp !== "string" ? explodeProp : Math.min(explodeProp, dieMax-1)
+
+  // create a new props object with all of the optional properties filled with their default values
+  const filledProps: DiceProps = {
+    dieMax,
+    dieAmmount,
+    bonus,
+    advantage,
+    explode,
+  }
 
   // throw if props are invalid
   if (typeof explode === 'number' && explode < 0) throw new Error(`Dice: "explode" prop must be undefined, boolean, 0 or positive integer!`)
@@ -164,16 +172,15 @@ const createDice: CreateDice = (props) => {
 
     return {
       rolls,
-      bonus,
       total,
-      diceArgs: {...props},
+      diceArgs: filledProps,
     }
   }
 
   return {
     roll,
     detailedRoll,
-    props: {...props},
+    props: filledProps,
   }
 }
 
