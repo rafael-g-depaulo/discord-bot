@@ -1,8 +1,10 @@
-import createClient, { Client, Message } from "@discord-bot/create-client"
+import createClient, { Client,  Message } from "@discord-bot/create-client"
 import { createDice, getDiceRoll, testDiceRoll } from "@discord-bot/dice"
 // import { createDice, getDiceRoll, testDiceRoll, resultString } from "@discord-bot/dice"
 import resultString from "@discord-bot/dice/src/resultString"
-const bot: Client = createClient()
+
+const token = process.env.DISCORD_BOT_TOKEN
+const bot: Client = createClient({ token })
 
 bot.addCommand({
     id: "test_command",
@@ -28,8 +30,5 @@ bot.addCommand({
     msg.reply(rollResultStr)
   },
 })
-
-bot.login(process.env.DISCORD_BOT_TOKEN)
-  .then((a) => console.log("logged in fucker", a))
 
 export default bot

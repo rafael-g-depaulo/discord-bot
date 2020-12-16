@@ -8,7 +8,8 @@ export type DiscordLib = typeof Discord
 
 // props for client creation
 export interface ClientProps {
-  discordLib?: DiscordLib
+  discordLib?: DiscordLib,
+  token?: string,
 }
 
 // inner state used by client (not available to library user)
@@ -20,11 +21,12 @@ export type Client = LoginClient & CommandClient & {
 }
 
 // create client function
-export type CreateClient = (options?: ClientProps) => Client
-const createClient: CreateClient = (options) => {
+export type CreateClient = (props?: ClientProps) => Client
+const createClient: CreateClient = (props) => {
   const {
-    discordLib = Discord
-  } = options ?? {}
+    discordLib = Discord,
+    token,
+  } = props ?? {}
 
   const discordClient = new discordLib.Client()
 
@@ -34,7 +36,7 @@ const createClient: CreateClient = (options) => {
 
   // add login and command capabilities
   let clientThing = Object.assign({},
-    CreateLoginClient({ discordClient: state.discordClient }),
+    CreateLoginClient({ discordClient: state.discordClient, token }),
     CreateCommandClient({ discordClient: state.discordClient }),
   )
 
