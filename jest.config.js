@@ -15,5 +15,4 @@ module.exports = {
   moduleDirectories: ["node_modules", path.join(__dirname, "src")],
 
   testEnvironment: 'node',
-
 }

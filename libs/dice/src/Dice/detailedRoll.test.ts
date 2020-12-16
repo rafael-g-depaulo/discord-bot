@@ -1,6 +1,6 @@
+import createDie from "die"
+import { RandFn } from "utils"
 import { DiceArgs, DiceState } from "./index"
-import createDie from "../die"
-import { RandFn } from "../utils"
 import detailedRoll from "./detailedRoll"
 
 describe("detailedRoll", () => {

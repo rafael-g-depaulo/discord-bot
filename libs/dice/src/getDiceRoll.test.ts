@@ -1,4 +1,4 @@
-import { DiceProps } from "./Dice"
+import { DiceProps } from "Dice"
 import getDiceRoll, { testDiceRoll } from "./getDiceRoll"
 
 describe('testDiceRoll', () => {
@@ -12,7 +12,6 @@ describe('testDiceRoll', () => {
     for (const roll of rolls) {
       expect(testDiceRoll(roll)).toBe(true)
     }
-    
   })
 
   it(`works with die ammount (ex: 2d6)`, () => {

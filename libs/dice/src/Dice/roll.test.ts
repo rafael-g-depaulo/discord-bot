@@ -1,7 +1,7 @@
-import { DiceArgs, DiceState } from "./index"
-import createDie from "../die"
-import { RandFn } from "../utils"
+import createDie from "die"
+import { RandFn } from "utils"
 import roll from "./roll"
+import { DiceArgs, DiceState } from "./index"
 
 describe("roll", () => {
   const mockState: (props: Required<DiceArgs>, randomFn?: RandFn) => DiceState = (props, randomFn) => ({

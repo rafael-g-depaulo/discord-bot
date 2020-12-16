@@ -1,3 +1,5 @@
+const path = require("path")
+
 module.exports = {
   name: 'create-client',
   displayName: {
@@ -6,6 +8,8 @@ module.exports = {
   },
   
   testEnvironment: 'node',
+
+  moduleDirectories: ["node_modules", path.join(__dirname, "src")],
 
   testPathIgnorePatterns: [
     "dist/",

@@ -1,3 +1,5 @@
+const path = require("path")
+
 module.exports = {
   name: 'dice',
   displayName: {
@@ -9,6 +11,7 @@ module.exports = {
     "dist/",
   ],
 
-  testEnvironment: 'node',
+  moduleDirectories: ["node_modules", path.join(__dirname, "src")],
 
+  testEnvironment: 'node',
 }
