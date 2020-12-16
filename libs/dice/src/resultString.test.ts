@@ -1,4 +1,4 @@
-import { DiceRollResults } from "./dice"
+import { DiceRollResults } from "./Dice"
 import resultString, { rollArgs, rollResultList } from "./resultString"
 
 describe("resultString", () => {

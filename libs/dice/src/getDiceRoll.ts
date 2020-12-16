@@ -1,4 +1,4 @@
-import { DiceProps } from "./dice"
+import { DiceProps } from "./Dice"
 import diceRollRegex from "./regex"
 
 export const testDiceRoll = (str: string) => {

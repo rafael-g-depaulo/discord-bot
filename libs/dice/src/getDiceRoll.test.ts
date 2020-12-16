@@ -1,4 +1,4 @@
-import { DiceProps } from "./dice"
+import { DiceProps } from "./Dice"
 import getDiceRoll, { testDiceRoll } from "./getDiceRoll"
 
 describe('testDiceRoll', () => {

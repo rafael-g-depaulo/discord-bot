@@ -1,4 +1,4 @@
-import { DiceRollResults } from "./dice"
+import { DiceRollResults } from "./Dice"
 
 const underline = (str: string) => `__${str}__`
 const bold = (str: string) => `**${str}**`

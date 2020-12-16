@@ -7,8 +7,8 @@
 // Dice.roll simply rolls the dice and returns the result, while Dice.detailedRoll returns the result of all
 // individual die rolls, and a bunch of other details
 
-import { RandFn } from "./utils"
-import createDie, { Die } from "./die"
+import { RandFn } from "../utils"
+import createDie, { Die } from "../die"
 
 const ArrayOfSize = (n: number) => Array(n - n % 1).fill(null)
 

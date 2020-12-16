@@ -1,6 +1,7 @@
 import createClient, { Client, Message } from "@discord-bot/create-client"
 import { createDice, getDiceRoll, testDiceRoll } from "@discord-bot/dice"
-
+// import { createDice, getDiceRoll, testDiceRoll, resultString } from "@discord-bot/dice"
+import resultString from "@discord-bot/dice/src/resultString"
 const bot: Client = createClient()
 
 bot.addCommand({
@@ -22,32 +23,9 @@ bot.addCommand({
     const diceOptions = getDiceRoll(msg.content)
     const dice = createDice(diceOptions)
     const rollResults = dice.detailedRoll()
+    const rollResultStr = resultString(rollResults)
 
-    const rollOptionsStr = 
-      `__**${diceOptions.dieAmmount ?? 1}d${diceOptions.dieMax}${
-        !diceOptions.explode ? "" :
-        "!".repeat(diceOptions.explode === true ? 1 :diceOptions.explode)
-      }${
-        diceOptions.bonus === undefined ? "" : 
-        diceOptions.bonus > 0 ? " +"+diceOptions.bonus :
-        diceOptions.bonus < 0 ? " "+diceOptions.bonus :
-        ""
-      }${
-        diceOptions.advantage === undefined ? "" :
-        diceOptions.advantage > 0
-          ? ` adv+${diceOptions.advantage}`
-          : ` dis${diceOptions.advantage}`
-      }**__: `
-
-    const rollResultStr =
-      rollResults.rolls.map(({ value, ignored, exploded }) => 
-        ignored ? `~~${value}~~` :
-        exploded ? `**${value}!**` :
-        `${value}`
-      ).join(" + ") + " = " + rollResults.total
-
-    console.log(diceOptions, rollResults)
-    msg.reply(rollOptionsStr + rollResultStr)
+    msg.reply(rollResultStr)
   },
 })
 
