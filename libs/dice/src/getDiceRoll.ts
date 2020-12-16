@@ -39,6 +39,10 @@ export const getDiceRoll: GetDiceRoll = (str) => {
 
   if (typeof regexGroups.explode === "string") groups.explode = regexGroups.explode.length
 
+  // if impossible explosion, correct that (i.e.: nat 1's should always break an explosion chain)
+  if (typeof groups.explode === 'number' && groups.explode >= groups.dieMax)
+    groups.explode = groups.dieMax - 1
+
   return groups
 
 }

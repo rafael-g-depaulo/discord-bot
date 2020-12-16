@@ -27,9 +27,9 @@ export const rollArgs = (result: DiceRollResults) => {
   // "-7"
   const bonus =
     // if no bonus, nothing
-    diceArgs.bonus === undefined ? "" :
+    !diceArgs.bonus ? "" :
     // if positive bonus
-    diceArgs.bonus >= 0 ? `+${diceArgs.bonus}` :
+    diceArgs.bonus > 0 ? `+${diceArgs.bonus}` :
     // if negative bonus
     `${diceArgs.bonus}`
 

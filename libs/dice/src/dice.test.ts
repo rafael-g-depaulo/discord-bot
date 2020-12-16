@@ -15,6 +15,17 @@ describe('dice', () => {
 
       expect(dice.args).toMatchObject(rollArgs)
     })
+
+    it("doesn't allow infinite explosion", () => {
+      
+      const rollArgs: DiceProps = {
+        dieMax: 20,
+        explode: 9999,
+      }
+      const dice = createDice(rollArgs)
+
+      expect(dice.args).toMatchObject({ dieMax: 20, explode: 19 })
+    })
   })
 
   describe("roll", () => {

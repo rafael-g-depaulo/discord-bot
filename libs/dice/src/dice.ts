@@ -63,7 +63,7 @@ const createDice: CreateDice = (props) => {
   } = props
   
   // if explode is a number above dieMax, make it 1 under dieMax to avoid infinite loops
-  const explode = typeof explodeProp !== "string" ? explodeProp : Math.min(explodeProp, dieMax-1)
+  const explode = typeof explodeProp !== "number" ? explodeProp : Math.min(explodeProp, dieMax-1)
 
   // create a new props object with all of the optional properties filled with their default values
   const diceArgs: DiceArgs = {

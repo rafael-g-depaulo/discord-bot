@@ -106,6 +106,10 @@ describe('getDiceRoll', () => {
       expect(getDiceRoll(roll[0])).toMatchObject(roll[1])
     }
   })
+
+  it(`doesn't allow explosion high enough for an infinite loop (nat 1 should never explode)`, () => {
+    expect(getDiceRoll("1d4!!!!!!!!!!!!!!")).toMatchObject({ dieAmmount: 1, dieMax: 4, explode: 3 })
+  })
   
   it(`works with bonus ammount (ex: 1d8!+5)`, () => {
     const rolls: ExpectedResult[] = [
