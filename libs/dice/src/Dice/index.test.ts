@@ -195,7 +195,7 @@ describe('dice', () => {
         expect(createDice(options).roll()).toBe(6)
       })
 
-      it("works with explosion: 1", () => {
+      it("works with explosion: 1 (explosive path)", () => {
         const randomFn = jest.fn()
           .mockReturnValueOnce(1)   // 6
           .mockReturnValue(0)       // 1
@@ -207,16 +207,29 @@ describe('dice', () => {
         expect(createDice(options).roll()).toBe(7)
       })
 
+      it("works with explosion: 1 (non-explosive path)", () => {
+        const randomFn = jest.fn()
+          .mockReturnValueOnce(5/6) // 5
+          .mockReturnValue(0)       // 1
+        
+        const options: DiceProps = {
+          dieMax: 6,
+          explode: 1,
+          randomFn
+        }
+        expect(createDice(options).roll()).toBe(5)
+      })
+
       it("works with explosion over 1 (explosive path)", () => {
         const randomFn = jest.fn()
-          .mockReturnValueOnce(4/6) // 4
+          .mockReturnValueOnce(5/6) // 5
           .mockReturnValue(0)       // 1
         const options: DiceProps = {
           dieMax: 6,
           explode: 2,
           randomFn,
         }
-        expect(createDice(options).roll()).toBe(5)
+        expect(createDice(options).roll()).toBe(6)
       })
 
       it("works with explosion over 1 (non-explosive path)", () => { 

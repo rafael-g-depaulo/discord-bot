@@ -17,13 +17,13 @@ const rollAndExplode: (state: DiceState) => number = (state) => {
     : rollResult
 
   // if explode is a number
-  return rollResult >= dieMax - explode
+  return rollResult > dieMax - explode
     ? rollResult + rollAndExplode(state)
     : rollResult
-}
+  }
 
-// roll, using advantage and stuff
-const roll: (state: DiceState) => number = (state) => {
+  // roll, using advantage and stuff
+  const roll: (state: DiceState) => number = (state) => {
   const { advantage, dieAmmount, bonus } = state.args
 
   // roll an ammount of dice equal to the final ammount plus the absolute ammount of (dis)advantage

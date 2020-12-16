@@ -13,8 +13,6 @@ import createDie, { Die } from "../die"
 import rollDice from "./roll"
 import detailedRoll from "./detailedRoll"
 
-const ArrayOfSize = (n: number) => Array(n - n % 1).fill(null)
-
 export interface DiceProps {
   randomFn?: RandFn,
   dieMax: number,
