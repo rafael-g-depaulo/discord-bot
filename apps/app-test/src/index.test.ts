@@ -1,5 +1,5 @@
 
 describe('app test', () => {
-  // test('test', () => {
-  // })
+  test('test', () => {
+  })
 })

@@ -1,3 +1,5 @@
+const path = require("path")
+
 module.exports = {
   projects: [
     "<rootDir>/libs/*",
@@ -9,6 +11,8 @@ module.exports = {
     "node_modules/",
     "dist/",
   ],
+
+  moduleDirectories: ["node_modules", path.join(__dirname, "src")],
 
   testEnvironment: 'node',
 
