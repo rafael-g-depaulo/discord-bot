@@ -1,4 +1,4 @@
-import createDice, { DiceProps } from "."
+import createDice, { DiceProps } from "./index"
 
 describe('dice', () => {
 
