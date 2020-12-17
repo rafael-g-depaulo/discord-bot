@@ -18,6 +18,7 @@
     "build:modules:watch": "ultra -r -b --filter \"+modules/*\" build:watch",
     "build:deps": "ultra yarn build:libs & yarn build:modules",
     "build:deps:watch": "ultra yarn build:libs:watch & yarn build:modules:watch",
+    "clean": "ultra -r clean",
     "test": "jest",
     "postinstall": "yarn build:deps"
   },

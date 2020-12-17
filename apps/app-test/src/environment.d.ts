@@ -9,6 +9,7 @@ declare global {
       
       // token
       DISCORD_BOT_TOKEN: string;
+      LOG_LEVEL?: "debug" | "info" | "warn" | "error" | "none",
     }
   }
 }
