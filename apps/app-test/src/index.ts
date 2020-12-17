@@ -1,17 +1,12 @@
 import createClient, { Client,  Message } from "@discord-bot/create-client"
 import { createDice, getDiceRoll, testDiceRoll, resultString } from "@discord-bot/dice"
 
+import testModule from "@discord-bot/module-test"
+
 const token = process.env.DISCORD_BOT_TOKEN
 const bot: Client = createClient({ token })
 
-bot.addCommand({
-  id: "test_command",
-  test: /^!test\s*(?<Rest>.*)$/,
-  execute: (msg, result) => {
-    const { groups } = result
-    msg.author.send(`fuck you and your ${groups!.Rest}`)
-  }
-})
+bot.addModule(testModule)
 
 bot.addCommand({
   id: "roll_dice",

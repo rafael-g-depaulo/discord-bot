@@ -1,6 +1,6 @@
 import Discord from "discord.js"
 
-import { CreateModuleClient } from "./ModuleClient"
+import { CreateModuleClient, ModuleClient } from "./ModuleClient"
 import { CommandClient, CommandProps, CreateCommandClient } from "./CommandClient"
 import { CreateLoginClient, LoginClient, LoginProps } from "./LoginClient"
 
@@ -16,7 +16,7 @@ export interface ClientProps {
 type ClientState = LoginProps & CommandProps
 
 // client type
-export type Client = LoginClient & CommandClient & {
+export type Client = LoginClient & CommandClient & ModuleClient & {
   discordClient: Discord.Client,
 }
 
@@ -35,19 +35,23 @@ const createClient: CreateClient = (props) => {
   }
 
   // add login and command capabilities
-  let clientThing = Object.assign({},
+  const tempClient = Object.assign({},
     CreateLoginClient({ discordClient: state.discordClient, token }),
     CreateCommandClient({ discordClient: state.discordClient }),
   )
 
   // add modules (must be done after commands are created)
-  clientThing = Object.assign(clientThing,
-    CreateModuleClient({ addCommand: clientThing.addCommand, removeCommand: clientThing.removeCommand }),
-  )
+  const client = {
+    ...tempClient,
+    ...CreateModuleClient({
+      addCommand: tempClient.addCommand,
+      removeCommand: tempClient.removeCommand,
+    }),
+  }
   
   return {
     discordClient,
-    ...clientThing,
+    ...client,
   }
 }
 

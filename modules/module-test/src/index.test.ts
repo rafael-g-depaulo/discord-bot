@@ -1,8 +1,4 @@
-import { add } from "./index"
-
-describe('add lib', () => {
+describe('test module', () => {
   test('sample test', () => {
-    const result: number = add(2, 1)
-    expect(result).toBe(3)
   })
 })
