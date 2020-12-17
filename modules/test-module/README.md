@@ -1,11 +1,11 @@
-# `module-test`
+# `test-module`
 
 > TODO: description
 
 ## Usage
 
 ```typescript
-import moduleTest from '@discord-bot/module-test'
+import moduleTest from '@discord-bot/test-module'
 
 // TODO: DEMONSTRATE API
 ```

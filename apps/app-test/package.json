@@ -27,6 +27,6 @@
   "dependencies": {
     "@discord-bot/create-client": "^0.9.0",
     "@discord-bot/dice": "^0.9.0",
-    "@discord-bot/module-test": "^0.9.0"
+    "@discord-bot/test-module": "^0.9.0"
   }
 }

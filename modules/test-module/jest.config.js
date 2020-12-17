@@ -1,9 +1,9 @@
 const path = require("path")
 
 module.exports = {
-  name: 'lib-test',
+  name: 'test-module',
   displayName: {
-    name: 'MODULE: MODULE-TEST',
+    name: 'MODULE: TEST-MODULE',
     color: 'green',
   },
 
