@@ -1,6 +1,6 @@
 import Discord from "discord.js"
 import { Composable } from "../../Composer"
-import console from "../../Utils/console"
+import console from "@discord-bot/logging"
 
 export interface LoginProps {
   discordClient: Discord.Client

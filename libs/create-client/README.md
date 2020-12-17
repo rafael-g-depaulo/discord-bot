@@ -12,12 +12,3 @@ import discordConnection from 'create-client'
 
 // TODO: DEMONSTRATE API
 ```
-
-## Env
-When you use the lib, remember to add a LOG_LEVEL env var, that should be either:
-
-  - none
-  - error
-  - warning
-  - info
-  - debug
