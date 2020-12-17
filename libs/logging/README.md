@@ -1,11 +1,11 @@
-# `Lib-test`
+# `logging`
 
 > TODO: description
 
 ## Usage
 
 ```typescript
-import lib from '@discord-bot/lib-test'
+import logging from '@discord-bot/logging'
 
 // TODO: DEMONSTRATE API
 ```
