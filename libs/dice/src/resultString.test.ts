@@ -1,5 +1,5 @@
 import { DiceRollResults } from "Dice"
-import resultString, { rollArgs, rollResultList } from "./resultString"
+import resultString, { rollArgsString, rollResultListString } from "./resultString"
 
 describe("resultString", () => {
 
@@ -14,7 +14,7 @@ describe("resultString", () => {
         ],
         total: 5,
       }
-      expect(rollArgs(rollResult1)).toBe("__**d8**__")
+      expect(rollArgsString(rollResult1)).toBe("__**d8**__")
 
       const rollResult2: DiceRollResults = {
         diceArgs: {
@@ -25,7 +25,7 @@ describe("resultString", () => {
         ],
         total: 8,
       }
-      expect(rollArgs(rollResult2)).toBe("__**d10**__")
+      expect(rollArgsString(rollResult2)).toBe("__**d10**__")
     })
     
     it(`works with die ammount (ex: "2d6")`, () => {
@@ -42,7 +42,7 @@ describe("resultString", () => {
         total: 7,
       }
 
-      expect(rollArgs(rollResult)).toBe("__**3d4**__")
+      expect(rollArgsString(rollResult)).toBe("__**3d4**__")
     })
 
     it(`works with die explosion (ex: 6d8!)`, () => {
@@ -60,7 +60,7 @@ describe("resultString", () => {
         total: 15,
       }
 
-      expect(rollArgs(rollResult1)).toBe("__**2d10!!!**__")
+      expect(rollArgsString(rollResult1)).toBe("__**2d10!!!**__")
 
       const rollResult2: DiceRollResults = {
         diceArgs: {
@@ -76,7 +76,7 @@ describe("resultString", () => {
         total: 15,
       }
 
-      expect(rollArgs(rollResult2)).toBe("__**2d10!**__")
+      expect(rollArgsString(rollResult2)).toBe("__**2d10!**__")
     })
 
     it(`works with bonus ammount (ex: 1d8!+5)`, () => {
@@ -91,7 +91,7 @@ describe("resultString", () => {
         ],
         total: 8,
       }
-      expect(rollArgs(rollResult1)).toBe("__**1d6+6**__")
+      expect(rollArgsString(rollResult1)).toBe("__**1d6+6**__")
       
       const rollResult2: DiceRollResults = {
         diceArgs: {
@@ -106,7 +106,7 @@ describe("resultString", () => {
         ],
         total: 0,
       }
-      expect(rollArgs(rollResult2)).toBe("__**2d4!-3**__")
+      expect(rollArgsString(rollResult2)).toBe("__**2d4!-3**__")
     })
 
     it(`works with advantage (ex: 5d20!!+5 adv+2)`, () => {
@@ -125,7 +125,7 @@ describe("resultString", () => {
         ],
         total: 8,
       }
-      expect(rollArgs(rollResult1)).toBe("__**1d6!!+6 dis-2**__")
+      expect(rollArgsString(rollResult1)).toBe("__**1d6!!+6 dis-2**__")
       
       const rollResult2: DiceRollResults = {
         diceArgs: {
@@ -139,7 +139,7 @@ describe("resultString", () => {
         ],
         total: 8,
       }
-      expect(rollArgs(rollResult2)).toBe("__**1d6 adv+1**__")
+      expect(rollArgsString(rollResult2)).toBe("__**1d6 adv+1**__")
     })
 
   })
@@ -155,7 +155,7 @@ describe("resultString", () => {
         ],
         total: 5,
       }
-      expect(rollResultList(rollResult)).toBe("5")
+      expect(rollResultListString(rollResult)).toBe("5")
     })
 
     it(`works with die ammount (ex: "2d6")`, () => {
@@ -172,7 +172,7 @@ describe("resultString", () => {
         ],
         total: 23,
       }
-      expect(rollResultList(rollResult)).toBe("3 + 4 + 2 + 14 = 23")
+      expect(rollResultListString(rollResult)).toBe("3 + 4 + 2 + 14 = 23")
     })
 
     it(`works with die explosion (ex: 6d8!)`, () => {
@@ -191,7 +191,7 @@ describe("resultString", () => {
         total: 22,
       }
 
-      expect(rollResultList(rollResult)).toBe("**8!** + 1 + **10!** + 3 = 22")
+      expect(rollResultListString(rollResult)).toBe("**8!** + 1 + **10!** + 3 = 22")
     })
 
     it(`works with bonus ammount (ex: 1d8!+5)`, () => {
@@ -206,7 +206,7 @@ describe("resultString", () => {
         ],
         total: 8,
       }
-      expect(rollResultList(rollResult1)).toBe("2 (+6) = 8")
+      expect(rollResultListString(rollResult1)).toBe("2 (+6) = 8")
 
       const rollResult2: DiceRollResults = {
         diceArgs: {
@@ -220,7 +220,7 @@ describe("resultString", () => {
         ],
         total: 0,
       }
-      expect(rollResultList(rollResult2)).toBe("2 + 1 (-3) = 0")
+      expect(rollResultListString(rollResult2)).toBe("2 + 1 (-3) = 0")
     })
 
     it(`works with advantage (ex: 5d20!!+5 adv+2)`, () => {
@@ -237,7 +237,7 @@ describe("resultString", () => {
         ],
         total: 3,
       }
-      expect(rollResultList(rollResult)).toBe("5 + ~~4~~ (-2) = 3")
+      expect(rollResultListString(rollResult)).toBe("5 + ~~4~~ (-2) = 3")
     })
   })
 

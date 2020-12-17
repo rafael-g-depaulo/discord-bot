@@ -1,16 +1,19 @@
 import { Command, Message, Module } from "@discord-bot/create-client"
-import { createDice, getDiceRoll, resultString, testDiceRoll } from "@discord-bot/dice"
+import { createDice, getDiceRoll, resultString, testDiceRoll, rollArgsString } from "@discord-bot/dice"
+import console from "@discord-bot/logging"
 
 // roll dice command
 export const rollDice: Command = {
-  id: "Dice Module: roll dice",
+  id: "Dice Module: Roll Dice",
   test: (msg: Message) => {
     // only roll if the message starts with "!" and is a dice roll string
     return msg.content[0] === "!" && testDiceRoll(msg.content)
   },
   execute: (msg: Message) => {
     const diceRoll = createDice(getDiceRoll(msg.content))
-    msg.reply(resultString(diceRoll.detailedRoll()))
+    const rollResult = diceRoll.detailedRoll()
+    msg.reply(resultString(rollResult))
+    console.info(`Dice Module: Roll Dice: rolling ${rollArgsString(rollResult)} for user ${msg.author.username}.`)
   }
 }
 

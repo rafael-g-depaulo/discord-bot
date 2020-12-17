@@ -14,3 +14,4 @@ export * as regex from "./regex"
 
 // interpret dice roll results as string
 export { default as resultString } from "./resultString"
+export * from "./resultString"

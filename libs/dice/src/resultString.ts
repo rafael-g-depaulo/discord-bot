@@ -4,7 +4,7 @@ const underline = (str: string) => `__${str}__`
 const bold = (str: string) => `**${str}**`
 const slashed = (str: string) => `~~${str}~~`
 
-export const rollArgs = (result: DiceRollResults) => {
+export const rollArgsString = (result: DiceRollResults) => {
   // how to represent the arguments for a dice roll
   // ex: 4d8!-7 adv+2
   const { diceArgs } = result
@@ -44,7 +44,7 @@ export const rollArgs = (result: DiceRollResults) => {
   return underline(bold(`${dieAmmount}${dieMax}${explosion}${bonus}${advantage}`))
 }
 
-export const rollResultList = (result: DiceRollResults) => {
+export const rollResultListString = (result: DiceRollResults) => {
 
   const { rolls, total, diceArgs } = result
 
@@ -74,7 +74,7 @@ export const rollResultList = (result: DiceRollResults) => {
 }
 
 const resultString = (result: DiceRollResults) => {
-  return `${rollArgs(result)}: ${rollResultList(result)}`
+  return `${rollArgsString(result)}: ${rollResultListString(result)}`
 }
 
 export default resultString

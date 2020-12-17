@@ -1,4 +1,4 @@
-import createClient, { Client,  Message } from "@discord-bot/create-client"
+import createClient, { Client } from "@discord-bot/create-client"
 
 import testModule from "@discord-bot/test-module"
 import diceModule from "@discord-bot/dice-module"

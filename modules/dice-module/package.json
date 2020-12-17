@@ -16,7 +16,8 @@
     "watch": "jest --watch"
   },
   "dependencies": {
-    "@discord-bot/dice": "^0.10.0"
+    "@discord-bot/dice": "^0.10.0",
+    "@discord-bot/logging": "*"
   },
   "bugs": {
     "url": "https://github.com/rafael-g-depaulo/discord-bot/issues"
