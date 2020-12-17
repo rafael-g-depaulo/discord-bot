@@ -36,7 +36,7 @@ export const CreateLoginClient: Composable<LoginProps, LoginClient> = (props) =>
     
     return discordClient.login(token)
       .then(t => {
-        console.log("discord-client: logged in")
+        console.info("discord-client: logged in")
         return t
       })
       .catch((err: string) => {
