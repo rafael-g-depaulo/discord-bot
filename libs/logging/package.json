@@ -15,6 +15,9 @@
     "test:watch": "jest --watch",
     "watch": "jest --watch"
   },
+  "dependencies": {
+    "chalk": "^4.1.0"
+  },
   "bugs": {
     "url": "https://github.com/rafael-g-depaulo/discord-bot/issues"
   }
