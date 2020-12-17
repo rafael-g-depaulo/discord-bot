@@ -1,8 +1,9 @@
 module.exports = {
   babelrcRoots: [
     ".",
-    "libs/*",
     "apps/*",
+    "libs/*",
+    "modules/*",
   ],  
   
   presets: [

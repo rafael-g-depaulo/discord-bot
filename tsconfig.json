@@ -37,8 +37,9 @@
   // lib import paths
   "paths": {
     "@discord-bot/*": [
-      "packages/libs/*",
       "packages/apps/*",
+      "packages/libs/*",
+      "packages/modules/*",
     ],
   },
 

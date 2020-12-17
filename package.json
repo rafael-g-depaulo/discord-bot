@@ -7,13 +7,19 @@
   "license": "MIT",
   "private": true,
   "workspaces": [
+    "apps/*",
     "libs/*",
-    "apps/*"
+    "modules/*"
   ],
   "scripts": {
     "build:libs": "ultra -r -b --filter \"+libs/*\" build",
     "build:libs:watch": "ultra -r -b --filter \"+libs/*\" build:watch",
-    "test": "jest"
+    "build:modules": "ultra -r -b --filter \"+modules/*\" build",
+    "build:modules:watch": "ultra -r -b --filter \"+modules/*\" build:watch",
+    "build:deps": "ultra yarn build:libs & yarn build:modules",
+    "build:deps:watch": "ultra yarn build:libs:watch & yarn build:modules:watch",
+    "test": "jest",
+    "postinstall": "yarn build:deps"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.10",

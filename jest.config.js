@@ -2,8 +2,9 @@ const path = require("path")
 
 module.exports = {
   projects: [
-    "<rootDir>/libs/*",
     "<rootDir>/apps/*",
+    "<rootDir>/libs/*",
+    "<rootDir>/modules/*",
   ],
   
   testPathIgnorePatterns: [
