@@ -1,5 +1,6 @@
 import Discord from "discord.js"
-import { Composable } from "Composer"
+import { Composable } from "../../Composer"
+import console from "../../Utils/console"
 
 export interface LoginProps {
   discordClient: Discord.Client
@@ -32,7 +33,7 @@ export const CreateLoginClient: Composable<LoginProps, LoginClient> = (props) =>
     if (state.isLoggedIn) throw new Error(`create-client: LoginClient.login(): tried to .login() when already logged in`)
 
     state.isLoggedIn = true
-
+    
     return discordClient.login(token)
       .then(t => {
         console.log("discord-client: logged in")
@@ -40,6 +41,7 @@ export const CreateLoginClient: Composable<LoginProps, LoginClient> = (props) =>
       })
       .catch((err: string) => {
         state.isLoggedIn = false
+        console.error(`create-client: LoginClient.login(): ${err}`)
         throw new Error(`create-client: LoginClient.login(): ${err}`)
       })
   }
