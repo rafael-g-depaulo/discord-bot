@@ -8,8 +8,8 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc",
-    "build:watch": "tsc --watch",
+    "build": "tsc --project ./tsconfig.prod.json",
+    "build:watch": "yarn build --watch",
     "clean": "rm -fr dist; rm -f .ultra.cache.json; rm -f tsconfig.tsbuildinfo",
     "test": "jest",
     "test:watch": "jest --watch",

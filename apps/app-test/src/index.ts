@@ -1,13 +1,11 @@
 import createClient, { Client,  Message } from "@discord-bot/create-client"
-import { createDice, getDiceRoll, testDiceRoll } from "@discord-bot/dice"
-// import { createDice, getDiceRoll, testDiceRoll, resultString } from "@discord-bot/dice"
-import resultString from "@discord-bot/dice/src/resultString"
+import { createDice, getDiceRoll, testDiceRoll, resultString } from "@discord-bot/dice"
 
 const token = process.env.DISCORD_BOT_TOKEN
 const bot: Client = createClient({ token })
 
 bot.addCommand({
-    id: "test_command",
+  id: "test_command",
   test: /^!test\s*(?<Rest>.*)$/,
   execute: (msg, result) => {
     const { groups } = result

@@ -15,13 +15,14 @@
     "start": "dotenv -- if-env NODE_ENV=production && yarn start:prod || yarn start:dev",
     "start:dev": "dotenv -- tsnd -r tsconfig-paths/register --respawn --transpile-only src/index.ts",
     "start:prod": "dotenv -- yarn serve",
-    "build": "tsc",
-    "build:watch": "tsc --watch",
+    "build": "tsc --project ./tsconfig.prod.json",
+    "build:watch": "yarn build --watch",
     "clean": "rm -fr dist; rm -f .ultra.cache.json; rm -f tsconfig.tsbuildinfo",
     "serve": "node -r tsconfig-paths/register dist/index.js",
     "test": "jest",
     "test:watch": "jest --watch",
-    "watch": "jest --watch"
+    "watch": "jest --watch",
+    "postinstall": "cd ../.. && yarn run build:libs && cd apps/app-test"
   },
   "dependencies": {
     "@discord-bot/create-client": "^0.9.0",
