@@ -11,7 +11,7 @@ const logWarn: LogFn  = console.log
 const logErr: LogFn   = console.warn
 
 // type LogLevel = "debug" | "info" | "warn" | "error"
-enum LogLevel {
+export enum LogLevel {
   none = 0,
   error,
   warning,

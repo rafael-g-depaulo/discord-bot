@@ -7,6 +7,8 @@ module.exports = {
     color: 'green',
   },
 
+  testEnvironment: 'node',
+
   moduleDirectories: ["node_modules", path.join(__dirname, "src")],
 
   testPathIgnorePatterns: [
