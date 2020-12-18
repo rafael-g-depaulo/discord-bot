@@ -1,5 +1,5 @@
 import console, { LogLevel } from "@discord-bot/logging"
-import ScrollModel, { Scroll, ScrollDocument, ScrollPopulatedDocument } from "Models/Scroll"
+import ScrollModel, { Scroll, ScrollDocument, ScrollPopulatedDocument } from "Models/ExampleScroll"
 import { inspect } from 'util'
 
 import { connect } from "./Db"
