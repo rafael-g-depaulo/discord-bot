@@ -17,7 +17,7 @@ export enum LogLevel {
   warning,
   info,
   debug,
-} 
+}
 interface LogOptions {
   logFn?: LogFn,
   logLevel: LogLevel,
@@ -40,24 +40,47 @@ const defaultOptions: LogOptions = {
 }
 
 // debug log
-export const debug = (str: string, { logLevel, logFn = logDebug}: LogOptions = defaultOptions) => logLevel >= LogLevel.debug && logFn(
+export const debug = (str: string, { logLevel, logFn = logDebug }: LogOptions = defaultOptions) => logLevel >= LogLevel.debug && logFn(
   `[${chalk.greenBright(`DEBUG`)}] ${str}`
 )
 
 // info log
-export const info = (str: string, { logLevel, logFn = logInfo}: LogOptions = defaultOptions) => logLevel >= LogLevel.info && logFn(
+export const info = (str: string, { logLevel, logFn = logInfo }: LogOptions = defaultOptions) => logLevel >= LogLevel.info && logFn(
   `[${chalk.blueBright(`INFO`)}] ${str}`
 )
 
 // warn log
-export const warn = (str: string, { logLevel, logFn = logWarn}: LogOptions = defaultOptions) => logLevel >= LogLevel.warning && logFn(
+export const warn = (str: string, { logLevel, logFn = logWarn }: LogOptions = defaultOptions) => logLevel >= LogLevel.warning && logFn(
   `[${chalk.yellowBright(`WARN`)}] ${str}`
 )
 
 // error log
-export const error = (str: string, { logLevel, logFn = logErr}: LogOptions = defaultOptions) => logLevel >= LogLevel.error && logFn(
+export const error = (str: string, { logLevel, logFn = logErr }: LogOptions = defaultOptions) => logLevel >= LogLevel.error && logFn(
   `${chalk.red.bold.bgYellow(`[ERROR]`)} ${chalk.bold.redBright(str)}`
-)  
+)
+
+// function that handles data/options and sends it to a LogFn so it may send it to the terminal
+export type LogFunction = (str: string, opt?: LogOptions) => void
+export interface Logger {
+  debug: LogFunction,
+  error: LogFunction,
+  info: LogFunction,
+  log: LogFunction,
+  warn: LogFunction,
+}
+
+export const createLogger = (options: Partial<LogOptions>) => {
+  const logOptions = { ...defaultOptions, ...options }
+  const logger: Logger = {
+    debug: (str, opt) => debug(str, {...logOptions, ...opt }),
+    error: (str, opt) => error(str, {...logOptions, ...opt }),
+    info:  (str, opt) => info (str, {...logOptions, ...opt }),
+    log:   (str, opt) => info (str, {...logOptions, ...opt }),
+    warn:  (str, opt) => warn (str, {...logOptions, ...opt }),
+  }
+
+  return logger
+}
 
 export default {
   debug,
