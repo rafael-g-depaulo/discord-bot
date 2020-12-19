@@ -1,5 +1,6 @@
 // utility functions using chalk to log stuff to the console
 import chalk from "chalk"
+import { inspect } from "util"
 
 // type for a simple function that logs it's arguments to the console
 type LogFn = (...ags: any[]) => void
@@ -22,6 +23,9 @@ interface LogOptions {
   logFn?: LogFn,
   logLevel: LogLevel,
 }
+const isLogOptions = (possibleOptions: any): possibleOptions is LogOptions => {
+  return (possibleOptions as LogOptions).logLevel !== undefined
+}
 
 // get log level from env
 const getLogLevel = () =>
@@ -39,28 +43,54 @@ const defaultOptions: LogOptions = {
   logLevel: getLogLevel(),
 }
 
+// function to differenciate on log calls using options object or not
+const runLog = (lfn: LogFunctionWithOptions, options: LogOptions): LogFunction => (possibleOptionsOverride: LogOptions | any, ...args: any[]) => {
+  // start with default options, and use givenOptions when given
+  // const options = { ...defaultOptions, ...givenOpts }
+
+  if (isLogOptions(possibleOptionsOverride)) {
+    // log the rest of the args, using options override
+    return lfn({ ...options, ...possibleOptionsOverride }, ...args)
+  }
+  
+  // just log, with current options
+  return lfn(options, possibleOptionsOverride, ...args)
+}
+
+const processValueIntoString = (value: any): string => inspect(value, { colors: true })
+
+const processArgsIntoString = (args: any[]): string => args.map(processValueIntoString).join(" ")
+
 // debug log
-export const debug = (str: string, { logLevel, logFn = logDebug }: LogOptions = defaultOptions) => logLevel >= LogLevel.debug && logFn(
-  `[${chalk.greenBright(`DEBUG`)}] ${str}`
+const debugLog: LogFunctionWithOptions = ({ logLevel, logFn = console.debug }: LogOptions, ...args: any[]) => logLevel >= LogLevel.debug && logFn(
+  `[${chalk.greenBright(`DEBUG`)}] ${processArgsIntoString(args)}`
 )
+export const debug = runLog(debugLog, defaultOptions)
 
 // info log
-export const info = (str: string, { logLevel, logFn = logInfo }: LogOptions = defaultOptions) => logLevel >= LogLevel.info && logFn(
-  `[${chalk.blueBright(`INFO`)}] ${str}`
+const infoLog: LogFunctionWithOptions = ({ logLevel, logFn = console.info }: LogOptions, ...args: any[]) => logLevel >= LogLevel.info && logFn(
+  `[${chalk.blueBright(`INFO`)}] ${processArgsIntoString(args)}`
 )
+export const info = runLog(infoLog, defaultOptions)
 
 // warn log
-export const warn = (str: string, { logLevel, logFn = logWarn }: LogOptions = defaultOptions) => logLevel >= LogLevel.warning && logFn(
-  `[${chalk.yellowBright(`WARN`)}] ${str}`
+const warnLog: LogFunctionWithOptions = ({ logLevel, logFn = console.warn }: LogOptions, ...args: any[]) => logLevel >= LogLevel.warning && logFn(
+  `[${chalk.yellowBright(`WARN`)}] ${processArgsIntoString(args)}`
 )
+export const warn = runLog(warnLog, defaultOptions)
 
 // error log
-export const error = (str: string, { logLevel, logFn = logErr }: LogOptions = defaultOptions) => logLevel >= LogLevel.error && logFn(
-  `${chalk.red.bold.bgYellow(`[ERROR]`)} ${chalk.bold.redBright(str)}`
+const errorLog: LogFunctionWithOptions = ({ logLevel, logFn = console.error }: LogOptions, ...args: any[]) => logLevel >= LogLevel.error && logFn(
+  // TODO: change how the bold.redbright is used here to only apply to string, and leave the rest
+  `${chalk.red.bold.bgYellow(`[ERROR]`)} ${chalk.bold.redBright(processArgsIntoString(args))}`
 )
+export const error = runLog(errorLog, defaultOptions)
 
 // function that handles data/options and sends it to a LogFn so it may send it to the terminal
-export type LogFunction = (str: string, opt?: LogOptions) => void
+export type LogFunctionWithoutOptions = ((...args: any[]) => void )
+export type LogFunctionWithOptions = ((opt: LogOptions, ...args: any[]) => void)
+export type LogFunction = LogFunctionWithoutOptions & LogFunctionWithOptions
+// , opt?: LogOptions
 export interface Logger {
   debug: LogFunction,
   error: LogFunction,
@@ -69,23 +99,17 @@ export interface Logger {
   warn: LogFunction,
 }
 
-export const createLogger = (options: Partial<LogOptions>) => {
+export const createLogger = (options: Partial<LogOptions> = {}) => {
   const logOptions = { ...defaultOptions, ...options }
   const logger: Logger = {
-    debug: (str, opt) => debug(str, {...logOptions, ...opt }),
-    error: (str, opt) => error(str, {...logOptions, ...opt }),
-    info:  (str, opt) => info (str, {...logOptions, ...opt }),
-    log:   (str, opt) => info (str, {...logOptions, ...opt }),
-    warn:  (str, opt) => warn (str, {...logOptions, ...opt }),
+    debug: runLog(debugLog, logOptions),
+    error: runLog(errorLog, logOptions),
+    info:  runLog(infoLog, logOptions),
+    log:   runLog(infoLog, logOptions),
+    warn:  runLog(warnLog, logOptions),
   }
 
   return logger
 }
 
-export default {
-  debug,
-  error,
-  info,
-  log: info,
-  warn,
-}
+export default createLogger()
