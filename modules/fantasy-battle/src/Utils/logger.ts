@@ -1,5 +1,5 @@
-import { createLogger, LogLevel } from "@discord-bot/logging"
+import { createLogger } from "@discord-bot/logging"
 
 export default createLogger({
-  logLevel: LogLevel.debug,
+  logLevel: "info",
 })

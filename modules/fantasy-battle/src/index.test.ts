@@ -1,14 +1,8 @@
-import console, { LogLevel } from "@discord-bot/logging"
 import ScrollModel, { Scroll, ScrollDocument, ScrollPopulatedDocument } from "Models/ExampleScroll"
-import { inspect } from 'util'
+import console from "Utils/logger"
 
 import { connect } from "./Db"
 // import { ScrollModel, Scroll } from "./Models/Scroll"
-
-const log = (s: any) => {
-  const logString = inspect(s, { colors: true })
-  console.log(logString, { logLevel: LogLevel.debug})
-}
 
 describe('test module', () => {
   test('sample test', async (done) => {
@@ -36,22 +30,22 @@ describe('test module', () => {
     const lightningScrollDoc = new ScrollModel(lightningScroll)
     await lightningScrollDoc.save()
 
-    // log(iceScrollDoc)
-    // log(iceScrollDoc.fullname)
+    // console.log(iceScrollDoc)
+    // console.log(iceScrollDoc.fullname)
 
     // test static methods
     const scrolls = await ScrollModel.getByAuthor("Ragan")
-    log(scrolls)
+    console.log(scrolls)
 
     // test model relation
     const fScroll: ScrollPopulatedDocument | null = await ScrollModel
       .findOne({ _id: fireScrollDoc._id })
       .populate("nextLevel")
-    // log(fScroll?.nextLevel)
+    // console.log(fScroll?.nextLevel)
 
     // test virtual properties
-    log(fScroll?.fullname)
-    log(fScroll?.nextLevel?.fullname)
+    console.log(fScroll?.fullname)
+    console.log(fScroll?.nextLevel?.fullname)
     
     // delete
     const aaa = await Promise.all([
@@ -60,7 +54,7 @@ describe('test module', () => {
       lightningScroll,
       ...scrolls
     ].map((scroll) => ScrollModel.deleteOne({ _id: (scroll as ScrollDocument).id })))
-    // log(aaa)
+    // console.log(aaa)
     
     conn
       .disconnect()

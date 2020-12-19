@@ -1,6 +1,6 @@
-import { debugLog, errorLog, infoLog, warnLog } from "logFunctions"
-import { getDefaultOptions, LogOptions } from "logOptions"
-import { LogFunction, runLog } from "runLog"
+import { debugLog, errorLog, infoLog, warnLog } from "./logFunctions"
+import { getDefaultOptions, LogOptions } from "./logOptions"
+import { LogFunction, runLog } from "./runLog"
 
 export interface Logger {
   debug: LogFunction,

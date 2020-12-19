@@ -1,4 +1,4 @@
-import createLogger from "createLogger"
+import createLogger from "./createLogger"
 
 // types for logOptions
 export { LogLevel, LogOptions } from "./logOptions"
