@@ -21,9 +21,7 @@ export const createCharacter = (props: PlayerCharacterProps): PlayerCharacter =>
   } = props
 
   // throw if bad props
-  // throw if bad props
-  // throw if bad props
-  // throw if bad props
+  if (typeof name !== 'string' || name === "") throw new Error(`Fantasy Battle: createCharacter(): name prop missing or empty`)
 
   // player state
   const state: PlayerCharacterState = {
