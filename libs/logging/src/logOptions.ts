@@ -21,7 +21,7 @@ const logLevelToNum = (level: LogLevel): number =>
 
 // checks if the level of the log about to run (logLevel) is acceptable for the current log level option (optionLevel)
 export const isAboveLevel = (optionLevel: LogLevel, logLevel: LogLevel): boolean => 
-  logLevelToNum(optionLevel) >= logLevelToNum(logLevel)
+  logLevelToNum(logLevel) >= logLevelToNum(optionLevel)
 
 // get log level from env
 const getLogLevel = () =>
