@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@discord-bot/logging": "*",
+    "@discord-bot/dice": "*",
     "@types/mongodb": "^3.6.3",
     "@types/mongoose": "^5.10.3",
     "mongodb": "^3.6.3",

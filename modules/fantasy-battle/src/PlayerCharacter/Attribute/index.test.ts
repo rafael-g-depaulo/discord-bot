@@ -2,7 +2,7 @@ import { Attributes, createAttributes } from "./index"
 
 describe("createAttributes", () => {
   it('works', () => {
-    const inicialAttributes: Attributes = {
+    const inicialAttributes = {
       Agility:    { bonus: 0, value: 0 },
       Fortitude:  { bonus: 0, value: 0 },
       Might:      { bonus: 0, value: 0 },

@@ -1,4 +1,5 @@
 import { createDice, Dice, DiceProps } from "@discord-bot/dice"
+import { Attribute } from "."
 
 const damageDice: DiceProps[] = [
   { dieAmmount:  1, dieMax:  2 },   // ( 0)  1d2
@@ -28,16 +29,16 @@ const damageDice: DiceProps[] = [
   { dieAmmount: 10, dieMax: 10 },   // (20) 10d10
 ]
 
-export const getDamageDice = (attbValue: number): Dice => {
-  const attb = attbValue - attbValue % 1
+export const getDamageDice = (attb: Attribute): Dice => {
+  const attbValue = attb.value + attb.bonus
 
   // attbValue of 0 or below
-  if (attb <= 0) return createDice(damageDice[0])
+  if (attbValue <= 0) return createDice(damageDice[0])
   
   // if attbValue above the max, return the max
-  if (attb >= damageDice.length) return createDice(damageDice[damageDice.length-1])
+  if (attbValue >= damageDice.length) return createDice(damageDice[damageDice.length-1])
   
-  return createDice(damageDice[attb])
+  return createDice(damageDice[attbValue])
 }
 
 export default getDamageDice

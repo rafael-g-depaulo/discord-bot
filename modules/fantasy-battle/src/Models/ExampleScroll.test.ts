@@ -37,7 +37,7 @@ describe("ExampleScroll", () => {
       await scrollDoc.save()
 
       // read scroll
-      const fireBallScroll = await ScrollModel.findOne({ _id: scrollDoc.id })
+      const fireBallScroll = await ScrollModel.findOne({ _id: scrollDoc._id })
 
       expect(fireBallScroll?.title).toBe(scrollDoc.title)
       expect(fireBallScroll?.author).toBe(scrollDoc.author)

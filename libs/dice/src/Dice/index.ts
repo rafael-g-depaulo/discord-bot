@@ -52,6 +52,8 @@ export interface DiceState {
 type CreateDice = (props: DiceProps) => Dice
 const createDice: CreateDice = (props) => {
   
+  if (!props) throw new Error(`Dice: createDice(): called with ${props} props`)
+
   const {
     randomFn = Math.random,
     dieMax,
