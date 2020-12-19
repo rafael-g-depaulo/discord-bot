@@ -11,7 +11,6 @@ describe('getDamageDice', () => {
     const dmgDice: Dice[] = [
       0, -1, -2, -3, -4
     ]
-    .map(i => ({ value: i+4, bonus: -4 }) as Attribute)
     .map(getDamageDice)
 
     dmgDice.map(dice => {
@@ -24,7 +23,7 @@ describe('getDamageDice', () => {
     // damage dice (example: damage dice for 1 is damageDice[1])
     const damageDice = Array(21)
       .fill(null)
-      .map((_, i) => ({ value: i-3, bonus: 3 }) as Attribute)
+      .map((_, i) => i)
       .map(getDamageDice)
 
     expect(damageDice[ 1].args).toStrictEqual(expect.objectContaining({ dieAmmount:  1, dieMax:  4 }))
@@ -60,7 +59,6 @@ describe('getDamageDice', () => {
     const dmgDice: Dice[] = [
       20, 21, 22, 23, 144.5
     ]
-    .map(i => ({ value: 0, bonus: i }) as Attribute)
     .map(getDamageDice)
     dmgDice.map(dice => {
       expect(dice.args.dieMax).toBe(maxDice.dieMax)

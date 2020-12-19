@@ -1,4 +1,4 @@
-import { Attributes, createAttributes } from "./index"
+import { Attributes, createAttribute, createAttributes } from "./index"
 
 describe("createAttributes", () => {
   it('works', () => {
@@ -23,5 +23,77 @@ describe("createAttributes", () => {
       Protection: { bonus: 0, value: 0 },
     }
     expect(createAttributes()).toMatchObject(inicialAttributes)
+  })
+
+  describe(".rollAttribute()", () => {
+    it(`works with the original value`, () => {
+      const attb = createAttribute()
+      const rollResult = attb.rollAttribute()
+      expect(rollResult.diceArgs).toEqual(expect.objectContaining({ dieMax: 20, dieAmmount: 1 }))
+    })
+
+    it(`works when you change the original value`, () => {
+      const attb = createAttribute()
+      expect(attb.rollAttribute().diceArgs).toEqual(expect
+        .objectContaining({
+          bonus: 0,
+          dieMax: 20,
+          dieAmmount: 1,
+        })
+      )
+      attb.value = 2
+      attb.bonus = 1
+      expect(attb.rollAttribute().diceArgs).toEqual(expect
+        .objectContaining({
+          bonus: 6,
+          dieMax: 20,
+          dieAmmount: 1,
+        })
+      )
+      attb.value = 2
+      attb.bonus = 3
+      expect(attb.rollAttribute().diceArgs).toEqual(expect
+        .objectContaining({
+          bonus: 10,
+          dieMax: 20,
+          dieAmmount: 1,
+        })
+      )
+    })
+  })
+
+  describe(".rollDmg()", () => {
+    
+    it(`works with the original value`, () => {
+      const attb = createAttribute()
+      const rollResult = attb.rollDmg()
+      expect(rollResult.diceArgs).toEqual(expect.objectContaining({ dieMax: 2, dieAmmount: 1 }))
+    })
+
+    it(`works when you change the original value`, () => {
+      const attb = createAttribute()
+      expect(attb.rollDmg().diceArgs).toEqual(expect
+        .objectContaining({
+          dieMax: 2,
+          dieAmmount: 1,
+        })
+      )
+      attb.value = 2
+      attb.bonus = 1
+      expect(attb.rollDmg().diceArgs).toEqual(expect
+        .objectContaining({
+          dieMax: 8,
+          dieAmmount: 1,
+        })
+      )
+      attb.value = 2
+      attb.bonus = 3
+      expect(attb.rollDmg().diceArgs).toEqual(expect
+        .objectContaining({
+          dieMax: 6,
+          dieAmmount: 2,
+        })
+      )
+    })
   })
 })
