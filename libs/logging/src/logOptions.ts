@@ -9,7 +9,7 @@ export interface LogOptions {
 }
 
 export const isLogOptions = (possibleOptions: any): possibleOptions is LogOptions => {
-  return (possibleOptions as LogOptions).logLevel !== undefined
+  return possibleOptions && (possibleOptions as LogOptions).logLevel !== undefined
 }
 
 const logLevelToNum = (level: LogLevel): number =>
