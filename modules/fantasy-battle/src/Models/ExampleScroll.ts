@@ -1,9 +1,21 @@
-import { Schema, model, Model, Document } from "mongoose"
+import { Schema, model, Model, Document, Types } from "mongoose"
+import { Relation, SchemaFields } from "./helpers"
+
+// scroll interface for document creation
+// this contains the real data typings for the type, but with typescript types and not mongo ones
+// relations don't show up here
+export interface Scroll {
+  title: string,
+  author: string,
+  nextLevel?: Relation<ScrollDocument>,
+}
+
 
 // mongoDb schema to define data type
 // this uses mongo types, not tipical typescript types
 // relations show up here
-export const ScrollSchema = new Schema({
+// interface SchemaFields extends Record<keyof Scroll, any> { [extraKey: string]: any }
+const ScrollSchemaFields: SchemaFields<Scroll> = {
   title: {
     type: String,
     required: true,
@@ -12,24 +24,17 @@ export const ScrollSchema = new Schema({
     type: String,
     required: true,
   },
-
   nextLevel: {
     type: Schema.Types.ObjectId,
     ref: "Scroll",
   }
-})
-
-// scroll interface for document creation
-// this contains the real data typings for the type, but with typescript types and not mongo ones
-// relations don't show up here
-export interface Scroll {
-  title: string,
-  author: string,
 }
+export const ScrollSchema = new Schema<Scroll>(ScrollSchemaFields)
 
 // base scroll document interface
-//! don't export it directly 
-interface BaseScrollDocument extends Scroll, Document {
+//! don't export it directly
+// Document<T>: T means the type of the _id property. defaults to any
+interface BaseScrollDocument extends Scroll, Document<string> {
   // any Array<T> in the Scroll interface becomes overwritten as Types.array<T> here. same for Maps and other stuff
 
   // virtual properties should be defined here
