@@ -1,4 +1,5 @@
 import { Schema, model, Model, Document, Types } from "mongoose"
+import logger from "Utils/logger"
 import { Relation, SchemaFields } from "./helpers"
 
 // scroll interface for document creation
@@ -34,7 +35,7 @@ export const ScrollSchema = new Schema<Scroll>(ScrollSchemaFields)
 // base scroll document interface
 //! don't export it directly
 // Document<T>: T means the type of the _id property. defaults to any
-interface BaseScrollDocument extends Scroll, Document<string> {
+interface BaseScrollDocument extends Scroll, Document<Types.ObjectId> {
   // any Array<T> in the Scroll interface becomes overwritten as Types.array<T> here. same for Maps and other stuff
 
   // virtual properties should be defined here
@@ -49,6 +50,9 @@ export interface ScrollDocument extends BaseScrollDocument {
   //! relations are defined here as id's of other models
   nextLevel?: ScrollDocument["_id"],
 }
+
+export const isScroll = (obj: ScrollDocument | any): obj is ScrollDocument => 
+  obj && typeof obj.title === 'string' && typeof obj.author === 'string' 
 
 // populated scroll document (a scroll document, but with the relations populated instead of just id's)
 export interface ScrollPopulatedDocument extends BaseScrollDocument {
@@ -75,8 +79,17 @@ ScrollSchema.virtual("fullname").get(function(this: BaseScrollDocument) {
 })
 
 // define instance methods
-ScrollSchema.methods.getNext = function(this: BaseScrollDocument) {
-  return this
+ScrollSchema.methods.getNext = async function(this: BaseScrollDocument): Promise<ScrollDocument | null> {
+  // if no nextLevel
+  if (!this.nextLevel) return Promise.resolve(null)
+  
+  // if populated document
+  if (isScroll(this.nextLevel)) {
+    return Promise.resolve(this.nextLevel)
+  }
+
+  // if unpopulated document
+  return await ScrollModel.findOne({ _id: this.nextLevel })
 }
 
 // model to generate and query scrolls
