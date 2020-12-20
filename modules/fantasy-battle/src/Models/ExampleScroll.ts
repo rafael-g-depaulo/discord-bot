@@ -1,5 +1,4 @@
 import { Schema, model, Model, Document, Types } from "mongoose"
-import logger from "Utils/logger"
 import { Relation, SchemaFields } from "./helpers"
 
 // scroll interface for document creation
