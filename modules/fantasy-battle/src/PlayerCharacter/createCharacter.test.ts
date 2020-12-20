@@ -32,5 +32,24 @@ describe('createCharacter()', () => {
         Prescience: { bonus: 0, value: 0 }, Protection: { bonus: 0, value: 0 },
       })
     })
+
+    it(`has functioning attributes`, () => {
+      const char = createCharacter({ name: "Horu" })
+
+      const agility0SkillRoll = char.attributes.Agility.rollAttribute()
+      const agility0DmgRoll = char.attributes.Agility.rollDmg()
+
+      char.attributes.Agility.bonus = 4
+      char.attributes.Agility.value = 1
+
+      const agility3SkillRoll = char.attributes.Agility.rollAttribute()
+      const agility3DmgRoll = char.attributes.Agility.rollDmg()
+
+      expect(agility0SkillRoll.diceArgs).toEqual(expect.objectContaining({ dieMax: 20, dieAmmount: 1, bonus: 0 }))
+      expect(agility0DmgRoll.diceArgs).toEqual(expect.objectContaining({ dieMax: 2, dieAmmount: 1, bonus: 0 }))
+      
+      expect(agility3SkillRoll.diceArgs).toEqual(expect.objectContaining({ dieMax: 20, dieAmmount: 1, bonus: 10 }))
+      expect(agility3DmgRoll.diceArgs).toEqual(expect.objectContaining({ dieMax: 6, dieAmmount: 2, bonus: 0 }))
+    })
   })
 })
