@@ -1,6 +1,8 @@
+import { useDbConnection } from "Utils/mongoTest"
 import { createCharacter, PlayerCharacterProps } from "./createCharacter"
 
 describe('createCharacter()', () => {
+  useDbConnection("createCharacter")
   
   describe('dealing with bad props', () => {
     it('throws if no name given or "" given', () => {
