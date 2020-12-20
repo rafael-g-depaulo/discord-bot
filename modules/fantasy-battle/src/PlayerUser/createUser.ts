@@ -1,11 +1,11 @@
-// import PcModel, { Pc, PcDocument } from "Models/PlayerUser"
-// import { Attribute, AttributeNames, Attributes, createAttributes } from "./Attribute"
-// import { saveFactory } from "./save"
-
 export interface PlayerUser {
+  userId: string,
+  username: string,
 }
 
 export interface PlayerUserProps {
+  userId: string,
+  username: string,
 }
 
 export interface PlayerUserState {
@@ -14,6 +14,8 @@ export interface PlayerUserState {
 export const createUser = (props: PlayerUserProps): PlayerUser => {
   // props
   const {
+    userId,
+    username,
   } = props
 
   // throw if bad props
@@ -28,6 +30,8 @@ export const createUser = (props: PlayerUserProps): PlayerUser => {
 
   // return PlayerUser object
   return {
+    userId,
+    username,
   }
 }
 
