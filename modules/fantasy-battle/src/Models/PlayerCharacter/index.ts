@@ -4,7 +4,7 @@ import { Relation, SchemaFields } from "../helpers"
 // PC interface for document creation
 // this contains the real data typings for the type, but with typescript types and not mongo ones
 // relations don't show up here
-export interface PlayerCharacter {
+export interface Pc {
   name: string
 }
 
@@ -12,27 +12,27 @@ export interface PlayerCharacter {
 // this uses mongo types, not tipical typescript types
 // relations show up here
 // interface SchemaFields extends Record<keyof AboveInterface, any> { [extraKey: string]: any }
-const PlayerCharacterSchemaFields: SchemaFields<PlayerCharacter> = {
+const PcSchemaFields: SchemaFields<Pc> = {
   name: {
     type: String,
     required: true,
   },
 }
-export const PlayerCharacterSchema = new Schema<PlayerCharacter>(PlayerCharacterSchemaFields)
+export const PcSchema = new Schema<Pc>(PcSchemaFields)
 
 
 // base document interface
-interface BasePlayerCharacterDocument extends PlayerCharacter, Document<Types.ObjectId> {}
+interface BasePcDocument extends Pc, Document<Types.ObjectId> {}
 
 // unpopulated document (this is what's returned by queries)
-export interface PlayerCharacterDocument extends BasePlayerCharacterDocument {}
+export interface PcDocument extends BasePcDocument {}
 
-export const isPC = (obj: PlayerCharacterDocument | any): obj is PlayerCharacterDocument => 
+export const isPC = (obj: PcDocument | any): obj is PcDocument => 
   obj && typeof obj.title === 'string' && typeof obj.author === 'string' 
 
 // interface for model, with all static methods defined
-export interface PlayerCharacterModel extends Model<PlayerCharacterDocument> {}
+export interface PcModel extends Model<PcDocument> {}
 
 // model to generate and query scrolls
-export const PlayerCharacterModel = model<PlayerCharacterDocument, PlayerCharacterModel>("PlayerCharacter", PlayerCharacterSchema)
-export default PlayerCharacterModel
+export const PcModel = model<PcDocument, PcModel>("Pc", PcSchema)
+export default PcModel
