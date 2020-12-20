@@ -1,20 +1,11 @@
-import { Command, Module } from "@discord-bot/create-client"
-
-// test command
-export const testCommand: Command = {
-  id: "test_command",
-  test: /^!test\s*(?<Rest>.*)$/,
-  execute: (msg, result) => {
-    const { groups } = result
-    msg.author.send(`fuck you and your ${groups!.Rest}`)
-  }
-}
+import { Module } from "@discord-bot/create-client"
+import createRoles from "./Commands/createRoles"
 
 // test module
 export const TestModule: Module = {
-  id: "test_module",
+  id: "Fantasy Battle",
   commands: [
-    testCommand,
+    createRoles,
   ],
 }
 
