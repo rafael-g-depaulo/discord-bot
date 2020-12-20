@@ -12,6 +12,7 @@
     "modules/*"
   ],
   "scripts": {
+    "start": "cd apps/app-test && yarn start; cd ../..",
     "build:libs": "ultra -r -b --filter \"+libs/*\" build",
     "build:libs:watch": "ultra -r -b --filter \"+libs/*\" build:watch",
     "build:modules": "ultra -r -b --filter \"+modules/*\" build",
