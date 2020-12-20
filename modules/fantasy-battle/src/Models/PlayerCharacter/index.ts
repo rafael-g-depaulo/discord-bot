@@ -5,6 +5,7 @@ import { Relation, SchemaFields } from "../helpers"
 // this contains the real data typings for the type, but with typescript types and not mongo ones
 // relations don't show up here
 export interface PlayerCharacter {
+  name: string
 }
 
 // mongoDb schema to define data type
@@ -12,7 +13,10 @@ export interface PlayerCharacter {
 // relations show up here
 // interface SchemaFields extends Record<keyof AboveInterface, any> { [extraKey: string]: any }
 const PlayerCharacterSchemaFields: SchemaFields<PlayerCharacter> = {
-
+  name: {
+    type: String,
+    required: true,
+  },
 }
 export const PlayerCharacterSchema = new Schema<PlayerCharacter>(PlayerCharacterSchemaFields)
 
