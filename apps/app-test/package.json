@@ -27,6 +27,7 @@
   "dependencies": {
     "@discord-bot/create-client": "^1.0.0",
     "@discord-bot/dice-module": "^1.0.0",
+    "@discord-bot/fantasy-battle": "*",
     "@discord-bot/test-module": "^1.0.0"
   }
 }
