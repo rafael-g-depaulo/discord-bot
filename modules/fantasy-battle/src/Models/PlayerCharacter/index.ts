@@ -26,6 +26,8 @@ interface BasePcDocument extends Pc, Document<Types.ObjectId> {}
 
 // unpopulated document (this is what's returned by queries)
 export interface PcDocument extends BasePcDocument {}
+// populated document
+export interface PcPopulatedDocument extends BasePcDocument {}
 
 export const isPC = (obj: PcDocument | any): obj is PcDocument => 
   obj && typeof obj.title === 'string' && typeof obj.author === 'string' 
