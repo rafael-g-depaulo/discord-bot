@@ -1,8 +1,11 @@
 import { createPlayerUser } from "PlayerUser"
+import { useDbConnection } from "Utils/mongoTest"
 import { PlayerUser, PlayerUserProps } from "./createUser"
 
 describe("PlayerUser", () => {
   
+  useDbConnection("")
+
   describe('dealing with bad props', () => {})
 
   describe("propeties", () => {
@@ -15,6 +18,13 @@ describe("PlayerUser", () => {
 
       expect(user.userId).toBe(userProps.userId)
       expect(user.username).toBe(userProps.username)
+    })
+  })
+
+  describe("methods", () => {
+
+    it('.save()', () => {
+      
     })
   })
 })

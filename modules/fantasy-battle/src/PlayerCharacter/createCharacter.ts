@@ -1,4 +1,4 @@
-import PcModel, { Pc, PcDocument } from "Models/PlayerCharacter"
+import PcModel, { Pc, PcDocument } from "../Models/PlayerCharacter"
 import { Attribute, AttributeNames, Attributes, createAttributes } from "./Attribute"
 import { saveFactory } from "./save"
 

@@ -1,6 +1,11 @@
+import PlayerUserModel, { PlayerUser as PlayerUserDocProps, PlayerUserDocument } from "../Models/PlayerUser"
+
 export interface PlayerUser {
   userId: string,
   username: string,
+
+  // model representation for character
+  model: PlayerUserDocument,
 }
 
 export interface PlayerUserProps {
@@ -9,6 +14,8 @@ export interface PlayerUserProps {
 }
 
 export interface PlayerUserState {
+  // model representation for character
+  model: PlayerUserDocument,
 }
 
 export const createUser = (props: PlayerUserProps): PlayerUser => {
@@ -21,8 +28,14 @@ export const createUser = (props: PlayerUserProps): PlayerUser => {
   // throw if bad props
   // throw if bad props
 
+  const modelProps: PlayerUserDocProps = {
+    userId,
+    characters: [],
+  }
+
   // state
   const state: PlayerUserState = {
+    model: new PlayerUserModel(modelProps)
   }
 
   // methods
@@ -30,8 +43,12 @@ export const createUser = (props: PlayerUserProps): PlayerUser => {
 
   // return PlayerUser object
   return {
-    userId,
-    username,
+    // props
+    get userId() { return userId },
+    get username() { return username },
+    
+    // model
+    get model() { return state.model },
   }
 }
 
