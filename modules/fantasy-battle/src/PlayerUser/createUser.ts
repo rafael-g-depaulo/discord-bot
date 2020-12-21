@@ -1,4 +1,5 @@
 import PlayerUserModel, { PlayerUser as PlayerUserDocProps, PlayerUserDocument } from "../Models/PlayerUser"
+import { saveFactory } from "./save"
 
 export interface PlayerUser {
   userId: string,
@@ -6,6 +7,9 @@ export interface PlayerUser {
 
   // model representation for character
   model: PlayerUserDocument,
+
+  // methods
+  save: () => Promise<PlayerUserDocument>
 }
 
 export interface PlayerUserProps {
@@ -39,7 +43,9 @@ export const createUser = (props: PlayerUserProps): PlayerUser => {
   }
 
   // methods
-  // methods
+
+  // save model
+  const save = saveFactory(state)
 
   // return PlayerUser object
   return {
@@ -49,6 +55,9 @@ export const createUser = (props: PlayerUserProps): PlayerUser => {
     
     // model
     get model() { return state.model },
+
+    // methods
+    save,
   }
 }
 

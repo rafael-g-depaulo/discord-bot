@@ -20,11 +20,4 @@ describe("PlayerUser", () => {
       expect(user.username).toBe(userProps.username)
     })
   })
-
-  describe("methods", () => {
-
-    it('.save()', () => {
-      
-    })
-  })
 })
