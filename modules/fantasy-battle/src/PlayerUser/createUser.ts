@@ -1,15 +1,22 @@
 import PlayerUserModel, { PlayerUser as PlayerUserDocProps, PlayerUserDocument } from "../Models/PlayerUser"
+import { PlayerCharacter } from "../PlayerCharacter"
+import { addCharacterFactory } from "./addCharacter"
+
 import { saveFactory } from "./save"
 
 export interface PlayerUser {
   userId: string,
   username: string,
 
+  // array of PlayerCharacters
+  characters: PlayerCharacter[],
+
   // model representation for character
   model: PlayerUserDocument,
 
   // methods
-  save: () => Promise<PlayerUserDocument>
+  save: () => Promise<PlayerUserDocument>,
+  addCharacter: (char: PlayerCharacter) => Promise<PlayerUserDocument>,
 }
 
 export interface PlayerUserProps {
@@ -20,6 +27,7 @@ export interface PlayerUserProps {
 export interface PlayerUserState {
   // model representation for character
   model: PlayerUserDocument,
+  characters: PlayerCharacter[]
 }
 
 export const createUser = (props: PlayerUserProps): PlayerUser => {
@@ -39,13 +47,16 @@ export const createUser = (props: PlayerUserProps): PlayerUser => {
 
   // state
   const state: PlayerUserState = {
-    model: new PlayerUserModel(modelProps)
+    model: new PlayerUserModel(modelProps),
+    characters: [],
   }
 
   // methods
 
   // save model
   const save = saveFactory(state)
+  // addCharacter
+  const addCharacter = addCharacterFactory(state, save)
 
   // return PlayerUser object
   return {
@@ -56,8 +67,12 @@ export const createUser = (props: PlayerUserProps): PlayerUser => {
     // model
     get model() { return state.model },
 
+    // characters
+    get characters() { return state.characters },
+
     // methods
     save,
+    addCharacter,
   }
 }
 

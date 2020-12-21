@@ -8,7 +8,7 @@ describe("PlayerCharacter.save()", () => {
 
   it('works', async () => {
     const modelProps: PlayerUser = { userId: "123456789", characters: [] }
-    const userState: PlayerUserState = { model: new PlayerUserModel(modelProps) }
+    const userState: PlayerUserState = { model: new PlayerUserModel(modelProps), characters: [] }
     const save = saveFactory(userState)
 
     const saved1 = await save()
