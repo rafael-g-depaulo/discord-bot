@@ -1,26 +1,23 @@
-import PlayerUserModel, { PlayerUserDocument } from "Models/PlayerUser"
+import PlayerUserModel from "../Models/PlayerUser"
+import logger from "../Utils/logger"
 
 import { saveFactory } from "./save"
 import { addCharacterFactory } from "./addCharacter"
 import PlayerUser, { PlayerUserState } from "./PlayerUser"
-import logger from "Utils/logger"
 
 export interface getPlayerUserProps {
   userId: string,
 }
 
-export const getUser = async (props: getPlayerUserProps): Promise<PlayerUser> => {
+export const getUser = async (props: getPlayerUserProps): Promise<PlayerUser | null> => {
   // props
   const {
     userId,
   } = props
   
-  // throw if bad props
+  // if can't fetch user, return null
   const model = await PlayerUserModel.getUser(userId)
-  if (model === null) {
-    logger.error(`PlayerUser: tried to get user with id "${userId}", but no user found`)
-    throw new Error(`PlayerUser: tried to get user with id "${userId}", but no user found`)
-  }
+  if (model === null) return null
 
   // state
   const state: PlayerUserState = {
@@ -53,3 +50,5 @@ export const getUser = async (props: getPlayerUserProps): Promise<PlayerUser> =>
     addCharacter,
   }
 }
+
+export default getUser

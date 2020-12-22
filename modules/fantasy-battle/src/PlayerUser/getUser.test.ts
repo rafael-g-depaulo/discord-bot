@@ -20,10 +20,8 @@ describe("get PlayerUser", () => {
       const userProps: getPlayerUserProps = {
         userId: "891274392533",
       }
-      expect.assertions(1)
-      try { await getUser(userProps) } catch (err) {
-        expect(err).toEqual(Error(`PlayerUser: tried to get user with id "${userProps.userId}", but no user found`))
-      }
+      const getchedUser = await getUser(userProps)
+      expect(getchedUser).toBe(null)
     })
   })
 
@@ -37,8 +35,8 @@ describe("get PlayerUser", () => {
 
       const fetchedUser = await getUser(userProps)
 
-      expect(fetchedUser.userId).toBe(createUserProps.userId)
-      expect(fetchedUser.username).toBe(createUserProps.username)
+      expect(fetchedUser?.userId).toBe(createUserProps.userId)
+      expect(fetchedUser?.username).toBe(createUserProps.username)
     })
 
     describe(".characters", () => {
@@ -50,13 +48,13 @@ describe("get PlayerUser", () => {
         await createdUser.save()
         const fetchedUser = await getUser(userProps)
       
-        expect(fetchedUser.characters.length).toBe(0)
+        expect(fetchedUser?.characters.length).toBe(0)
 
         const char = createCharacter({ name: "Horu" })
-        await fetchedUser.addCharacter(char)
+        await fetchedUser?.addCharacter(char)
         
-        expect(fetchedUser.characters.length).toBe(1)
-        expect(fetchedUser.characters[0].name).toBe("Horu")
+        expect(fetchedUser?.characters.length).toBe(1)
+        expect(fetchedUser?.characters[0].name).toBe("Horu")
       })
     })
   })
@@ -72,10 +70,10 @@ describe("get PlayerUser", () => {
         const fetchedUser = await getUser(userProps)
 
         const char = createCharacter({ name: "Horu" })
-        await fetchedUser.addCharacter(char)
+        await fetchedUser?.addCharacter(char)
         
-        expect(fetchedUser.characters.length).toBe(1)
-        expect(fetchedUser.characters[0].name).toBe("Horu")
+        expect(fetchedUser?.characters.length).toBe(1)
+        expect(fetchedUser?.characters[0].name).toBe("Horu")
       })
 
       it('adds it to the player model and saves', async () => {
@@ -87,9 +85,9 @@ describe("get PlayerUser", () => {
         const fetchedUser = await getUser(userProps)
 
         const char = createCharacter({ name: "Horu" })
-        await fetchedUser.addCharacter(char)
+        await fetchedUser?.addCharacter(char)
         
-        const savedUser = await PlayerUserModel.findById(fetchedUser.model._id)
+        const savedUser = await PlayerUserModel.findById(fetchedUser?.model._id)
         expect(savedUser?.characters.length).toBe(1)
         expect(savedUser?.characters[0].name).toBe("Horu")
       })
