@@ -10,6 +10,7 @@ describe("PlayerUser Model", () => {
 
   const userInfo: PlayerUser = {
     userId: "1234567890",
+    username: "test",
     characters: []
   }
   describe("CRUD", () => {

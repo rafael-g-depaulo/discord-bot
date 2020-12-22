@@ -14,6 +14,7 @@ describe(".addCharacter()", () => {
 
     const modelProps: PlayerUserDocProps = {
       userId: "123456789",
+      username: "test",
       characters: [],
     }
     const userState: PlayerUserState = {

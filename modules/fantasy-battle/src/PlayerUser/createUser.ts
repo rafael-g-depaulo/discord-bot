@@ -16,10 +16,12 @@ export const createUser = (props: createPlayerUserProps): PlayerUser => {
   } = props
 
   // throw if bad props
-  // throw if bad props
+  if (!userId || !username || typeof userId !== "string" || typeof username !== "string")
+  throw new Error(`PlayerUser.createUser(): Invalid props for createUser`)
 
   const modelProps: PlayerUserDocProps = {
     userId,
+    username,
     characters: [],
   }
 

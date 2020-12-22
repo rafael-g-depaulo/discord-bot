@@ -8,6 +8,8 @@ import { Relation, SchemaFields } from "../helpers"
 export interface PlayerUser {
   // user's discord id
   userId: string,
+  // user's discord username
+  username: string,
   // user's characters
   characters: PcDocument[],
 }
@@ -18,6 +20,10 @@ export interface PlayerUser {
 // interface SchemaFields extends Record<keyof AboveInterface, any> { [extraKey: string]: any }
 const PlayerUserSchemaFields: SchemaFields<PlayerUser> = {
   userId: {
+    type: String,
+    required: true,
+  },
+  username: {
     type: String,
     required: true,
   },

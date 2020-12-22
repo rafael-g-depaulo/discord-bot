@@ -8,13 +8,31 @@ describe("PlayerUser", () => {
   
   useDbConnection("createPlayerUser")
 
-  describe('dealing with bad props', () => {})
+  describe('dealing with bad props', () => {
+    it(`throws when props are wrong type`, () => {
+      const incompleteProps = {
+        userId: "sdfsdf",
+      } as createPlayerUserProps
+      const nullProps = {
+        userId: "sdfsdf",
+        username: null,
+      } as unknown as createPlayerUserProps
+      const wrongTypeProps = {
+        userId: 64,
+        username: true,
+      } as unknown as createPlayerUserProps
+
+      expect(() => createUser(incompleteProps)).toThrowError(`PlayerUser.createUser(): Invalid props for createUser`)
+      expect(() => createUser(nullProps)).toThrowError(`PlayerUser.createUser(): Invalid props for createUser`)
+      expect(() => createUser(wrongTypeProps)).toThrowError(`PlayerUser.createUser(): Invalid props for createUser`)
+    })
+  })
 
   describe("propeties", () => {
     it(`passes direct props`, () => {
       const userProps: createPlayerUserProps = {
         userId: "891274392533",
-        username: "",
+        username: "test",
       }
       const user = createUser(userProps)
 
@@ -26,7 +44,7 @@ describe("PlayerUser", () => {
       it('works', async () => {
         const userProps: createPlayerUserProps = {
           userId: "891274392533",
-          username: "",
+          username: "test",
         }
       
         const user = createUser(userProps)
@@ -46,7 +64,7 @@ describe("PlayerUser", () => {
       it('add it to the player instance', async () => {
         const userProps: createPlayerUserProps = {
           userId: "891274392533",
-          username: "",
+          username: "test",
         }
         const user = createUser(userProps)
 
@@ -60,7 +78,7 @@ describe("PlayerUser", () => {
       it('adds it to the player model and saves', async () => {
         const userProps: createPlayerUserProps = {
           userId: "891274392533",
-          username: "",
+          username: "test",
         }
         const user = createUser(userProps)
 

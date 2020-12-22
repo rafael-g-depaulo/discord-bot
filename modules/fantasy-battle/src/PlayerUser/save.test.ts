@@ -7,7 +7,7 @@ describe("PlayerCharacter.save()", () => {
   useDbConnection("PlayerUser_save")
 
   it('works', async () => {
-    const modelProps: PlayerUser = { userId: "123456789", characters: [] }
+    const modelProps: PlayerUser = { userId: "123456789", username: "test", characters: [] }
     const userState: PlayerUserState = {
       model: new PlayerUserModel(modelProps),
       characters: [],
