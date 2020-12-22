@@ -8,13 +8,13 @@ const createFromModel = (model: PcDocument): PlayerCharacter => {
   // player state
   const state: PlayerCharacterState = {
     name: model.name,
-    attributes: createAttributes(),
+    attributes: createAttributes(model.attributes),
     model,
   }
 
   // methods
   const save = saveFactory(state)
-  
+
   return {
     // name prop
     get name() { return state.name },
