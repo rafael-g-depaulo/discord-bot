@@ -1,7 +1,8 @@
 import PcModel, { Pc } from "Models/PlayerCharacter"
 import { useDbConnection } from "Utils/mongoTest"
+
+import { PlayerCharacterState } from "./PlayerCharacter"
 import { Attribute } from "./Attribute"
-import { PlayerCharacterProps, PlayerCharacterState } from "./createCharacter"
 import { saveFactory } from "./save"
 
 describe("PlayerCharacter.save()", () => {

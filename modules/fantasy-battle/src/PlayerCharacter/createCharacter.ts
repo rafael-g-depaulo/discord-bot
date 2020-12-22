@@ -1,32 +1,12 @@
-import PcModel, { Pc, PcDocument } from "../Models/PlayerCharacter"
-import { Attribute, AttributeNames, Attributes, createAttributes } from "./Attribute"
+import PcModel, { Pc } from "../Models/PlayerCharacter"
+import { createAttributes } from "./Attribute"
+import PlayerCharacter, { PlayerCharacterState } from "./PlayerCharacter"
 import { saveFactory } from "./save"
-
-export interface PlayerCharacter {
-  // actually important attributes
-  name: string,
-  attributes: {
-    [key in AttributeNames]: Attribute
-  },
-  
-  // model representation for character
-  model: PcDocument,
-
-  // method to save the character
-  save: () => Promise<PcDocument>,
-}
-
-export interface PlayerCharacterProps {
+export interface createPlayerCharacterProps {
   name: string,
 }
 
-export interface PlayerCharacterState {
-  name: string,
-  model: PcDocument,
-  attributes: Attributes,
-}
-
-export const createCharacter = (props: PlayerCharacterProps): PlayerCharacter => {
+export const createCharacter = (props: createPlayerCharacterProps): PlayerCharacter => {
   const {
     name,
   } = props

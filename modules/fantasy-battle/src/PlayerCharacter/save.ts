@@ -1,4 +1,5 @@
-import { PlayerCharacterProps, PlayerCharacterState } from "./createCharacter"
+import { PlayerCharacterState } from "./PlayerCharacter"
+
 export const saveFactory = (state: PlayerCharacterState) => () => {
   // get info from current state
   const {

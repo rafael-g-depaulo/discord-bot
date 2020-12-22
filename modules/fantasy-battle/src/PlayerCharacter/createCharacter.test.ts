@@ -1,19 +1,19 @@
 import { useDbConnection } from "Utils/mongoTest"
-import { createCharacter, PlayerCharacterProps } from "./createCharacter"
+import { createCharacter, createPlayerCharacterProps } from "./createCharacter"
 
 describe('createCharacter()', () => {
   useDbConnection("createCharacter")
   
   describe('dealing with bad props', () => {
     it('throws if no name given or "" given', () => {
-      expect(() => createCharacter({} as PlayerCharacterProps)).toThrowError(`Fantasy Battle: createCharacter(): name prop missing or empty`)
-      expect(() => createCharacter({ name: "" } as PlayerCharacterProps)).toThrowError(`Fantasy Battle: createCharacter(): name prop missing or empty`)
+      expect(() => createCharacter({} as createPlayerCharacterProps)).toThrowError(`Fantasy Battle: createCharacter(): name prop missing or empty`)
+      expect(() => createCharacter({ name: "" } as createPlayerCharacterProps)).toThrowError(`Fantasy Battle: createCharacter(): name prop missing or empty`)
     })
   })
 
   describe(`properties`, () => {
     it(`passes direct props`, () => {
-      const pcProps: PlayerCharacterProps = {
+      const pcProps: createPlayerCharacterProps = {
         name: "Ssaak",
       }
       const character = createCharacter(pcProps)
