@@ -29,7 +29,6 @@ export const PlayerUserSchema = new Schema<PlayerUser>(PlayerUserSchemaFields)
 
 // base document interface
 interface BasePlayerUserDocument extends PlayerUser, Document<Types.ObjectId> {}
-
 // unpopulated document (this is what's returned by queries)
 export interface PlayerUserDocument extends BasePlayerUserDocument {}
 // populated document
@@ -38,9 +37,19 @@ export interface PlayerUserPopulatedDocument extends BasePlayerUserDocument {}
 export const isPlayerUser = (obj: PlayerUserDocument | any): obj is PlayerUserDocument => 
   obj && typeof obj.userId === 'string' && Array.isArray(obj.characters)
 
-// interface for model, with all static methods defined
-export interface PlayerUserModel extends Model<PlayerUserDocument> {}
 
+// define static methods
+PlayerUserSchema.statics.getUser = async function (
+  this: PlayerUserModel,
+  userId: string,
+) {
+  return await this.findOne({ userId })
+}
+
+// interface for model, with all static methods defined
+export interface PlayerUserModel extends Model<PlayerUserDocument> {
+  getUser: (userId: string) => Promise<PlayerUserDocument | null>
+}
 // model to generate and query scrolls
 export const PlayerUserModel = model<PlayerUserDocument, PlayerUserModel>("PlayerUser", PlayerUserSchema)
 export default PlayerUserModel
