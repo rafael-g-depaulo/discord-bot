@@ -1,1 +1,3 @@
-export { PlayerUser, default as createPlayerUser } from "./createUser"
+export { default as createPlayerUser } from "./createUser"
+
+export { PlayerUser } from "./PlayerUser"

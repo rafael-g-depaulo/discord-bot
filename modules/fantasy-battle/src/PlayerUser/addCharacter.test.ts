@@ -1,10 +1,11 @@
-import PcModel from "Models/PlayerCharacter"
 import PlayerUserModel, { PlayerUser as PlayerUserDocProps } from "Models/PlayerUser"
-import logger from "Utils/logger"
+import PcModel from "Models/PlayerCharacter"
 import { useDbConnection } from "Utils/mongoTest"
-import { createCharacter } from "../PlayerCharacter"
+
+import { createCharacter } from "PlayerCharacter"
+
 import { addCharacterFactory } from "./addCharacter"
-import { PlayerUserProps, PlayerUserState } from "./createUser"
+import { PlayerUserState } from "./PlayerUser"
 
 describe(".addCharacter()", () => {
   useDbConnection("PlayerUser_addCharacter")
@@ -16,10 +17,12 @@ describe(".addCharacter()", () => {
       characters: [],
     }
     const userState: PlayerUserState = {
+      username: "test",
+      userId: "123456789",
       characters: [],
-      model: new PlayerUserModel(modelProps)
+      model: new PlayerUserModel(modelProps),
     }
-    const addCharacter = addCharacterFactory(userState, userState.model.save)
+    const addCharacter = addCharacterFactory(userState, () => userState.model.save())
     
     // add character
     await addCharacter(createCharacter({ name: "Allor" }))

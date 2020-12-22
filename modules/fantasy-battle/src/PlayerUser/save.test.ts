@@ -1,6 +1,6 @@
 import PlayerUserModel, { PlayerUser } from "Models/PlayerUser"
 import { useDbConnection } from "Utils/mongoTest"
-import { PlayerUserState } from "./createUser"
+import { PlayerUserState } from "./PlayerUser"
 import { saveFactory } from "./save"
 
 describe("PlayerCharacter.save()", () => {
@@ -8,7 +8,12 @@ describe("PlayerCharacter.save()", () => {
 
   it('works', async () => {
     const modelProps: PlayerUser = { userId: "123456789", characters: [] }
-    const userState: PlayerUserState = { model: new PlayerUserModel(modelProps), characters: [] }
+    const userState: PlayerUserState = {
+      model: new PlayerUserModel(modelProps),
+      characters: [],
+      userId: "123",
+      username: "test"
+    }
     const save = saveFactory(userState)
 
     const saved1 = await save()

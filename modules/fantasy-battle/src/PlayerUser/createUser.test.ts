@@ -1,8 +1,8 @@
+import { useDbConnection } from "Utils/mongoTest"
 import PlayerUserModel from "Models/PlayerUser"
 import { createCharacter } from "PlayerCharacter"
-import { createPlayerUser } from "../PlayerUser"
-import { useDbConnection } from "../Utils/mongoTest"
-import { PlayerUser, PlayerUserProps } from "./createUser"
+
+import { createPlayerUserProps, createUser } from "./createUser"
 
 describe("PlayerUser", () => {
   
@@ -12,11 +12,11 @@ describe("PlayerUser", () => {
 
   describe("propeties", () => {
     it(`passes direct props`, () => {
-      const userProps: PlayerUserProps = {
+      const userProps: createPlayerUserProps = {
         userId: "891274392533",
         username: "",
       }
-      const user = createPlayerUser(userProps)
+      const user = createUser(userProps)
 
       expect(user.userId).toBe(userProps.userId)
       expect(user.username).toBe(userProps.username)
@@ -24,12 +24,12 @@ describe("PlayerUser", () => {
 
     describe(".characters", () => {
       it('works', async () => {
-        const userProps: PlayerUserProps = {
+        const userProps: createPlayerUserProps = {
           userId: "891274392533",
           username: "",
         }
       
-        const user = createPlayerUser(userProps)
+        const user = createUser(userProps)
         expect(user.characters.length).toBe(0)
         
         const char = createCharacter({ name: "Horu" })
@@ -44,11 +44,11 @@ describe("PlayerUser", () => {
   describe(`methods`, () => {
     describe(`.addCharacter()`, () => {
       it('add it to the player instance', async () => {
-        const userProps: PlayerUserProps = {
+        const userProps: createPlayerUserProps = {
           userId: "891274392533",
           username: "",
         }
-        const user = createPlayerUser(userProps)
+        const user = createUser(userProps)
 
         const char = createCharacter({ name: "Horu" })
         await user.addCharacter(char)
@@ -58,11 +58,11 @@ describe("PlayerUser", () => {
       })
 
       it('adds it to the player model and saves', async () => {
-        const userProps: PlayerUserProps = {
+        const userProps: createPlayerUserProps = {
           userId: "891274392533",
           username: "",
         }
-        const user = createPlayerUser(userProps)
+        const user = createUser(userProps)
 
         const char = createCharacter({ name: "Horu" })
         await user.addCharacter(char)

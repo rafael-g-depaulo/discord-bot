@@ -1,4 +1,4 @@
-import { PlayerUserState } from "./createUser"
+import { PlayerUserState } from "./PlayerUser"
 
 export const saveFactory = (state: PlayerUserState) => () => {
   // get info from current state

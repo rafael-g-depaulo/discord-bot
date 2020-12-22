@@ -1,36 +1,14 @@
-import PlayerUserModel, { PlayerUser as PlayerUserDocProps, PlayerUserDocument } from "../Models/PlayerUser"
-import { PlayerCharacter } from "../PlayerCharacter"
+import PlayerUserModel, { PlayerUser as PlayerUserDocProps } from "../Models/PlayerUser"
 import { addCharacterFactory } from "./addCharacter"
+import { PlayerUser, PlayerUserState } from "./PlayerUser"
 
 import { saveFactory } from "./save"
-
-export interface PlayerUser {
-  userId: string,
-  username: string,
-
-  // array of PlayerCharacters
-  characters: PlayerCharacter[],
-
-  // model representation for character
-  model: PlayerUserDocument,
-
-  // methods
-  save: () => Promise<PlayerUserDocument>,
-  addCharacter: (char: PlayerCharacter) => Promise<PlayerUserDocument>,
-}
-
-export interface PlayerUserProps {
+export interface createPlayerUserProps {
   userId: string,
   username: string,
 }
 
-export interface PlayerUserState {
-  // model representation for character
-  model: PlayerUserDocument,
-  characters: PlayerCharacter[]
-}
-
-export const createUser = (props: PlayerUserProps): PlayerUser => {
+export const createUser = (props: createPlayerUserProps): PlayerUser => {
   // props
   const {
     userId,
@@ -49,6 +27,8 @@ export const createUser = (props: PlayerUserProps): PlayerUser => {
   const state: PlayerUserState = {
     model: new PlayerUserModel(modelProps),
     characters: [],
+    userId,
+    username,
   }
 
   // methods
@@ -61,8 +41,8 @@ export const createUser = (props: PlayerUserProps): PlayerUser => {
   // return PlayerUser object
   return {
     // props
-    get userId() { return userId },
-    get username() { return username },
+    get userId() { return state.userId },
+    get username() { return state.username },
     
     // model
     get model() { return state.model },

@@ -1,6 +1,6 @@
 import { PlayerUserDocument } from "Models/PlayerUser"
 import { PlayerCharacter } from "PlayerCharacter"
-import { PlayerUserState } from "./createUser"
+import { PlayerUserState } from "./PlayerUser"
 
 export const addCharacterFactory = (state: PlayerUserState, save: () => Promise<PlayerUserDocument>) => async (char: PlayerCharacter) => {  
   // get info from current state
@@ -14,7 +14,7 @@ export const addCharacterFactory = (state: PlayerUserState, save: () => Promise<
 
   // add to model and save
   model.characters.push(char.model)
-  // save()
-  return model.save()
+  return save()
+  // return model.save()
 
 }
