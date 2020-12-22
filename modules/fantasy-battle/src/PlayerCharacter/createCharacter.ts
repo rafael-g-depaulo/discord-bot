@@ -17,6 +17,7 @@ export const createCharacter = (props: createPlayerCharacterProps): PlayerCharac
   // create model
   const modelProps: Pc = {
     name,
+    attributes: createAttributes(),
   }
 
   // player state

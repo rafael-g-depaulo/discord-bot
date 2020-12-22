@@ -10,12 +10,19 @@ interface AttbState {
   dmgDice: { dice: Dice, cacheKey: any },
   skillDice: { dice: Dice, cacheKey: any },
 }
-export interface Attribute {
+
+export interface AttributeProperties {
   value: number,
   bonus: number,
+}
+export interface Attribute extends AttributeProperties {
   total: number,
   rollAttribute: () => DiceRollResults,
   rollDmg: () => DiceRollResults,
+}
+
+export type AttribuesProperties = {
+  [key in AttributeNames]: AttributeProperties
 }
 export type Attributes = {
   [key in AttributeNames]: Attribute
@@ -36,14 +43,14 @@ export const AttributeNames: AttributeNames[] = [
   "Prescience" , "Protection" ,
 ]
 
-export const createAttribute = (): Attribute => {
+export const createAttribute = ({ value = 0, bonus = 0 } = {}): Attribute => {
 
   const state: AttbState = {
-    value: 0,
-    bonus: 0,
+    value,
+    bonus,
     get total() { return state.bonus + state.value },
-    dmgDice: { dice: getDamageDice(0), cacheKey: 0 },
-    skillDice: { dice: getSkillDice(0), cacheKey: 0 },
+    dmgDice: { dice: getDamageDice(value + bonus), cacheKey: value + bonus },
+    skillDice: { dice: getSkillDice(value + bonus), cacheKey: value + bonus },
   }
 
   // methods
@@ -85,7 +92,7 @@ export const createAttribute = (): Attribute => {
   })
 }
 
-export const createAttributes = (): Attributes => Object
+export const createAttributes = (attbList?: AttribuesProperties): Attributes => Object
   .fromEntries(AttributeNames
-    .map(attName => [attName, createAttribute()])
+    .map(attName => [attName, createAttribute(attbList && attbList[attName])])
   ) as Attributes
