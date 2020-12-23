@@ -55,8 +55,6 @@ const createClient: CreateClient = (props) => {
   }
 }
 
-// export message type
-export { Message } from "discord.js"
 // export command Type so lib users may use it
 export { Command } from "./CommandClient"
 // export module type to lib users may use it
