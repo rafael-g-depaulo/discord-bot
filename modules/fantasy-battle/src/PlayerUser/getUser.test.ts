@@ -40,19 +40,31 @@ describe("get PlayerUser", () => {
     })
 
     describe(".characters", () => {
-      it('works', async () => {
+      it('works when you add a character after fetching', async () => {
         const userProps: getPlayerUserProps = {
           userId: createUserProps.userId,
         }
         const createdUser = createUser(createUserProps)
         await createdUser.save()
-        const fetchedUser = await getUser(userProps)
-      
-        expect(fetchedUser?.characters.length).toBe(0)
-
-        const char = createCharacter({ name: "Horu" })
-        await fetchedUser?.addCharacter(char)
         
+        const fetchedUser = await getUser(userProps)
+        await fetchedUser?.addCharacter(createCharacter({ name: "Horu" }))
+
+        expect(fetchedUser?.characters.length).toBe(1)
+        expect(fetchedUser?.characters[0].name).toBe("Horu")
+        expect(fetchedUser?.characters.length).toBe(1)
+        expect(fetchedUser?.characters[0].name).toBe("Horu")
+      })
+
+      it(`shows previously saved characters when fetching`, async () => {
+        const createdUser = createUser(createUserProps)
+        await createdUser?.addCharacter(createCharacter({ name: "Horu" }))
+
+        const userProps: getPlayerUserProps = {
+          userId: createUserProps.userId,
+        }
+        const fetchedUser = await getUser(userProps)
+
         expect(fetchedUser?.characters.length).toBe(1)
         expect(fetchedUser?.characters[0].name).toBe("Horu")
       })

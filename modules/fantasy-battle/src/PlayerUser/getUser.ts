@@ -1,5 +1,5 @@
 import PlayerUserModel from "../Models/PlayerUser"
-import logger from "../Utils/logger"
+import createFromModel from "../PlayerCharacter/createFromModel"
 
 import { saveFactory } from "./save"
 import { addCharacterFactory } from "./addCharacter"
@@ -24,7 +24,7 @@ export const getUser = async (props: getPlayerUserProps): Promise<PlayerUser | n
     model,
     userId: model.userId,
     username: model.username,
-    characters: [],
+    characters: model.characters.map(charModel => createFromModel(charModel)),
   }
   
   // methods
