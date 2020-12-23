@@ -1,4 +1,4 @@
-import PcModel, { Pc, PcDocument } from "Models/PlayerCharacter"
+import PcModel, { PcDocument } from "../Models/PlayerCharacter"
 import { PlayerUserState } from "./PlayerUser"
 
 export const saveFactory = (state: PlayerUserState) => () => {

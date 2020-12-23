@@ -1,4 +1,4 @@
-import { createPlayerUser, createPlayerUserProps, getPlayerUser, getPlayerUserProps, PlayerUser } from "PlayerUser"
+import { createPlayerUser, createPlayerUserProps, getPlayerUser, getPlayerUserProps, PlayerUser } from "../PlayerUser"
 
 type Props = createPlayerUserProps & getPlayerUserProps
 export const getOrCreatePlayerUser = async ({ userId, username }: Props): Promise<PlayerUser> => {
