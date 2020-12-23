@@ -19,11 +19,13 @@
     "url": "https://github.com/rafael-g-depaulo/discord-bot/issues"
   },
   "dependencies": {
-    "@discord-bot/logging": "*",
     "@discord-bot/dice": "*",
+    "@discord-bot/logging": "*",
     "@types/mongodb": "^3.6.3",
     "@types/mongoose": "^5.10.3",
     "mongodb": "^3.6.3",
-    "mongoose": "^5.11.8"
+    "mongoose": "^5.11.8",
+    "string-argv": "^0.3.1",
+    "yargs": "^16.2.0"
   }
 }
