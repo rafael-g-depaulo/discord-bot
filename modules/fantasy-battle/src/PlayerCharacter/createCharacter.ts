@@ -48,3 +48,5 @@ export const createCharacter = (props: createPlayerCharacterProps): PlayerCharac
     save,
   }
 }
+
+export default createCharacter

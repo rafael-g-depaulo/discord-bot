@@ -3,7 +3,7 @@ import { createAttributes } from "./Attribute"
 import PlayerCharacter, { PlayerCharacterState } from "./PlayerCharacter"
 import { saveFactory } from "./save"
 
-const createFromModel = (model: PcDocument): PlayerCharacter => {
+export const createFromModel = (model: PcDocument): PlayerCharacter => {
   
   // player state
   const state: PlayerCharacterState = {
