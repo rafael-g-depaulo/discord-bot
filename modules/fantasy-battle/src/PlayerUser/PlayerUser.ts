@@ -1,5 +1,5 @@
 import { PlayerUserDocument } from "../Models/PlayerUser"
-import { PlayerCharacter } from "../PlayerCharacter"
+import PlayerCharacter from "../PlayerCharacter/PlayerCharacter"
 
 export interface PlayerUser {
   userId: string,

@@ -1,5 +1,6 @@
 import { createLogger } from "@discord-bot/logging"
 
 export default createLogger({
-  logLevel: "none",
+  // logLevel: "none",
+  logLevel: "warning",
 })

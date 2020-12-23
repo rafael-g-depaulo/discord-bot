@@ -15,6 +15,4 @@ export const addCharacterFactory = (state: PlayerUserState, save: () => Promise<
   // add to model and save
   model.characters.push(char.model)
   return save()
-  // return model.save()
-
 }
