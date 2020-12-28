@@ -26,7 +26,10 @@ export interface PcPopulatedDocument extends BasePcDocument {}
 
 
 // interface for model, with all static methods defined
-export interface PcModel extends Model<PcDocument> {}
+import { create } from "./statics/create"
+export interface PcModel extends Model<PcDocument> {
+  createCharacter: create,
+}
 
 
 // type defition for instance method

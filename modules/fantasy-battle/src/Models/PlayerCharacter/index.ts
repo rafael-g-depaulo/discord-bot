@@ -17,8 +17,8 @@ import { PcSchema } from "./schema"
 export { PcSchema }
 
 // import and define static methods
-// import staticMethodName from "./statics/staticMethodName"
-// PcSchema.statics.staticMethodName = staticMethodName
+import create from "./statics/create"
+PcSchema.statics.createCharacter = create
 
 // import and define virtuals
 // import virtualName from "./virtuals/virtualName"
