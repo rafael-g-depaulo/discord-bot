@@ -1,77 +1,34 @@
-import { Schema, model, Model, Document, Types } from "mongoose"
-import { AttributeNames } from "../../PlayerCharacter/Attribute"
-import { SchemaFields } from "../helpers"
+import { model } from "mongoose"
 
-// PC interface for document creation
-// this contains the real data typings for the type, but with typescript types and not mongo ones
-// relations don't show up here
-export interface Pc {
-  name: string,
-  attributes: {
-    [key in AttributeNames]: {
-      value: number,
-      bonus: number,
-    }
-  },
-}
+// import and export types
+import {
+  Pc,
+  PcDocument,
+  PcPopulatedDocument,
+  PcModel as _PcModel,
+} from "./types"
+export { Pc, PcDocument, PcPopulatedDocument }
 
-// mongoDb schema to define data type
-// this uses mongo types, not tipical typescript types
-// relations show up here
-// interface SchemaFields extends Record<keyof AboveInterface, any> { [extraKey: string]: any }
-const Attribute = {
-  value: {
-    type: Number,
-    default: 0,
-  },
-  bonus: {
-    type: Number,
-    default: 0,
-  },
-}
-const PcSchemaFields: SchemaFields<Pc> = {
-  name: {
-    type: String,
-    required: true,
-  },
-  attributes: {
-    Agility    : Attribute,
-    Fortitude  : Attribute,
-    Might      : Attribute,
-    Learning   : Attribute,
-    Logic      : Attribute,
-    Perception : Attribute,
-    Will       : Attribute,
-    Deception  : Attribute,
-    Persuasion : Attribute,
-    Presence   : Attribute,
-    Alteration : Attribute,
-    Creation   : Attribute,
-    Energy     : Attribute,
-    Entropy    : Attribute,
-    Influence  : Attribute,
-    Movement   : Attribute,
-    Prescience : Attribute,
-    Protection : Attribute,
-  }
-}
-export const PcSchema = new Schema<Pc>(PcSchemaFields)
+// import and export helpers
+export { isPC } from "./helpers"
 
+// import and export schema
+import { PcSchema } from "./schema"
+export { PcSchema }
 
-// base document interface
-interface BasePcDocument extends Pc, Document<Types.ObjectId> {}
+// import and define static methods
+// import staticMethodName from "./statics/staticMethodName"
+// PcSchema.statics.staticMethodName = staticMethodName
 
-// unpopulated document (this is what's returned by queries)
-export interface PcDocument extends BasePcDocument {}
-// populated document
-export interface PcPopulatedDocument extends BasePcDocument {}
-
-export const isPC = (obj: PcDocument | any): obj is PcDocument => 
-  obj && typeof obj.title === 'string' && typeof obj.author === 'string' 
-
-// interface for model, with all static methods defined
-export interface PcModel extends Model<PcDocument> {}
+// import and define virtuals
+// import virtualName from "./virtuals/virtualName"
+// PcSchema.virtual("virtualName").get(virtualName.get)
+  
+// import and define instance methods
+// import instanceMethodName from "./methods/instanceMethodName"
+// PcSchema.methods.instanceMethodName = instanceMethodName
 
 // model to generate and query scrolls
+export type PcModel = _PcModel
 export const PcModel = model<PcDocument, PcModel>("Pc", PcSchema)
 export default PcModel

@@ -16,11 +16,11 @@ export { isScroll } from "./helpers"
 import { ScrollSchema } from "./schema"
 export { ScrollSchema }
 
-// define static methods
+// import and define static methods
 import getByAuthor from "./statics/getByAuthor"
 ScrollSchema.statics.getByAuthor = getByAuthor
 
-// define virtuals
+// import and define virtuals
 import fullname from "./virtuals/fullname"
 ScrollSchema.virtual("fullname").get(fullname.get)
   
