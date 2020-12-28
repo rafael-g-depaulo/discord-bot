@@ -1,61 +1,34 @@
-import { PcDocument, PcSchema } from "../PlayerCharacter"
-import { Schema, model, Model, Document, Types } from "mongoose"
-import { Relation, SchemaFields } from "../helpers"
+import { model } from "mongoose"
 
-// PlayerUser interface for document creation
-// this contains the real data typings for the type, but with typescript types and not mongo ones
-// relations don't show up here
-export interface PlayerUser {
-  // user's discord id
-  userId: string,
-  // user's discord username
-  username: string,
-  // user's characters
-  characters: PcDocument[],
-}
+// import and export types
+import {
+  PlayerUser,
+  PlayerUserDocument,
+  PlayerUserPopulatedDocument,
+  PlayerUserModel as _PlayerUserModel,
+} from "./types"
+export { PlayerUser, PlayerUserDocument, PlayerUserPopulatedDocument }
 
-// mongoDb schema to define data type
-// this uses mongo types, not tipical typescript types
-// relations show up here
-// interface SchemaFields extends Record<keyof AboveInterface, any> { [extraKey: string]: any }
-const PlayerUserSchemaFields: SchemaFields<PlayerUser> = {
-  userId: {
-    type: String,
-    required: true,
-  },
-  username: {
-    type: String,
-    required: true,
-  },
-  characters: [{
-    type: PcSchema,
-  }]
-}
-export const PlayerUserSchema = new Schema<PlayerUser>(PlayerUserSchemaFields)
+// import and export helpers
+export { isPlayerUser } from "./helpers"
 
-// base document interface
-interface BasePlayerUserDocument extends PlayerUser, Document<Types.ObjectId> {}
-// unpopulated document (this is what's returned by queries)
-export interface PlayerUserDocument extends BasePlayerUserDocument {}
-// populated document
-export interface PlayerUserPopulatedDocument extends BasePlayerUserDocument {}
-
-export const isPlayerUser = (obj: PlayerUserDocument | any): obj is PlayerUserDocument => 
-  obj && typeof obj.userId === 'string' && Array.isArray(obj.characters)
-
+// import and export schema
+import { PlayerUserSchema } from "./schema"
+export { PlayerUserSchema }
 
 // define static methods
-PlayerUserSchema.statics.getUser = async function (
-  this: PlayerUserModel,
-  userId: string,
-) {
-  return await this.findOne({ userId })
-}
+import getUser from "./statics/getUser"
+PlayerUserSchema.statics.getUser = getUser
 
-// interface for model, with all static methods defined
-export interface PlayerUserModel extends Model<PlayerUserDocument> {
-  getUser: (userId: string) => Promise<PlayerUserDocument | null>
-}
+// import and define virtuals
+// import virtualName from "./virtuals/virtualName"
+// PcSchema.virtual("virtualName").get(virtualName.get)
+  
+// import and define instance methods
+// import instanceMethodName from "./methods/instanceMethodName"
+// PcSchema.methods.instanceMethodName = instanceMethodName
+
 // model to generate and query scrolls
+export type PlayerUserModel = _PlayerUserModel
 export const PlayerUserModel = model<PlayerUserDocument, PlayerUserModel>("PlayerUser", PlayerUserSchema)
 export default PlayerUserModel

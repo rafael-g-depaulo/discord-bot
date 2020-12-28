@@ -3,7 +3,6 @@ import { Document, Model, Types } from "mongoose"
 
 import { AttributeNames } from "../../PlayerCharacter/Attribute"
 
-
 // PC interface for document creation
 // this contains the real data typings for the type, but with typescript types and not mongo ones
 // relations don't show up here
@@ -24,6 +23,8 @@ export interface BasePcDocument extends Pc, Document<Types.ObjectId> {}
 export interface PcDocument extends BasePcDocument {}
 // populated document
 export interface PcPopulatedDocument extends BasePcDocument {}
+
+
 // interface for model, with all static methods defined
 export interface PcModel extends Model<PcDocument> {}
 
