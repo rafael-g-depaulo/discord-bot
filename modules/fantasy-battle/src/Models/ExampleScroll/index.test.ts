@@ -1,4 +1,4 @@
-import ScrollModel, { Scroll } from "."
+import ScrollModel, { Scroll } from "./index"
 
 import { useDbConnection } from "Utils/mongoTest"
 
@@ -8,19 +8,19 @@ describe("ExampleScroll", () => {
 
   const fireboltInfo: Scroll = {
     author: "Ragan",
-    title: "Firebolt"
+    title: "Firebolt",
   }
   const fireBallInfo: Scroll = {
     author: "Ragan",
-    title: "Fire Ball"
+    title: "Fire Ball",
   }
   const meteorInfo: Scroll = {
     author: "Ragan",
-    title: "Meteor"
+    title: "Meteor",
   }
   const iceboltInfo: Scroll = {
     author: "Bonnibel",
-    title: "Icebolt"
+    title: "Icebolt",
   }
 
   describe("CRUD", () => {
@@ -80,7 +80,7 @@ describe("ExampleScroll", () => {
   })
 
   describe("statics", () => {
-    describe(".getByAuthor", () => {
+    describe(".getByAuthor()", () => {
       it("works", async () => {
         // create and save scrolls
         const scrolls = [
@@ -104,7 +104,7 @@ describe("ExampleScroll", () => {
   })
 
   describe("methods", () => {
-    describe("getNext", () => {
+    describe(".getNext()", () => {
       it("works", async () => {
         const scrolls = [
           new ScrollModel(fireboltInfo),
