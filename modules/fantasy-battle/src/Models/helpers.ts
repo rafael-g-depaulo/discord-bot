@@ -9,6 +9,12 @@ export type SchemaFields<T> = Record<keyof T, any>
 // if populated document, it's an actual T instance
 export type Relation<T extends Document> = T["_id"] | T
 
+// type defition for instance method
 export interface Method<T extends Document, M extends (...args: any) => any> {
   (this: T, ...args: Parameters<M>): ReturnType<M>
+}
+
+// type defition for a function defining an instance virtual property
+export interface VirtualGetter<Entity extends Document, T> {
+  (this: Entity): T
 }

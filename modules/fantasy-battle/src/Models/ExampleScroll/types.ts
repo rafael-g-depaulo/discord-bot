@@ -1,4 +1,4 @@
-import { Relation } from "../helpers"
+import { Method, Relation, VirtualGetter } from "../helpers"
 import { Document, Model, Types } from "mongoose"
 
 // import method types
@@ -41,3 +41,8 @@ export interface ScrollPopulatedDocument extends BaseScrollDocument {
 export interface ScrollModel extends Model<ScrollDocument> {
   getByAuthor(author: string): Promise<ScrollDocument[]>
 }
+
+// type defition for instance method
+export interface ScrollMethod<M extends (...args: any) => any> extends Method<BaseScrollDocument, M> {}
+// type defition for a function defining an instance virtual property
+export interface ScrollVirtualGetter<T> extends VirtualGetter<BaseScrollDocument, T> {}

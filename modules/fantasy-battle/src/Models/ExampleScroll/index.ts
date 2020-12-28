@@ -27,9 +27,8 @@ ScrollSchema.statics.getByAuthor = function(
 }
 
 // define virtuals
-ScrollSchema.virtual("fullname").get(function(this: BaseScrollDocument) {
-  return `${this.author}'s ${this.title}`
-})
+import fullname from "./virtuals/fullname"
+ScrollSchema.virtual("fullname").get(fullname.get)
   
 // import and define instance methods
 import getNext from "./methods/getNext"

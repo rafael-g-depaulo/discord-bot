@@ -1,13 +1,12 @@
 import ScrollModel, { ScrollDocument } from ".."
-import { BaseScrollDocument } from "../types"
+import { ScrollMethod } from "../types"
 import { isScroll } from "../helpers"
-import { Method } from "Models/helpers"
 
 export interface getNext {
   (): Promise<ScrollDocument | null>,
 }
 
-const getNext: Method<BaseScrollDocument, getNext> = async function(this) {
+const getNext: ScrollMethod<getNext> = async function(this) {
   // if no nextLevel
   if (!this.nextLevel) return Promise.resolve(null)
  
