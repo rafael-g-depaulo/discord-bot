@@ -6,7 +6,7 @@ export interface getNext {
   (): Promise<ScrollDocument | null>,
 }
 
-const getNext: ScrollInstanceMethod<getNext> = async function(this) {
+export const getNextMethod: ScrollInstanceMethod<getNext> = async function(this) {
   // if no nextLevel
   if (!this.nextLevel) return Promise.resolve(null)
  
@@ -19,4 +19,4 @@ const getNext: ScrollInstanceMethod<getNext> = async function(this) {
   return await ScrollModel.findOne({ _id: this.nextLevel })
 }
 
-export default getNext
+export default getNextMethod
