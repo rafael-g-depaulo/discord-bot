@@ -1,6 +1,7 @@
 import PcModel, { Pc } from "Models/PlayerCharacter"
 import { PlayerCharacter } from "PlayerCharacter"
 import logger from "Utils/logger"
+import mockAttributes from "Utils/mockAttributes"
 import { useDbConnection } from "Utils/mongoTest"
 import PlayerUserModel, { PlayerUser } from "./index"
 
@@ -63,7 +64,8 @@ describe("PlayerUser Model", () => {
       
       // create character
       const charProps: Pc = {
-        name: "test char"
+        name: "test char",
+        attributes: mockAttributes(),
       }
       const character = new PcModel(charProps)
 

@@ -9,6 +9,9 @@ module.exports = {
 
   testEnvironment: 'node',
 
+  // timeout for tests in milliseconds
+  timeout: 10_000,
+
   moduleDirectories: ["node_modules", path.join(__dirname, "src")],
 
   testPathIgnorePatterns: [
