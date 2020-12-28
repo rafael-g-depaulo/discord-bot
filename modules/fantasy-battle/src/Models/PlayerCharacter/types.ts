@@ -1,11 +1,32 @@
 import { InstanceMethod, StaticMethod, VirtualGetter } from "../helpers"
 import { Document, Model, Types } from "mongoose"
 
-import { AttributeNames } from "../../PlayerCharacter/Attribute"
-
 // PC interface for document creation
 // this contains the real data typings for the type, but with typescript types and not mongo ones
 // relations don't show up here
+export interface Attribute {
+  value: number,
+  bonus: number,
+}
+export type Attributes = {
+  [key in AttributeNames]: Attribute
+}
+
+export type AttributeNames =
+  "Agility"    | "Fortitude"  | "Might"      | "Learning"  |
+  "Logic"      | "Perception" | "Will"       | "Deception" |
+  "Persuasion" | "Presence"   | "Alteration" | "Creation"  |
+  "Energy"     | "Entropy"    | "Influence"  | "Movement"  |
+  "Prescience" | "Protection"
+
+export const AttributeNames: AttributeNames[] = [
+  "Agility"    , "Fortitude"  , "Might"      , "Learning"  ,
+  "Logic"      , "Perception" , "Will"       , "Deception" ,
+  "Persuasion" , "Presence"   , "Alteration" , "Creation"  ,
+  "Energy"     , "Entropy"    , "Influence"  , "Movement"  ,
+  "Prescience" , "Protection" ,
+]
+
 export interface Pc {
   name: string,
   attributes: {
