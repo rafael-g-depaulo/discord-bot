@@ -1,6 +1,9 @@
 import { Relation } from "../helpers"
 import { Document, Model, Types } from "mongoose"
 
+// import method types
+import { getNext } from "./methods/getNext"
+
 // scroll interface for document creation
 // this contains the real data typings for the type, but with typescript types and not mongo ones
 // relations don't show up here
@@ -19,7 +22,7 @@ export interface BaseScrollDocument extends Scroll, Document<Types.ObjectId> {
   fullname: string,
 
   // instance methods are defined here too
-  getNext(): ScrollDocument | undefined
+  getNext: getNext,
 }
 
 // unpopulated scroll document (this is what's returned by queries)

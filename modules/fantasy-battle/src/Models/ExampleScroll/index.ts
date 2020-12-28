@@ -30,20 +30,10 @@ ScrollSchema.statics.getByAuthor = function(
 ScrollSchema.virtual("fullname").get(function(this: BaseScrollDocument) {
   return `${this.author}'s ${this.title}`
 })
-
-// define instance methods
-ScrollSchema.methods.getNext = async function(this: BaseScrollDocument): Promise<ScrollDocument | null> {
-  // if no nextLevel
-  if (!this.nextLevel) return Promise.resolve(null)
   
-  // if populated document
-  if (isScroll(this.nextLevel)) {
-    return Promise.resolve(this.nextLevel)
-  }
-
-  // if unpopulated document
-  return await ScrollModel.findOne({ _id: this.nextLevel })
-}
+// import and define instance methods
+import getNext from "./methods/getNext"
+ScrollSchema.methods.getNext = getNext
 
 // model to generate and query scrolls
 export type ScrollModel = _ScrollModel

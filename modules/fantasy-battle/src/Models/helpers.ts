@@ -8,3 +8,7 @@ export type SchemaFields<T> = Record<keyof T, any>
 // if unpopulated document, then it's of T["_id"] type
 // if populated document, it's an actual T instance
 export type Relation<T extends Document> = T["_id"] | T
+
+export interface Method<T extends Document, M extends (...args: any) => any> {
+  (this: T, ...args: Parameters<M>): ReturnType<M>
+}
