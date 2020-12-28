@@ -1,4 +1,4 @@
-import ScrollModel, { Scroll } from "./ExampleScroll"
+import ScrollModel, { Scroll } from "."
 
 import { useDbConnection } from "Utils/mongoTest"
 

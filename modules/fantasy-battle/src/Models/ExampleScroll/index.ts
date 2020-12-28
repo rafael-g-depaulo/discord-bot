@@ -1,5 +1,5 @@
 import { Schema, model, Model, Document, Types } from "mongoose"
-import { Relation, SchemaFields } from "./helpers"
+import { Relation, SchemaFields } from "../helpers"
 
 // scroll interface for document creation
 // this contains the real data typings for the type, but with typescript types and not mongo ones
