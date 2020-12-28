@@ -1,4 +1,4 @@
-import { Method, Relation, VirtualGetter } from "../helpers"
+import { InstanceMethod, Relation, StaticMethod, VirtualGetter } from "../helpers"
 import { Document, Model, Types } from "mongoose"
 
 // import method types
@@ -43,6 +43,8 @@ export interface ScrollModel extends Model<ScrollDocument> {
 }
 
 // type defition for instance method
-export interface ScrollMethod<M extends (...args: any) => any> extends Method<BaseScrollDocument, M> {}
+export interface ScrollInstanceMethod<M extends (...args: any) => any> extends InstanceMethod<BaseScrollDocument, M> {}
+// type defition for instance method
+export interface ScrollStaticMethod<M extends (...args: any) => any> extends StaticMethod<ScrollDocument, ScrollModel, M> {}
 // type defition for a function defining an instance virtual property
 export interface ScrollVirtualGetter<T> extends VirtualGetter<BaseScrollDocument, T> {}

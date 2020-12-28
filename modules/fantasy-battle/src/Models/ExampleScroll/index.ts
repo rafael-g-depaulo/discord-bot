@@ -3,7 +3,6 @@ import { model } from "mongoose"
 // import and export types
 import {
   Scroll,
-  BaseScrollDocument, // dont't export BaseScrollDocument
   ScrollDocument,
   ScrollPopulatedDocument,
   ScrollModel as _ScrollModel,
@@ -11,20 +10,15 @@ import {
 export { Scroll, ScrollDocument, ScrollPopulatedDocument }
 
 // import and export helpers
-import { isScroll } from "./helpers"
-export { isScroll }
+export { isScroll } from "./helpers"
 
 // import and export schema
 import { ScrollSchema } from "./schema"
 export { ScrollSchema }
 
 // define static methods
-ScrollSchema.statics.getByAuthor = function(
-  this: ScrollModel,
-  author: string,
-) {
-  return this.find({ author })
-}
+import getByAuthor from "./statics/getByAuthor"
+ScrollSchema.statics.getByAuthor = getByAuthor
 
 // define virtuals
 import fullname from "./virtuals/fullname"
