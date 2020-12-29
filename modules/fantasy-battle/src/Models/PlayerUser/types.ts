@@ -16,7 +16,10 @@ export interface PlayerUser {
 }
 
 // base document interface
-interface BasePlayerUserDocument extends PlayerUser, Document<Types.ObjectId> {}
+import { addCharacter } from "./methods/addCharacter"
+interface BasePlayerUserDocument extends PlayerUser, Document<Types.ObjectId> {
+  addCharacter: addCharacter,
+}
 // unpopulated document (this is what's returned by queries)
 export interface PlayerUserDocument extends BasePlayerUserDocument {}
 // populated document

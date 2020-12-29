@@ -24,11 +24,11 @@ PlayerUserSchema.statics.createUser = create
 
 // import and define virtuals
 // import virtualName from "./virtuals/virtualName"
-// PcSchema.virtual("virtualName").get(virtualName.get)
+// PlayerUserSchema.virtual("virtualName").get(virtualName.get)
   
 // import and define instance methods
-// import instanceMethodName from "./methods/instanceMethodName"
-// PcSchema.methods.instanceMethodName = instanceMethodName
+import addCharacter from "./methods/addCharacter"
+PlayerUserSchema.methods.addCharacter = addCharacter
 
 // model to generate and query scrolls
 export type PlayerUserModel = _PlayerUserModel

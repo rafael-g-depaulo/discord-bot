@@ -39,7 +39,12 @@ export interface Pc {
 
 
 // base document interface
-export interface BasePcDocument extends Pc, Document<Types.ObjectId> {}
+import { rollAttribute } from "./methods/rollAttribute"
+import { rollDmg } from "./methods/rollDmg"
+export interface BasePcDocument extends Pc, Document<Types.ObjectId> {
+  rollAttribute: rollAttribute,
+  rollDmg: rollDmg,
+}
 // unpopulated document (this is what's returned by queries)
 export interface PcDocument extends BasePcDocument {}
 // populated document
