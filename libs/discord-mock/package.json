@@ -1,0 +1,21 @@
+{
+  "name": "@discord-bot/discord-mock",
+  "version": "1.0.0",
+  "description": "Mocks for discord classes and types",
+  "author": "Rafael G. de Paulo <rafael.g.depaulo@gmail.com>",
+  "homepage": "https://github.com/rafael-g-depaulo/discord-bot#readme",
+  "license": "ISC",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc --project ./tsconfig.prod.json",
+    "build:watch": "yarn build --watch",
+    "clean": "rm -fr dist; rm -f .ultra.cache.json; rm -f tsconfig.tsbuildinfo",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "watch": "jest --watch"
+  },
+  "bugs": {
+    "url": "https://github.com/rafael-g-depaulo/discord-bot/issues"
+  }
+}
