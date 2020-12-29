@@ -1,12 +1,11 @@
 import { Message } from "@discord-bot/create-client"
-import { MockMessage } from "jest-discordjs-mocks"
 import { test } from "./createCharacter"
 
 describe("Command: createCharacter", () => {
-  let message: Message = new MockMessage()
-  afterEach(() => {
-    message = new MockMessage()
-  })
+  // let message: Message = new MockMessage()
+  // afterEach(() => {
+  //   message = new MockMessage()
+  // })
 
   describe(".test", () => {
     it("works", () => {
@@ -16,7 +15,7 @@ describe("Command: createCharacter", () => {
 
   describe(".execute", () => {
     it("works", () => {
-      message.content = "!"
+      // message.content = "!"
 
 
     })

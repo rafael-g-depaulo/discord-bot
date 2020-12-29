@@ -1,12 +1,12 @@
-import { MockMessage } from "jest-discordjs-mocks"
 
+// import { mockMessage } from "Utils/mockDiscord"
 import { test, execute } from "./createRoles"
 
 describe("Command: createRoles", () => {
-  let message = new MockMessage()
-  afterEach(() => {
-    message = new MockMessage()
-  })
+  // let message = mockMessage({ content: "aaaaa" })
+  // afterEach(() => {
+  //   message = mockMessage({ content: "aaaaa" })
+  // })
 
   describe(".test", () => {
     it("works", () => {
@@ -21,12 +21,13 @@ describe("Command: createRoles", () => {
 
   describe(".execute", () => {
     it("works", () => {
-      message.content = "!create-roles"
-
-      // execute command
+      // const message = mockMessage({ content: "!create-roles" })
+      // const channelSend = jest.spyOn(message.channel, "send")
+      // // execute command
       // execute(message, test.exec(message.content)!)
-
-      // expect(message.channel.send).toBeCalledWith("fsdfsfd")
+      
+      // expect(channelSend.mock.calls.length).toBe(1)
+      // expect(channelSend.mock.calls[0][0]).toBe("sorry, but only DM's or server admins can use the \"!create-roles\" command")
     })
   })
 })
