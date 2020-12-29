@@ -1,6 +1,6 @@
 import { Command, RegexCommand } from "@discord-bot/create-client"
 
-export const test: RegexCommand.test = /!create-roles/i
+export const test: RegexCommand.test = /!(?:create-roles|create\s*roles)/i
 
 export const execute: RegexCommand.execute = async (msg) => {
 
