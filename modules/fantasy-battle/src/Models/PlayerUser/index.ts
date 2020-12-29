@@ -21,6 +21,8 @@ import getUser from "./statics/getUser"
 PlayerUserSchema.statics.getUser = getUser
 import create from "./statics/create"
 PlayerUserSchema.statics.createUser = create
+import getOrCreate from "./statics/getOrCreate"
+PlayerUserSchema.statics.getOrCreate = getOrCreate
 
 // import and define virtuals
 // import virtualName from "./virtuals/virtualName"

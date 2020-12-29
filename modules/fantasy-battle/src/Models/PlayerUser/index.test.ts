@@ -118,6 +118,29 @@ describe("PlayerUser Model", () => {
         expect(fetchedUser).toBe(null)
       })
     })
+    
+
+    describe(".getOrCreate()", () => {
+      it("retrieves an existing user", async () => {
+        const createdUser = PlayerUserModel.createUser(userInfo)
+        await createdUser.save()
+
+        const fetchedUser = await PlayerUserModel.getOrCreate(userInfo)
+        
+        expect(fetchedUser.userId).toBe(userInfo.userId)
+        expect(fetchedUser.username).toBe(userInfo.username)
+        expect(await PlayerUserModel.countDocuments()).toBe(1)
+      })
+
+      it('creates a new user', async () => {
+        expect(await PlayerUserModel.countDocuments()).toBe(0)
+        const fetchedUser = await PlayerUserModel.getOrCreate(userInfo)
+
+        expect(fetchedUser.userId).toBe(userInfo.userId)
+        expect(fetchedUser.username).toBe(userInfo.username)
+        expect(await PlayerUserModel.countDocuments()).toBe(1)
+      })
+    })
   })
 
   describe("methods", () => {

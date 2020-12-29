@@ -1,4 +1,3 @@
-import mockAttributes from "Utils/mockAttributes"
 import PlayerUserModel, { PlayerUser, PlayerUserDocument } from ".."
 import { PlayerUserStaticMethod } from "../types"
 
