@@ -34,30 +34,37 @@ export const mockMemberRoles = (props: DiscordPartial<Discord.GuildMemberRoleMan
   return [memberRoles, setRoles]
 }
 
-export const mockRoleManager = (props: DiscordPartial<Discord.RoleManager> = {}) => {
-  // mock cache
-  const cache = new Discord.Collection()
+export const mockRoleManager = (props: DiscordPartial<Discord.RoleManager> = {}): [Discord.RoleManager, (roles: string[]) => void] => {
   
-  return {
-    cache,
-    fetch: () => Promise.resolve({
-      create: jest.fn(),
-      cache,
-    }),
-
+  const roleManager = {
+    fetch: () => Promise.resolve(roleManager),
+    create: jest.fn(),
     // user-given mocks
     ...props,
   } as Discord.RoleManager
+
+  // const roles: Discord.RoleManager = {
+
+  // } as Discord.RoleManager
+  
+  const setRoles = (roleNames: string[]) => roleManager.cache = new Discord.Collection<string, Discord.Role>(roleNames.map((roleName, i) => [`${i}`, { name: roleName } as Discord.Role]))
+
+  setRoles([])
+
+  return [roleManager, setRoles]
 }
 
-export const mockGuild = (props: DiscordPartial<Discord.Guild> = {}) => ({
-  
-  // mock roles
-  roles: mockRoleManager(),
-  
-  // user-given mocks
-  ...props,
-}) as Discord.Guild
+export const mockGuild = (props: DiscordPartial<Discord.Guild> = {}) => {
+  const guild = {
+    // mock roles
+    roles: mockRoleManager()[0],
+    
+    // user-given mocks
+    ...props,
+  } as Discord.Guild
+
+  return guild
+}
 
 type setPermissions = (permissions: Discord.PermissionString[]) => void
 
