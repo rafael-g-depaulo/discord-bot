@@ -1,2 +1,7 @@
-
-export const add = (a: number, b: number) => a + b
+export { mockAuthor } from "./Author"
+export { mockChannel } from "./Channel"
+export { mockMemberRoles } from "./MemberRoles"
+export { mockRoleManager } from "./RoleManager"
+export { mockGuild } from "./Guild"
+export { mockMember } from "./Member"
+export { mockMessage } from "./Message"
