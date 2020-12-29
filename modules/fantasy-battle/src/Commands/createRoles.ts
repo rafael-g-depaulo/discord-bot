@@ -1,8 +1,9 @@
-import { Command, RegexCommand } from "@discord-bot/create-client"
+import { Command, Discord, RegexCommand } from "@discord-bot/create-client"
 
 export const test: RegexCommand.test = /!(?:create-roles|create\s*roles)/i
 
 export const execute: RegexCommand.execute = async (msg) => {
+// export const execute = async (msg: Discord.Message) => {
 
   // if user who used command isn't admin or DM, ignore
   const userRoles = msg.member?.roles.cache
@@ -44,7 +45,7 @@ export const execute: RegexCommand.execute = async (msg) => {
       },
       reason: "role for DM's of OL: Fantasy Battle RPG (role created by Dice-roller Bot, made by Ragan)",
     })
-    msg.channel.send(`this server didn't have "DM" role, so i created it`)
+    msg.channel.send(`this server didn't have the "DM" role, so i created it`)
   }
   return
 }
