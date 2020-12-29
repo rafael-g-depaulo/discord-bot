@@ -27,6 +27,8 @@ PcSchema.statics.createCharacter = create
 // import and define instance methods
 import rollAttribute from "./methods/rollAttribute"
 PcSchema.methods.rollAttribute = rollAttribute
+import rollDmg from "./methods/rollDmg"
+PcSchema.methods.rollDmg = rollDmg
 
 // model to generate and query scrolls
 export type PcModel = _PcModel

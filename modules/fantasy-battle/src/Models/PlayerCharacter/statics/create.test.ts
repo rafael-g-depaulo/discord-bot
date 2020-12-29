@@ -37,24 +37,23 @@ describe('PlayerCharacter.createCharacter()', () => {
       })
     })
 
-    // TODO: make this work
-    // it(`has functioning attributes`, () => {
-    //   const char = create.call(PcModel, { name: "Horu" })
+    it(`has functioning attributes`, () => {
+      const char = create.call(PcModel, { name: "Horu" })
 
-    //   const agility0SkillRoll = char.attributes.Agility.rollAttribute()
-    //   const agility0DmgRoll = char.attributes.Agility.rollDmg()
+      const agility0SkillRoll = char.rollAttribute("Agility")
+      const agility0DmgRoll = char.rollDmg("Agility")
 
-    //   char.attributes.Agility.bonus = 4
-    //   char.attributes.Agility.value = 1
+      char.attributes.Agility.bonus = 4
+      char.attributes.Agility.value = 1
 
-    //   const agility3SkillRoll = char.attributes.Agility.rollAttribute()
-    //   const agility3DmgRoll = char.attributes.Agility.rollDmg()
+      const agility3SkillRoll = char.rollAttribute("Agility")
+      const agility3DmgRoll = char.rollDmg("Agility")
 
-    //   expect(agility0SkillRoll.diceArgs).toEqual(expect.objectContaining({ dieMax: 20, dieAmmount: 1, bonus: 0 }))
-    //   expect(agility0DmgRoll.diceArgs).toEqual(expect.objectContaining({ dieMax: 2, dieAmmount: 1, bonus: 0 }))
+      expect(agility0SkillRoll.diceArgs).toEqual(expect.objectContaining({ dieMax: 20, dieAmmount: 1, bonus: 0 }))
+      expect(agility0DmgRoll.diceArgs).toEqual(expect.objectContaining({ dieMax: 2, dieAmmount: 1, bonus: 0 }))
       
-    //   expect(agility3SkillRoll.diceArgs).toEqual(expect.objectContaining({ dieMax: 20, dieAmmount: 1, bonus: 10 }))
-    //   expect(agility3DmgRoll.diceArgs).toEqual(expect.objectContaining({ dieMax: 6, dieAmmount: 2, bonus: 0 }))
-    // })
+      expect(agility3SkillRoll.diceArgs).toEqual(expect.objectContaining({ dieMax: 20, dieAmmount: 1, bonus: 10 }))
+      expect(agility3DmgRoll.diceArgs).toEqual(expect.objectContaining({ dieMax: 6, dieAmmount: 2, bonus: 0 }))
+    })
   })
 })
