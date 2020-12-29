@@ -5,9 +5,9 @@ import yargs from "yargs"
 
 import logger from "../Utils/logger"
 import { isDm, isPlayer } from "../Utils/userPermissions"
-import { getOrCreatePlayerUser } from "../Utils/getOrCreateUser"
 
-import { createCharacter as createPc } from "../PlayerCharacter"
+import PlayerUserModel from "../Models/PlayerUser"
+import PcModel from "../Models/PlayerCharacter"
 
 const createCharacter: Command = {
   id: "Fantasy Battle: createCharacter",
@@ -20,7 +20,7 @@ const createCharacter: Command = {
     }
 
     // create of fetch the player user instance
-    const user = await getOrCreatePlayerUser({ userId: msg.author.id, username: msg.author.username })
+    const user = await PlayerUserModel.getOrCreate({ userId: msg.author.id, username: msg.author.username })
 
     // parse arguments
     const argsArr = parseArgsStringToArgv(regexResult?.groups?.args ?? "")
@@ -44,7 +44,7 @@ const createCharacter: Command = {
     }
 
     // create character
-    const newPc = createPc({ name: args.name })
+    const newPc = PcModel.createCharacter({ name: args.name })
     await user.addCharacter(newPc)
 
     logger.info(`FB: (Command) createCharacter: user "${msg.author.username}" created character ${newPc.name}`)
