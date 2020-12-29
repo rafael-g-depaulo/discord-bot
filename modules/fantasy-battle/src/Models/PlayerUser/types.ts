@@ -2,7 +2,6 @@ import { InstanceMethod, StaticMethod, VirtualGetter } from "../helpers"
 import { Document, Model, Types } from "mongoose"
 
 import { PcDocument } from "../PlayerCharacter"
-import { getUser } from "./statics/getUser"
 
 // PlayerUser interface for document creation
 // this contains the real data typings for the type, but with typescript types and not mongo ones
@@ -25,8 +24,11 @@ export interface PlayerUserPopulatedDocument extends BasePlayerUserDocument {}
 
 
 // interface for model, with all static methods defined
+import { getUser } from "./statics/getUser"
+import { create } from "./statics/create"
 export interface PlayerUserModel extends Model<PlayerUserDocument> {
   getUser: getUser,
+  createUser: create,
 }
 
 

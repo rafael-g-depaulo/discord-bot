@@ -19,6 +19,8 @@ export { PlayerUserSchema }
 // define static methods
 import getUser from "./statics/getUser"
 PlayerUserSchema.statics.getUser = getUser
+import create from "./statics/create"
+PlayerUserSchema.statics.createUser = create
 
 // import and define virtuals
 // import virtualName from "./virtuals/virtualName"
