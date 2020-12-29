@@ -56,7 +56,7 @@ const createClient: CreateClient = (props) => {
 }
 
 // export command Type so lib users may use it
-export { Command } from "./CommandClient"
+export { Command, RegexCommand, DefaultCommand } from "./CommandClient"
 // export module type to lib users may use it
 export { Module } from "./ModuleClient"
 

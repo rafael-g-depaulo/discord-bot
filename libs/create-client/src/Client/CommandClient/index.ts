@@ -3,20 +3,29 @@ import { Composable } from "Composer"
 import CreateAddCommand from "./addCommand"
 import CreateRemoveCommand from "./removeCommand"
 
+export namespace DefaultCommand {
+  export type test = (message: Discord.Message) => boolean
+  export type execute = (message: Discord.Message) => void
+}
 export interface DefaultCommand {
   id: string,
-  test: (message: Discord.Message) => boolean,
-  execute: (message: Discord.Message) => void,
+  test: DefaultCommand.test,
+  execute: DefaultCommand.execute,
 }
 
 export const isDefaultCommand = <(cmd: Command) => cmd is DefaultCommand>((cmd) => {
   return cmd.test instanceof Function
 })
 
+
+export namespace RegexCommand {
+  export type test = RegExp
+  export type execute = (message: Discord.Message, results: RegExpExecArray) => void
+}
 export interface RegexCommand {
   id: string,
-  test: RegExp,
-  execute: (message: Discord.Message, results: RegExpExecArray) => void,
+  test: RegexCommand.test,
+  execute: RegexCommand.execute,
 }
 
 export const isRegexCommand = <(cmd: Command) => cmd is RegexCommand>((cmd) => {
