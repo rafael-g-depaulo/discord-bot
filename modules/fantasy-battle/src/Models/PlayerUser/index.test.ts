@@ -1,9 +1,8 @@
-import PcModel, { Pc } from "Models/PlayerCharacter"
-import { PlayerCharacter } from "PlayerCharacter"
-import logger from "Utils/logger"
 import mockAttributes from "Utils/mockAttributes"
 import { useDbConnection } from "Utils/mongoTest"
+import PcModel, { Pc } from "Models/PlayerCharacter"
 import PlayerUserModel, { PlayerUser } from "./index"
+import { createPlayerUserProps } from "./statics/create"
 
 describe("PlayerUser Model", () => {
 
@@ -85,6 +84,24 @@ describe("PlayerUser Model", () => {
   })
 
   describe("statics", () => {
+    describe('.createUser()', () => {
+      it('throws if bad props', () => {
+        expect(() => PlayerUserModel.createUser({} as createPlayerUserProps)).toThrowError(`Fantasy Battle: createCharacter(): username prop missing or empty`)
+        expect(() => PlayerUserModel.createUser({ username: true } as unknown as createPlayerUserProps)).toThrowError(`Fantasy Battle: createCharacter(): username prop missing or empty`)
+        expect(() => PlayerUserModel.createUser({ username: "" } as createPlayerUserProps)).toThrowError(`Fantasy Battle: createCharacter(): username prop missing or empty`)
+        expect(() => PlayerUserModel.createUser({ username: "asd", userId: {} } as unknown as createPlayerUserProps)).toThrowError(`Fantasy Battle: createCharacter(): userId prop missing or empty`)
+        expect(() => PlayerUserModel.createUser({ username: "asd", userId: "" } as createPlayerUserProps)).toThrowError(`Fantasy Battle: createCharacter(): userId prop missing or empty`)
+      })
+
+      it('allows creating a new user', async () => {
+        const user = PlayerUserModel.createUser({ userId: "420", username: "testUsername" })        
+        // check that the character was added to user
+        expect(user.username).toBe("testUsername")
+        expect(user.userId).toBe("420")
+        expect(user.characters.length).toBe(0)
+      })
+    })
+
     describe(".getUser()", () => {
       it("works when given a correct userId", async () => {
         const user = new PlayerUserModel(userInfo)
@@ -100,6 +117,16 @@ describe("PlayerUser Model", () => {
         const fetchedUser = await PlayerUserModel.getUser(userInfo.userId)
         expect(fetchedUser).toBe(null)
       })
+    })
+  })
+
+  describe("methods", () => {
+    describe(".addCharacter()", () => {
+      const user = PlayerUserModel.createUser({ username: "userTest", userId: "420" })
+      expect(user.characters.length).toBe(0)
+      user.addCharacter(PcModel.createCharacter({ name: "Allor" }))
+      expect(user.characters.length).toBe(1)
+      expect(user.characters[0]).toMatchObject({ name: "Allor" })
     })
   })
 })
