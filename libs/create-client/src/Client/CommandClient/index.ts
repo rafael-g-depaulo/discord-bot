@@ -3,7 +3,7 @@ import { Composable } from "Composer"
 import CreateAddCommand from "./addCommand"
 import CreateRemoveCommand from "./removeCommand"
 
-export namespace DefaultCommand {
+export declare namespace DefaultCommand {
   export type test = (message: Discord.Message) => boolean
   export type execute = (message: Discord.Message) => void
 }
@@ -18,7 +18,7 @@ export const isDefaultCommand = <(cmd: Command) => cmd is DefaultCommand>((cmd) 
 })
 
 
-export namespace RegexCommand {
+export declare namespace RegexCommand {
   export type test = RegExp
   export type execute = (message: Discord.Message, results: RegExpExecArray) => void
 }
