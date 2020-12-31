@@ -8,7 +8,7 @@ import logger from "../Utils/logger"
 
 import PlayerUserModel from "../Models/PlayerUser"
 import PcModel from "../Models/PlayerCharacter"
-import rejectIfNotPlayerOrDm from "Utils/rejectIfNotPlayerOrDm"
+import rejectIfNotPlayerOrDm from "../Utils/rejectIfNotPlayerOrDm"
 
 export const test: RegexCommand.test = /!(?:create-char|create\s*char)\s*(?<args>.*)?$/i
 

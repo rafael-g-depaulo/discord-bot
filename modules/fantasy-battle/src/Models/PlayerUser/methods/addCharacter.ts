@@ -1,4 +1,4 @@
-import { PcDocument } from "Models/PlayerCharacter"
+import { PcDocument } from "../../../Models/PlayerCharacter"
 import { PlayerUserInstanceMethod } from "../types"
 
 export interface addCharacter {

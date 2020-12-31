@@ -1,4 +1,4 @@
-import mockAttributes from "Utils/mockAttributes"
+import mockAttributes from "../../../Utils/mockAttributes"
 import PcModel, { Pc, PcDocument } from ".."
 import { PcStaticMethod } from "../types"
 
