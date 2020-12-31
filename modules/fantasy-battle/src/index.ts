@@ -1,7 +1,9 @@
 import { Module } from "@discord-bot/create-client"
+import connect from "./Db"
+
 import createRoles from "./Commands/createRoles"
 import createCharacter from "./Commands/createCharacter"
-import connect from "./Db"
+import listChars from "./Commands/listChars"
 
 export const dbConnect = connect
 
@@ -11,6 +13,7 @@ export const TestModule: Module = {
   commands: [
     createRoles,
     createCharacter,
+    listChars,
   ],
 }
 
