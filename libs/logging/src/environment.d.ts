@@ -6,7 +6,9 @@ declare global {
       PWD: string;
   
       // log level
-      LOG_LEVEL?: "debug" | "info" | "warn" | "error" | "none",
+      LOG_LEVEL?: "debug" | "info" | "warn" | "error" | "none" | "",
+      // whether or not tests should be logged
+      LOG_TESTS?: "true" | "false" | "",
     }
   }
 }
