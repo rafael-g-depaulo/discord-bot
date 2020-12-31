@@ -1,37 +1,47 @@
 import { Discord } from "@discord-bot/create-client"
 
-import mockAuthor from "./Author"
-import mockChannel from "./Channel"
-import mockGuild from "./Guild"
-import mockMember from "./Member"
+import mockAuthor, { authorMockConfig } from "./Author"
+import mockChannel, { channelMockConfig } from "./Channel"
+import mockGuild, { guildMockConfig } from "./Guild"
+import mockMember, { memberMockConfig } from "./Member"
 
 import { DiscordPartial } from "./types"
 
-interface messageMockConfig {
+export interface messageMockConfig {
+  author: authorMockConfig,
+  channel: channelMockConfig,
+  guild: guildMockConfig,
+  member: memberMockConfig,
 }
 export type mockMessage = (props?: DiscordPartial<Discord.Message>) => [Discord.Message, messageMockConfig]
-export const mockMessage: mockMessage = (props = {}) => { 
+export const mockMessage: mockMessage = (props = {}) => {
+
+  const [ author, authorMockConfig ] = mockAuthor()
+  const [ member, memberMockConfig ] = mockMember()
+  const [ channel, channelMockConfig ] = mockChannel()
+  const [ guild, guildMockConfig ] = mockGuild()
+
   const message = {
     // mock content
     content: "",
-  
-    // mock author
-    author: mockAuthor()[0],
-  
-    // mock member
-    member: mockMember()[0],
-  
-    // mock guild
-    guild: mockGuild()[0],
-  
-    // mock channel
-    channel: mockChannel()[0],
+
+    // mock other important stuff
+    author,
+    member,
+    guild,
+    channel,
     
     // user-given mocks
     ...props,
   } as Discord.Message
 
-  return [message, {}]
+  const messageMockConfig: messageMockConfig = {
+    author: authorMockConfig,
+    channel: channelMockConfig,
+    guild: guildMockConfig,
+    member: memberMockConfig,
+  }
+  return [message, messageMockConfig]
 }
 
 export default mockMessage

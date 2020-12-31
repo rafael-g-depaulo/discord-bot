@@ -1,7 +1,7 @@
 import { Discord } from "@discord-bot/create-client"
 import { DiscordPartial } from "./types"
 
-interface memberRolesMockConfig {
+export interface memberRolesMockConfig {
   setRoles: (roles: string[]) => void
 }
 export type mockMemberRoles = (props?: DiscordPartial<Discord.GuildMemberRoleManager>) => [Discord.GuildMemberRoleManager, memberRolesMockConfig]

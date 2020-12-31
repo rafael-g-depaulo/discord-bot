@@ -1,7 +1,7 @@
 import { Discord } from "@discord-bot/create-client"
 import { DiscordPartial } from "./types"
 
-interface authorMockConfig {
+export interface authorMockConfig {
 }
 export type mockAuthor = (props?: DiscordPartial<Discord.User>) => [Discord.User, authorMockConfig]
 export const mockAuthor: mockAuthor = (props = {}) => { 

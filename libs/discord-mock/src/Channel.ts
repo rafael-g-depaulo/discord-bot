@@ -1,7 +1,7 @@
 import { Discord } from "@discord-bot/create-client"
 import { DiscordPartial } from "./types"
 
-interface channelMockConfig {
+export interface channelMockConfig {
 }
 export type mockChannel = (props?: DiscordPartial<Discord.TextChannel>) => [Discord.TextChannel, channelMockConfig]
 export const mockChannel: mockChannel = (props = {}) => { 
