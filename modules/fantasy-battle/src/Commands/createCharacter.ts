@@ -5,19 +5,16 @@ import { parseArgsStringToArgv } from "string-argv"
 import yargs from "yargs"
 
 import logger from "../Utils/logger"
-import { isDm, isPlayer } from "../Utils/userPermissions"
 
 import PlayerUserModel from "../Models/PlayerUser"
 import PcModel from "../Models/PlayerCharacter"
+import rejectIfNotPlayerOrDm from "Utils/rejectIfNotPlayerOrDm"
 
 export const test: RegexCommand.test = /!(?:create-char|create\s*char)\s*(?<args>.*)?$/i
 
 export const execute: RegexCommand.execute = async (msg, regexResult) => {
   // if user isn't admin or Player or DM, ignore
-  if (!isPlayer(msg.member) && !isDm(msg.member)) {
-    logger.info(`FB: (Command) createCharacter: user "${msg.author.username}" tried to !create-char but isn't a Player or DM`)
-    return msg.channel.send(`sorry, but only people with the "Player" or "Dm" role can use this command`)
-  }
+  if (rejectIfNotPlayerOrDm(msg)) return
 
   // create of fetch the player user instance
   const user = await PlayerUserModel.getOrCreate({ userId: msg.author.id, username: msg.author.username })
