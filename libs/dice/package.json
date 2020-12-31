@@ -1,6 +1,6 @@
 {
   "name": "@discord-bot/dice",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Lib to roll dice",
   "author": "Rafael G. de Paulo <rafael.g.depaulo@gmail.com>",
   "homepage": "https://github.com/rafael-g-depaulo/discord-bot#readme",

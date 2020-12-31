@@ -1,6 +1,6 @@
 {
   "name": "@discord-bot/fantasy-battle",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "DESCRIPTION HERE",
   "author": "Rafael G. de Paulo <rafael.g.depaulo@gmail.com>",
   "homepage": "https://github.com/rafael-g-depaulo/discord-bot#readme",
@@ -19,9 +19,9 @@
     "url": "https://github.com/rafael-g-depaulo/discord-bot/issues"
   },
   "dependencies": {
-    "@discord-bot/create-client": "*",
-    "@discord-bot/dice": "*",
-    "@discord-bot/logging": "*",
+    "@discord-bot/create-client": "^2.0.0",
+    "@discord-bot/dice": "^2.0.0",
+    "@discord-bot/logging": "^2.0.0",
     "@types/mongodb": "^3.6.3",
     "@types/mongoose": "^5.10.3",
     "mongodb": "^3.6.3",
@@ -30,6 +30,6 @@
     "yargs": "^16.2.0"
   },
   "devDependencies": {
-    "@discord-bot/discord-mock": "*"
+    "@discord-bot/discord-mock": "^2.0.0"
   }
 }

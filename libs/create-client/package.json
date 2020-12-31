@@ -1,6 +1,6 @@
 {
   "name": "@discord-bot/create-client",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Implement connection with discord server and bot account",
   "author": "Rafael G. de Paulo <rafael.g.depaulo@gmail.com>",
   "homepage": "https://github.com/rafael-g-depaulo/discord-bot#readme",
@@ -19,7 +19,7 @@
     "url": "https://github.com/rafael-g-depaulo/discord-bot/issues"
   },
   "dependencies": {
-    "@discord-bot/logging": "^1.0.0",
+    "@discord-bot/logging": "^2.0.0",
     "@sindresorhus/is": "^4.0.0",
     "discord.js": "^12.5.1"
   }
