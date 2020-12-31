@@ -17,7 +17,7 @@ export const execute: RegexCommand.execute = async (msg, regexResult) => {
   if (rejectIfNotPlayerOrDm(msg)) return
 
   // create of fetch the player user instance
-  const user = await PlayerUserModel.getOrCreate({ userId: msg.author.id, username: msg.author.username })
+  const user = await PlayerUserModel.fromAuthor(msg.author)
 
   // parse arguments
   const argsArr = parseArgsStringToArgv(regexResult?.groups?.args ?? "")
