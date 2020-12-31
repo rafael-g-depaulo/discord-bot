@@ -10,7 +10,7 @@ import { isDm, isPlayer } from "../Utils/userPermissions"
 import PlayerUserModel from "../Models/PlayerUser"
 import PcModel from "../Models/PlayerCharacter"
 
-export const test: RegexCommand.test = /!create-char\s*(?<args>.*)?$/i
+export const test: RegexCommand.test = /!(?:create-char|create\s*char)\s*(?<args>.*)?$/i
 
 export const execute: RegexCommand.execute = async (msg, regexResult) => {
   // if user isn't admin or Player or DM, ignore
@@ -40,7 +40,7 @@ export const execute: RegexCommand.execute = async (msg, regexResult) => {
   // if repeated name, return
   if (user.characters.some(char => char.name === name)) {
     logger.info(`FB: (Command) createCharacter: user "${msg.author.username}" tried to !create-char, but already had a character named "${name}"`)
-    return msg.channel.send(`You already have a character named ${name}! You can't repeat names, be more creative`)
+    return msg.channel.send(`You already have a character named "${name}"! You can't repeat names, be more creative`)
   }
 
   // create character
