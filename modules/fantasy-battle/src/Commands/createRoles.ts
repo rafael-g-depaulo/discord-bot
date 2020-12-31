@@ -3,7 +3,6 @@ import { Command, RegexCommand } from "@discord-bot/create-client"
 export const test: RegexCommand.test = /!(?:create-roles|create\s*roles)/i
 
 export const execute: RegexCommand.execute = async (msg) => {
-// export const execute = async (msg: Discord.Message) => {
 
   // if user who used command isn't admin or DM, ignore
   const userRoles = msg.member?.roles.cache
