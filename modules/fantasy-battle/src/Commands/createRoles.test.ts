@@ -1,74 +1,14 @@
+import {
+  mockMemberRoles,
+  mockRoleManager,
+  mockGuild,
+  mockMember,
+  mockMessage,
+} from "@discord-bot/discord-mock"
 
-// import { mockMessage } from "Utils/mockDiscord"
-// import MockDiscord from "Utils/mockDiscord"
-// import { Discord } from "@discord-bot/create-client"
-
-// import { mock, instance, verify, when } from "ts-mockito"
-
-import { Discord } from "@discord-bot/create-client"
-import { mockMemberRoles, mockMember, mockMessage, mockGuild, mockRoleManager } from "Utils/mockMessage"
 import { test, execute } from "./createRoles"
 
 describe("Command: createRoles", () => {
-  // let mockedClientClass: Discord.Client
-  // let mockedClientInstance: Discord.Client
-  
-  // let mockedGuildClass: Discord.Guild
-  // let mockedGuildInstance: Discord.Guild
-  
-  // let mockedChannelClass: Discord.Channel
-  // let mockedChannelInstance: Discord.Channel
-  
-  // let mockedGuildChannelClass: Discord.GuildChannel
-  // let mockedGuildChannelInstance: Discord.GuildChannel
-  
-  // let mockedTextChannelClass: Discord.TextChannel
-  // let mockedTextChannelInstance: Discord.TextChannel
-  
-  // let mockedUserClass: Discord.User
-  // let mockedUserInstance: Discord.User
-  
-  // let mockedGuildMemberClass: Discord.GuildMember
-  // let mockedGuildMemberInstance: Discord.GuildMember
-  
-  // let mockedMessageClass: Discord.Message
-  // let mockedMessageInstance: Discord.Message
-  beforeEach(() => {
-    
-    // Discord.Client
-    // Discord.Guild
-    // Discord.Channel
-    // Discord.GuildChannel
-    // Discord.TextChannel
-    // Discord.User
-    // Discord.GuildMember
-    // Discord.Message
-
-    // mockedClientClass = mock(Discord.Client)
-    // mockedClientInstance = instance(mockedClientClass)
-    
-    // mockedGuildClass = mock(Discord.Guild)
-    // mockedGuildInstance = instance(mockedGuildClass)
-    
-    // mockedChannelClass = mock(Discord.Channel)
-    // mockedChannelInstance = instance(mockedChannelClass)
-    
-    // mockedGuildChannelClass = mock(Discord.GuildChannel)
-    // mockedGuildChannelInstance = instance(mockedGuildChannelClass)
-    
-    // mockedTextChannelClass = mock(Discord.TextChannel)
-    // mockedTextChannelInstance = instance(mockedTextChannelClass)
-    
-    // mockedUserClass = mock(Discord.User)
-    // mockedUserInstance = instance(mockedUserClass)
-    
-    // mockedGuildMemberClass = mock(Discord.GuildMember)
-    // mockedGuildMemberInstance = instance(mockedGuildMemberClass)
-    
-    // mockedMessageClass = mock(Discord.Message)
-    // mockedMessageInstance = instance(mockedMessageClass)
-    // // mockedMessageInstance.channel = mockedTextChannelInstance
-  })
 
   describe(".test", () => {
     it("works", () => {
@@ -84,15 +24,15 @@ describe("Command: createRoles", () => {
   describe(".execute", () => {
     it("doesn't allow non-admin non-DMs to create roles", async () => {
       // mock user roles (non-DM)
-      const [roles, setRoles] = mockMemberRoles()
+      const [roles, { setRoles }] = mockMemberRoles()
       setRoles(["Player"])
 
       // mock member permissions (not ADMIN)
-      const [member, setPermissions] = mockMember({ roles })
+      const [member, { setPermissions }] = mockMember({ roles })
       setPermissions([])
 
       // mock message
-      const message = mockMessage({ member })
+      const [message] = mockMessage({ member })
       message.content = "!create-roles"
       
       // execute command
@@ -104,24 +44,24 @@ describe("Command: createRoles", () => {
 
     it("allows admin non-DMs to create roles", async () => {
       // mock user roles (non-DM)
-      const [roles, setRoles] = mockMemberRoles()
+      const [roles, { setRoles }] = mockMemberRoles()
       setRoles(["Player"])
 
       // mock member permissions (ADMIN)
-      const [member, setPermissions] = mockMember({ roles })
+      const [member, { setPermissions }] = mockMember({ roles })
       setPermissions(["ADMINISTRATOR"])
 
       // mock role manager
-      const [guildRoles, setGuildRoles] = mockRoleManager()
+      const [guildRoles, { setRoles: setGuildRoles }] = mockRoleManager()
       setGuildRoles([])
       
       // mock guild
-      const guild = mockGuild({
+      const [guild] = mockGuild({
         roles: guildRoles,
       })
       
       // mock message
-      const message = mockMessage({ member, guild })
+      const [message] = mockMessage({ member, guild })
       message.content = "!create-roles"
 
       // spy on message.channel.send and roles.create
@@ -158,24 +98,24 @@ describe("Command: createRoles", () => {
 
     it("allows non-admin DMs to create roles", async () => {
       // mock user roles (non-DM)
-      const [roles, setRoles] = mockMemberRoles()
+      const [roles, { setRoles }] = mockMemberRoles()
       setRoles(["DM"])
 
       // mock member permissions (ADMIN)
-      const [member, setPermissions] = mockMember({ roles })
+      const [member, { setPermissions }] = mockMember({ roles })
       setPermissions([])
 
       // mock role manager
-      const [guildRoles, setGuildRoles] = mockRoleManager()
+      const [guildRoles, { setRoles: setGuildRoles }] = mockRoleManager()
       setGuildRoles([])
       
       // mock guild
-      const guild = mockGuild({
+      const [guild] = mockGuild({
         roles: guildRoles,
       })
       
       // mock message
-      const message = mockMessage({ member, guild })
+      const [message] = mockMessage({ member, guild })
       message.content = "!create-roles"
 
       // spy on message.channel.send and roles.create
@@ -212,24 +152,24 @@ describe("Command: createRoles", () => {
 
     it(`creates only "DM" role if "Player" role already present`, async () => {
       // mock user roles (non-DM)
-      const [roles, setRoles] = mockMemberRoles()
+      const [roles, { setRoles }] = mockMemberRoles()
       setRoles(["Player"])
 
       // mock member permissions (ADMIN)
-      const [member, setPermissions] = mockMember({ roles })
+      const [member, { setPermissions }] = mockMember({ roles })
       setPermissions(["ADMINISTRATOR"])
 
       // mock role manager
-      const [guildRoles, setGuildRoles] = mockRoleManager()
+      const [guildRoles, { setRoles: setGuildRoles }] = mockRoleManager()
       setGuildRoles(["Player"])
       
       // mock guild
-      const guild = mockGuild({
+      const [guild] = mockGuild({
         roles: guildRoles,
       })
       
       // mock message
-      const message = mockMessage({ member, guild })
+      const [message] = mockMessage({ member, guild })
       message.content = "!create-roles"
 
       // spy on message.channel.send and roles.create
@@ -257,24 +197,24 @@ describe("Command: createRoles", () => {
 
     it(`creates only "Player" role if "DM" role already present`, async () => {
       // mock user roles (non-DM)
-      const [roles, setRoles] = mockMemberRoles()
+      const [roles, { setRoles }] = mockMemberRoles()
       setRoles(["Player"])
 
       // mock member permissions (ADMIN)
-      const [member, setPermissions] = mockMember({ roles })
+      const [member, { setPermissions }] = mockMember({ roles })
       setPermissions(["ADMINISTRATOR"])
 
       // mock role manager
-      const [guildRoles, setGuildRoles] = mockRoleManager()
+      const [guildRoles, { setRoles: setGuildRoles }] = mockRoleManager()
       setGuildRoles(["DM"])
       
       // mock guild
-      const guild = mockGuild({
+      const [guild] = mockGuild({
         roles: guildRoles,
       })
       
       // mock message
-      const message = mockMessage({ member, guild })
+      const [message] = mockMessage({ member, guild })
       message.content = "!create-roles"
 
       // spy on message.channel.send and roles.create

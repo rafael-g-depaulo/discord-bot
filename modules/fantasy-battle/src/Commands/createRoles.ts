@@ -1,4 +1,4 @@
-import { Command, Discord, RegexCommand } from "@discord-bot/create-client"
+import { Command, RegexCommand } from "@discord-bot/create-client"
 
 export const test: RegexCommand.test = /!(?:create-roles|create\s*roles)/i
 

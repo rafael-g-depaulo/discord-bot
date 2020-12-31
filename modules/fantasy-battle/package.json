@@ -28,5 +28,8 @@
     "mongoose": "^5.11.8",
     "string-argv": "^0.3.1",
     "yargs": "^16.2.0"
+  },
+  "devDependencies": {
+    "@discord-bot/discord-mock": "*"
   }
 }
