@@ -1,10 +1,4 @@
-import {
-  mockMemberRoles,
-  mockRoleManager,
-  mockGuild,
-  mockMember,
-  mockMessage,
-} from "@discord-bot/discord-mock"
+import { mockMessage } from "@discord-bot/discord-mock"
 
 import { test, execute } from "./createRoles"
 

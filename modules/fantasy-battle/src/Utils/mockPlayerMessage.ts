@@ -1,7 +1,9 @@
 import { mockMessage } from "@discord-bot/discord-mock"
 
-export default () => {
+const mockPlayerMessage: mockMessage = () => {
   const [ message, messageMockConfig ] = mockMessage()
   messageMockConfig.member.roles.setRoles(["Player"])
-  return message
+  return [ message, messageMockConfig ]
 }
+
+export default mockPlayerMessage

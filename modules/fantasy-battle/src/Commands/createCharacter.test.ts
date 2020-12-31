@@ -35,7 +35,7 @@ describe("Command: createCharacter", () => {
 
     describe("dealing with bad args", () => {
       it(`doesn't allow character without a name`, async () => {
-        const message = mockPlayerMessage()
+        const [message] = mockPlayerMessage()
         message.content = `!create-char`
 
         await execute(message, test.exec(message.content)!)
@@ -45,12 +45,9 @@ describe("Command: createCharacter", () => {
       })
       
       it(`doesn't allow repeated character names for same player`, async () => {
-        // mock author, user-roles and message
-        const [ roles , { setRoles }] = mockMemberRoles()
-        setRoles(["Player"])
-        const [ member ] = mockMember({ roles })
-        const [ author ] = mockAuthor({ username: "Ragan", id: "6969" })
-        const [ message ] = mockMessage({ member, author })
+        const [message] = mockPlayerMessage()
+        message.author.username = "Ragan"
+        message.author.id = "6969"
         message.content = `!create-char --name "Allor"`
 
         // create player and their character
@@ -67,7 +64,7 @@ describe("Command: createCharacter", () => {
 
     describe("happy paths", () => {
       it("works", async () => {
-        const message = mockPlayerMessage()
+        const [message] = mockPlayerMessage()
         message.content = `!create-char --name Horu`
 
         await execute(message, test.exec(message.content)!)
