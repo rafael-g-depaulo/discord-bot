@@ -1,10 +1,11 @@
 import { Command, RegexCommand } from "@discord-bot/create-client"
-import PlayerUserModel, { PlayerUserDocument } from "../Models/PlayerUser"
-import parseArgsStringToArgv from "string-argv"
-import logger from "../Utils/logger"
+
+import parseFlags, { FlagsObject } from "../Utils/parseArgs"
 import rejectIfNotPlayerOrDm from "../Utils/rejectIfNotPlayerOrDm"
-import { isDm, isPlayer } from "../Utils/userPermissions"
-import yargs from "yargs"
+import { isDm } from "../Utils/userPermissions"
+import logger from "../Utils/logger"
+
+import PlayerUserModel, { PlayerUserDocument } from "../Models/PlayerUser"
 
 export const test: RegexCommand.test = /!(?:list-chars|list-characters|list\s*chars|list\s*characters)\s*(?<args>.*)?$/i
 
@@ -18,17 +19,14 @@ export const execute: RegexCommand.execute = async (msg, regexResult) => {
   if (rejectIfNotPlayerOrDm(msg)) return
 
   // parse arguments
-  const argsArr = parseArgsStringToArgv(regexResult?.groups?.args ?? "")
-  const args = yargs(argsArr).argv
+  const flagsObject: FlagsObject<{ player: string }> = {
+    player: { type: "string", optional: true },
+  }
+  const flags = parseFlags(flagsObject, "!list-chars", regexResult?.groups?.args, msg)
+  if (flags === null) return
 
   // if --player flag present
-  if (args.player) {
-
-    // if --player flag of wrong type
-    if (typeof args.player !== 'string') {
-      logger.info(`FB: (Command) list-chars: user "${msg.author.username}" tried to !list-chars with the --player flag, but the flag type was bad`)
-      return msg.channel.send(`wrong type for flag --player. flag --player expects a string`)
-    }
+  if (flags.player) {
 
     // if non-DM and trying to use --player "name" flag
     if (!isDm(msg.member)) {
@@ -36,22 +34,22 @@ export const execute: RegexCommand.execute = async (msg, regexResult) => {
       return msg.channel.send(`only DM's can use this command with the --player flag`)
     }
 
-    const player = await PlayerUserModel.findOne({ username: args.player })
+    const player = await PlayerUserModel.findOne({ username: flags.player })
     
     // if player doesn't exist
     if (!player) {
-      logger.info(`FB: (Command) list-chars: DM "${msg.author.username}" tried to !list-chars with "--player=${args.player}", but ${args.player} isn't a registered Player in the Database`)
-      return msg.channel.send(`player "${args.player}" doesn't exist in my database. are you sure you typed their name correctly?`)
+      logger.info(`FB: (Command) list-chars: DM "${msg.author.username}" tried to !list-chars with "--player=${flags.player}", but ${flags.player} isn't a registered Player in the Database`)
+      return msg.channel.send(`player "${flags.player}" doesn't exist in my database. are you sure you typed their name correctly?`)
     }
 
     // if player doesn't have any characters
     if (player.characters.length === 0) {
-      logger.info(`FB: (Command) list-chars: DM "${msg.author.username}" called !list-chars with "--player=${args.player}"`)
+      logger.info(`FB: (Command) list-chars: DM "${msg.author.username}" called !list-chars with "--player=${flags.player}"`)
       return msg.channel.send(`Player "${player.username}" doesn't have any characters for me to list`)
     }
 
     // if player exists
-    logger.info(`FB: (Command) list-chars: DM "${msg.author.username}" called !list-chars with "--player=${args.player}"`)
+    logger.info(`FB: (Command) list-chars: DM "${msg.author.username}" called !list-chars with "--player=${flags.player}"`)
     return msg.channel.send(`Sure thing! Here are ${player.username}'s characters:\n\n${listCharacters(player)}`)
   }
 
@@ -61,10 +59,9 @@ export const execute: RegexCommand.execute = async (msg, regexResult) => {
     logger.info(`FB: (Command) list-chars: user "${msg.author.username}" called !list-chars`)
     return msg.channel.send(`you don't have any characters for me to list!`)
   }
-
-  const charListString = `Sure thing! Here are your characters:\n\n` + listCharacters(user)
-
+  
   logger.info(`FB: (Command) list-chars: user "${msg.author.username}" called !list-chars`)
+  const charListString = `Sure thing! Here are your characters:\n\n` + listCharacters(user)
   return msg.channel.send(charListString)
 }
 

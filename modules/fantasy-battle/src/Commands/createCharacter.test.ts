@@ -41,7 +41,7 @@ describe("Command: createCharacter", () => {
         await execute(message, test.exec(message.content)!)
 
         expect(message.channel.send).toBeCalledTimes(1)
-        expect(message.channel.send).toBeCalledWith(`!create-char command needs argument --name="characterNameHere" or --name characterName`)
+        expect(message.channel.send).toBeCalledWith(`\"**!create-char**\": --name flag is necessary. Please include it and try again`)
       })
       
       it(`doesn't allow repeated character names for same player`, async () => {

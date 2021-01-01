@@ -52,9 +52,9 @@ describe("Command: listChars", () => {
           await execute(msg2, test.exec(msg1.content)!)
           
           expect(msg1.channel.send).toBeCalledTimes(1)
-          expect(msg1.channel.send).toBeCalledWith(`wrong type for flag --player. flag --player expects a string`)
+          expect(msg1.channel.send).toBeCalledWith(`\"**!list-chars**\": wrong type for flag --player. Flag expects type string, but recieved type boolean`)
           expect(msg2.channel.send).toBeCalledTimes(1)
-          expect(msg2.channel.send).toBeCalledWith(`wrong type for flag --player. flag --player expects a string`)
+          expect(msg2.channel.send).toBeCalledWith(`\"**!list-chars**\": wrong type for flag --player. Flag expects type string, but recieved type boolean`)
         })
 
         it(`doesn't allow a player user to use command with --player flag`, async () => {
