@@ -98,12 +98,13 @@ describe("Command: listChars", () => {
           const playerDoc = PlayerUserModel.createUser({ userId: message.author.id, username: message.author.username })
           playerDoc.addCharacter(PcModel.createCharacter({ name: "Horu" }))
           playerDoc.addCharacter(PcModel.createCharacter({ name: "Ssaak" }))
+          playerDoc.activeCharIndex = 1
           await playerDoc.save()
           await execute(message, test.exec(message.content)!)
           
           const charListString = `Sure thing! Here are your characters:\n\n`
             + `\t1. Horu\n`
-            + `\t2. Ssaak`
+            + `\t2. Ssaak (active)`
           expect(message.channel.send).toBeCalledTimes(1)
           expect(message.channel.send).toBeCalledWith(charListString)
         })
@@ -137,7 +138,7 @@ describe("Command: listChars", () => {
           await execute(message, test.exec(message.content)!)
           
           const charListString = `Sure thing! Here are ${playerDoc.username}'s characters:\n\n`
-            + `\t1. Horu\n`
+            + `\t1. Horu (active)\n`
             + `\t2. Ssaak`
           expect(message.channel.send).toBeCalledTimes(1)
           expect(message.channel.send).toBeCalledWith(charListString)

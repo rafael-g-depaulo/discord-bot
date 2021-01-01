@@ -10,7 +10,7 @@ export const test: RegexCommand.test = /!(?:list-chars|list-characters|list\s*ch
 
 const listCharacters = (user: PlayerUserDocument) => user
   .characters
-  .map((char, i) => `\t${i+1}. ${char.name}`)
+  .map((char, i) => `\t${i+1}. ${i === user.activeCharIndex ? `${char.name} (active)` : char.name}`)
   .join("\n")
 
 export const execute: RegexCommand.execute = async (msg, regexResult) => {
