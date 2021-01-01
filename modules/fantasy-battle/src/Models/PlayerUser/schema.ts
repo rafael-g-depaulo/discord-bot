@@ -18,6 +18,9 @@ const PlayerUserSchemaFields: SchemaFields<PlayerUser> = {
   },
   characters: [{
     type: PcSchema,
-  }]
+  }],
+  activeCharIndex: {
+    type: Number,
+  },
 }
 export const PlayerUserSchema = new Schema<PlayerUser>(PlayerUserSchemaFields)

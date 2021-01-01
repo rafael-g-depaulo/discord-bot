@@ -42,12 +42,12 @@ export const execute: RegexCommand.execute = async (msg, regexResult) => {
 
   // create character
   const newPc = PcModel.createCharacter({ name: args.name })
-  await user.addCharacter(newPc)
+  user.addCharacter(newPc)
 
   logger.info(`FB: (Command) createCharacter: user "${msg.author.username}" created character ${newPc.name}`)
   msg.channel.send(`Ok! Character "${newPc.name}" created for ${user.username}`)
 
-  return
+  return user.save()
 }
 
 export const createCharacter: Command = {

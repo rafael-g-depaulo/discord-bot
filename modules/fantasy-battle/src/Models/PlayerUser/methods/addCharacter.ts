@@ -7,6 +7,7 @@ export interface addCharacter {
 
 export const addCharacter: PlayerUserInstanceMethod<addCharacter> = function(this, char) {
   this.characters.push(char)
+  this.activeCharIndex = this.activeCharIndex ?? 0
 }
 
 export default addCharacter

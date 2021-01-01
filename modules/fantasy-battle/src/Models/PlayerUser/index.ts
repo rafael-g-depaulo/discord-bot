@@ -27,8 +27,8 @@ import fromAuthor from "./statics/fromAuthor"
 PlayerUserSchema.statics.fromAuthor = fromAuthor
 
 // import and define virtuals
-// import virtualName from "./virtuals/virtualName"
-// PlayerUserSchema.virtual("virtualName").get(virtualName.get)
+import activeChar from "./virtuals/activeChar"
+PlayerUserSchema.virtual("activeChar").get(activeChar.get)
   
 // import and define instance methods
 import addCharacter from "./methods/addCharacter"

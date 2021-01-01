@@ -13,12 +13,16 @@ export interface PlayerUser {
   username: string,
   // user's characters
   characters: PcDocument[],
+  // user's currently active character
+  activeCharIndex?: number,
 }
 
 // base document interface
 import { addCharacter } from "./methods/addCharacter"
 interface BasePlayerUserDocument extends PlayerUser, Document<Types.ObjectId> {
   addCharacter: addCharacter,
+
+  activeChar: PcDocument,
 }
 // unpopulated document (this is what's returned by queries)
 export interface PlayerUserDocument extends BasePlayerUserDocument {}
