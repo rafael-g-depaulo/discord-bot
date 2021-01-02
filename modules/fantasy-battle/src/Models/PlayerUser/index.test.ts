@@ -145,11 +145,44 @@ describe("PlayerUser Model", () => {
 
   describe("methods", () => {
     describe(".addCharacter()", () => {
-      const user = PlayerUserModel.createUser({ username: "userTest", userId: "420" })
-      expect(user.characters.length).toBe(0)
-      user.addCharacter(PcModel.createCharacter({ name: "Allor" }))
-      expect(user.characters.length).toBe(1)
-      expect(user.characters[0]).toMatchObject({ name: "Allor" })
+      it("works", () => {
+        const user = PlayerUserModel.createUser({ username: "userTest", userId: "420" })
+        expect(user.characters.length).toBe(0)
+        user.addCharacter(PcModel.createCharacter({ name: "Allor" }))
+        expect(user.characters.length).toBe(1)
+        expect(user.characters[0]).toMatchObject({ name: "Allor" })
+      })
+    })
+
+    describe(".getCharacter()", () => {  
+      it('allows getting a character by fullname', async () => {
+        const user = PlayerUserModel.createUser({ userId: "123456789", username: "usernameTest" })
+        // add character
+        user.addCharacter(PcModel.createCharacter({ name: "Allor Aglon" }))
+        const allor = user.getCharacter("Allor Aglon")
+        // check that the character was added to user
+        expect(allor?.name).toBe("Allor Aglon")
+      })
+      
+      it(`doesn't care about CaSe`, async () => {
+        const user = PlayerUserModel.createUser({ userId: "123456789", username: "usernameTest" })
+        // add character
+        user.addCharacter(PcModel.createCharacter({ name: "Allor Aglon" }))
+        const allor = user.getCharacter("ALLOR aglon")
+        // check that the character was added to user
+        expect(allor?.name).toBe("Allor Aglon")
+      })
+      
+      it(`works with substrings of the full name`, async () => {
+        const user = PlayerUserModel.createUser({ userId: "123456789", username: "usernameTest" })
+        // add character
+        user.addCharacter(PcModel.createCharacter({ name: "Allor Aglon" }))
+        const allor1 = user.getCharacter("allor")
+        const allor2 = user.getCharacter("aglon")
+        // check that the character was added to user
+        expect(allor1?.name).toBe("Allor Aglon")
+        expect(allor2?.name).toBe("Allor Aglon")
+      })
     })
   })
 })
