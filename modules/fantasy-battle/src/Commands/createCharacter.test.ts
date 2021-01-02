@@ -1,7 +1,7 @@
-import { mockAuthor, mockMember, mockMemberRoles, mockMessage } from "@discord-bot/discord-mock"
+import { mockMessage } from "@discord-bot/discord-mock"
 import PcModel from "Models/PlayerCharacter"
 import PlayerUserModel from "Models/PlayerUser"
-import mockPlayerMessage from "Utils/mockPlayerMessage"
+import { mockDmMessage, mockPlayerMessage } from "Utils/mockMessage"
 
 import { useDbConnection } from "Utils/mongoTest"
 import { test, execute } from "./createCharacter"
@@ -12,10 +12,15 @@ describe("Command: createCharacter", () => {
   describe(".test", () => {
     it("works", () => {
       expect("!create-char").toMatch(test)
-      expect("!create-char").toMatch(test)
+      expect("!create-character").toMatch(test)
       expect("!createchar").toMatch(test)
-      expect("!CreateChar").toMatch(test)
+      expect("!Create Character").toMatch(test)
       expect("!create     char").toMatch(test)
+    })
+
+    it("captures arguments", () => {
+      expect("!create-char --name Test").toMatch(test)
+      expect(test.exec("!create-char --name Test")?.groups).toMatchObject({ flags: "--name Test" })
     })
   })
 
@@ -30,6 +35,16 @@ describe("Command: createCharacter", () => {
         
         expect(message.channel.send).toBeCalledTimes(1)
         expect(message.channel.send).toBeCalledWith(`sorry, but only people with the \"Player\" or \"Dm\" role can use this command`)
+      })
+      
+      it(`doesn't allow a non-DM user to use command with --player flag`, async () => {
+        const [message] = mockPlayerMessage()
+        message.content = `!create-char --player "OtherPlayer" --name "Test"`
+        
+        await execute(message, test.exec(message.content)!)
+        
+        expect(message.channel.send).toBeCalledTimes(1)
+        expect(message.channel.send).toBeCalledWith(`only DM's can use this command with the --player flag`)
       })
     })
 
@@ -60,10 +75,20 @@ describe("Command: createCharacter", () => {
         expect(message.channel.send).toBeCalledTimes(1)
         expect(message.channel.send).toBeCalledWith(`You already have a character named "Allor"! You can't repeat names, be more creative`)
       })
+
+      it(`complains if --player doesn't exist`, async () => {
+        const [message] = mockDmMessage()
+        message.content = `!createChar --player "Ragan" --name "Kuff"`
+        
+        await execute(message, test.exec(message.content)!)
+
+        expect(message.channel.send).toBeCalledTimes(1)
+        expect(message.channel.send).toBeCalledWith(`player "Ragan" doesn't exist in my database. are you sure you typed their name correctly?`)
+      })
     })
 
     describe("happy paths", () => {
-      it("works", async () => {
+      it("works by default", async () => {
         const [message] = mockPlayerMessage()
         message.content = `!create-char --name Horu`
 
@@ -72,6 +97,22 @@ describe("Command: createCharacter", () => {
         expect(message.channel.send).toBeCalledTimes(1)
         expect(message.channel.send).toBeCalledWith(`Ok! Character "Horu" created for ${message.author.username}`)
       })
+
+      it(`works with --player flag`, async () => {
+        const [message] = mockDmMessage()
+        message.content = `!create-char --name Horu --player "testPlayer"`
+
+        const playerUser = PlayerUserModel.createUser({ username: "testPlayer", userId: "12345678922" })
+        await playerUser.save()
+        expect(playerUser?.characters.length).toBe(0)
+
+        await execute(message, test.exec(message.content)!)
+
+        const playerUser2 = await PlayerUserModel.getUser("12345678922")
+        expect(playerUser2?.characters.length).toBe(1)
+        expect(playerUser2?.characters[0].name).toBe("Horu")
+        expect(message.channel.send).toBeCalledTimes(1)
+        expect(message.channel.send).toBeCalledWith(`Ok! Character "Horu" created for testPlayer`)})
     })
   })
 })
