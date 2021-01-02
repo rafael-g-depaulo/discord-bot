@@ -3,10 +3,10 @@ import { Command, RegexCommand } from "@discord-bot/create-client"
 import parseFlags, { FlagsObject } from "../Utils/parseArgs"
 import rejectIfNotPlayerOrDm from "../Utils/rejectIfNotPlayerOrDm"
 import { commandWithFlags } from "../Utils/regex"
-import { isDm } from "../Utils/userPermissions"
+import { getPlayerUser } from "../Utils/getUser"
 import logger from "../Utils/logger"
 
-import PlayerUserModel, { PlayerUserDocument } from "../Models/PlayerUser"
+import { PlayerUserDocument } from "../Models/PlayerUser"
 
 export const test: RegexCommand.test = commandWithFlags(
   /list-chars/,
@@ -28,46 +28,24 @@ export const execute: RegexCommand.execute = async (msg, regexResult) => {
   const flagsObject: FlagsObject<{ player: string }> = {
     player: { type: "string", optional: true },
   }
-  const flags = parseFlags(flagsObject, "!list-chars", regexResult?.groups?.flags, msg)
+  const flags = parseFlags("!list-chars", flagsObject, regexResult?.groups?.flags, msg)
   if (flags === null) return
 
-  // if --player flag present
-  if (flags.player) {
+  const { player, fromFlags } = await getPlayerUser("!create-char", msg, flags.player)
+  if (player === null) return
 
-    // if non-DM and trying to use --player "name" flag
-    if (!isDm(msg.member)) {
-      logger.info(`FB: (Command) list-chars: user "${msg.author.username}" tried to !list-chars with the --player flag, but they are not a DM`)
-      return msg.channel.send(`only DM's can use this command with the --player flag`)
-    }
-
-    const player = await PlayerUserModel.findOne({ username: flags.player })
-    
-    // if player doesn't exist
-    if (!player) {
-      logger.info(`FB: (Command) list-chars: DM "${msg.author.username}" tried to !list-chars with "--player=${flags.player}", but ${flags.player} isn't a registered Player in the Database`)
-      return msg.channel.send(`player "${flags.player}" doesn't exist in my database. are you sure you typed their name correctly?`)
-    }
-
-    // if player doesn't have any characters
-    if (player.characters.length === 0) {
-      logger.info(`FB: (Command) list-chars: DM "${msg.author.username}" called !list-chars with "--player=${flags.player}"`)
-      return msg.channel.send(`Player "${player.username}" doesn't have any characters for me to list`)
-    }
-
-    // if player exists
-    logger.info(`FB: (Command) list-chars: DM "${msg.author.username}" called !list-chars with "--player=${flags.player}"`)
-    return msg.channel.send(`Sure thing! Here are ${player.username}'s characters:\n\n${listCharacters(player)}`)
-  }
-
-  // create of fetch the player user instance
-  const user = await PlayerUserModel.fromAuthor(msg.author)
-  if (user.characters.length === 0) {
+  if (player.characters.length === 0) {
     logger.info(`FB: (Command) list-chars: user "${msg.author.username}" called !list-chars`)
-    return msg.channel.send(`you don't have any characters for me to list!`)
+    const responseStr = fromFlags
+      ? `Player "${player.username}" doesn't have any characters for me to list`
+      : `you don't have any characters for me to list!`
+    return msg.channel.send(responseStr)
   }
   
   logger.info(`FB: (Command) list-chars: user "${msg.author.username}" called !list-chars`)
-  const charListString = `Sure thing! Here are your characters:\n\n` + listCharacters(user)
+  const charListString = fromFlags
+    ? `Sure thing! Here are ${player.username}'s characters:\n\n${listCharacters(player)}`
+    : `Sure thing! Here are your characters:\n\n` + listCharacters(player)
   return msg.channel.send(charListString)
 }
 

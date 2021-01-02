@@ -24,8 +24,8 @@ export type FlagsObject<FlagInterface extends FlagTypeMap> = {
 }
 
 export const parseFlags = <FlagInterface extends FlagTypeMap> (
-  flagsObject: FlagsObject<FlagInterface>,
   commandName: string,
+  flagsObject: FlagsObject<FlagInterface>,
   argsString: string = "",
   message: Discord.Message,
 ): Partial<FlagInterface> | null => {
