@@ -22,6 +22,7 @@
     "@discord-bot/create-client": "^2.0.0",
     "@discord-bot/dice": "^2.0.0",
     "@discord-bot/logging": "^2.0.0",
+    "@discord-bot/regex": "*",
     "@types/mongodb": "^3.6.3",
     "@types/mongoose": "^5.10.3",
     "mongodb": "^3.6.3",

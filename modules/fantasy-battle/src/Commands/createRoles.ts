@@ -1,6 +1,11 @@
 import { Command, RegexCommand } from "@discord-bot/create-client"
 
-export const test: RegexCommand.test = /!(?:create-roles|create\s*roles)/i
+import { commandWithoutFlags } from "../Utils/regex"
+
+export const test: RegexCommand.test = commandWithoutFlags(
+  /create-roles/,
+  /create\s*roles/,
+)
 
 export const execute: RegexCommand.execute = async (msg) => {
 

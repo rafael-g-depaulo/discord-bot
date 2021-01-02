@@ -2,12 +2,18 @@ import { Command, RegexCommand } from "@discord-bot/create-client"
 
 import parseFlags, { FlagsObject } from "../Utils/parseArgs"
 import rejectIfNotPlayerOrDm from "../Utils/rejectIfNotPlayerOrDm"
+import { commandWithFlags } from "../Utils/regex"
 import { isDm } from "../Utils/userPermissions"
 import logger from "../Utils/logger"
 
 import PlayerUserModel, { PlayerUserDocument } from "../Models/PlayerUser"
 
-export const test: RegexCommand.test = /!(?:list-chars|list-characters|list\s*chars|list\s*characters)\s*(?<args>.*)?$/i
+export const test: RegexCommand.test = commandWithFlags(
+  /list-chars/,
+  /list-characters/,
+  /list\s*chars/,
+  /list\s*characters/,
+)
 
 const listCharacters = (user: PlayerUserDocument) => user
   .characters
@@ -22,7 +28,7 @@ export const execute: RegexCommand.execute = async (msg, regexResult) => {
   const flagsObject: FlagsObject<{ player: string }> = {
     player: { type: "string", optional: true },
   }
-  const flags = parseFlags(flagsObject, "!list-chars", regexResult?.groups?.args, msg)
+  const flags = parseFlags(flagsObject, "!list-chars", regexResult?.groups?.flags, msg)
   if (flags === null) return
 
   // if --player flag present

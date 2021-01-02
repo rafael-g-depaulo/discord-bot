@@ -21,8 +21,11 @@ describe("Command: listChars", () => {
     })
     it(`works with --player arg`, () => {
       expect(`!listChars  --player Jorge`).toMatch(test)
+      expect(test.exec(`!listChars  --player Jorge`)?.groups).toMatchObject({ flags: "--player Jorge"})
       expect(`!list-Chars  --player=Jorge`).toMatch(test)
+      expect(test.exec(`!list-Chars  --player=Jorge`)?.groups).toMatchObject({ flags: "--player=Jorge"})
       expect(`!list    Chars  --player "Jorge"`).toMatch(test)
+      expect(test.exec(`!list    Chars  --player "Jorge"`)?.groups).toMatchObject({ flags: "--player \"Jorge\""})
     })
   })
 
