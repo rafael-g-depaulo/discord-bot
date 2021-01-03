@@ -5,6 +5,7 @@ import { commandWithFlags } from "../Utils/regex"
 import parseFlags, { FlagsObject } from "../Utils/parseArgs"
 import { logFailure, logSuccess } from "../Utils/commandLog"
 import { getPlayerUser } from "../Utils/getUser"
+import getPlayerChar from "Utils/getPlayerChar"
 
 export const test: RegexCommand.test = commandWithFlags(
   /set(?:\s*|-)active(?:\s*|-)(char|character)/,
@@ -26,13 +27,8 @@ export const execute: RegexCommand.execute = async (message, regexResult) => {
   const { player } = await getPlayerUser("!set-active-char", message, flags.player)
   if (player === null) return
 
-  const newActiveChar = player.getCharacter(flags.char!)
-
-  // if character not found
-  if (!newActiveChar) {
-    logFailure("!list-chars", `given character "${flags.char}" didn't correspond to one of their characters`, message, flags)
-    return message.channel.send(`Player ${player.username} doesn't have a character that matches "${flags.char}". Try "!listChars" to see available characters`)
-  }
+  const newActiveChar = getPlayerChar("!set-active-char", player, message, flags)
+  if (!newActiveChar) return
 
   // if everything is ok and player and character were found
   player.activeCharIndex = player.characters.indexOf(newActiveChar)

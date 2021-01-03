@@ -1,7 +1,7 @@
 import { Discord } from "@discord-bot/create-client"
 import logger from "./logger"
 
-type Flags = { [key: string]: string | number | boolean | undefined }
+export type Flags = { [key: string]: string | number | boolean | undefined }
 
 const flagEntriesStr = (flags: Flags) => Object
   .entries(flags)
