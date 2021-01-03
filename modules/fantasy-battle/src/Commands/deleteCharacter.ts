@@ -5,6 +5,7 @@ import { getPlayerUser } from "../Utils/getUser"
 import parseFlags, { FlagsObject } from "../Utils/parseArgs"
 import rejectIfNotPlayerOrDm from "../Utils/rejectIfNotPlayerOrDm"
 import { commandWithFlags } from "../Utils/regex"
+import { logSuccess } from "Utils/commandLog"
 
 export const test: RegexCommand.test = commandWithFlags(
   /delete-char/,
@@ -31,7 +32,10 @@ export const execute: RegexCommand.execute = async (message, regexResult) => {
 
   // delete character
   player.characters = player.characters.filter(c => c !== character)
-  
+  await player.save()
+
+  logSuccess("!delete-char", message, flags)
+  message.channel.send(`Ok! Character "${character.name}" deleted for ${player.username}`)
 }
 
 export const deleteCharacter: Command = {

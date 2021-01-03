@@ -95,9 +95,9 @@ describe("Command: deleteCharacter", () => {
         await execute(message, test.exec(message.content)!)
 
         const playerUser2 = await PlayerUserModel.getUser(message.author.id)
-        expect(playerUser2?.characters.length).toBe(2)
+        expect(playerUser2?.characters.length).toBe(1)
         expect(message.channel.send).toBeCalledTimes(1)
-        expect(message.channel.send).toBeCalledWith(`Ok! Character "Horu" created for ${message.author.username}`)
+        expect(message.channel.send).toBeCalledWith(`Ok! Character "Horu" deleted for ${message.author.username}`)
       })
 
       it(`works with --player flag`, async () => {
@@ -114,9 +114,9 @@ describe("Command: deleteCharacter", () => {
         await execute(message, test.exec(message.content)!)
 
         const playerUser2 = await PlayerUserModel.getUser("42069420")
-        expect(playerUser2?.characters.length).toBe(0)
+        expect(playerUser2?.characters.length).toBe(2)
         expect(message.channel.send).toBeCalledTimes(1)
-        expect(message.channel.send).toBeCalledWith(`Ok! Character "Horu" created for testPlayer`)})
+        expect(message.channel.send).toBeCalledWith(`Ok! Character "Horu" deleted for testPlayer`)})
     })
   })
 })
