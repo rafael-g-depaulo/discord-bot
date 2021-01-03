@@ -5,7 +5,7 @@ import { getPlayerUser } from "../Utils/getUser"
 import parseFlags, { FlagsObject } from "../Utils/parseArgs"
 import rejectIfNotPlayerOrDm from "../Utils/rejectIfNotPlayerOrDm"
 import { commandWithFlags } from "../Utils/regex"
-import { logSuccess } from "Utils/commandLog"
+import { logSuccess } from "../Utils/commandLog"
 
 export const test: RegexCommand.test = commandWithFlags(
   /delete-char/,

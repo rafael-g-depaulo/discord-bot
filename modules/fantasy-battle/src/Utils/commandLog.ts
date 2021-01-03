@@ -9,7 +9,12 @@ const flagEntriesStr = (flags: Flags) => Object
   .map(([flagName, value]) => `--${flagName}="${value}"`)
   .join(" ")
 
-const getFlagsStr = (flags?: Flags) => !flags ? "" : ` with arguments: ${flagEntriesStr(flags)}`
+const isEmptyObj = (obj: Object) => Object
+  .entries(obj)
+  .filter(([_, value]) => value !== undefined)
+  .length === 0
+
+const getFlagsStr = (flags?: Flags) => !flags || isEmptyObj(flags) ? "" : ` with arguments: ${flagEntriesStr(flags)}`
 
 export const logSuccess = (commandName: string, message: Discord.Message, flags?: Flags) =>
   logger.info(`FB: (Command) ${commandName}: user "${message.author.username}" called ${commandName}` + getFlagsStr(flags))
