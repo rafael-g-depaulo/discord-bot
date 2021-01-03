@@ -17,9 +17,11 @@ describe('PlayerCharacter.createCharacter()', () => {
     it(`passes direct props`, () => {
       const pcProps: createPcProps = {
         name: "Ssaak",
+        atkAttb: "Agility"
       }
       const character = create.call(PcModel, pcProps)
       expect(character.name).toBe("Ssaak")
+      expect(character.defaultAtkAttb).toBe("Agility")
     })
 
     it(`creates empty attributes`, () => {
@@ -35,6 +37,7 @@ describe('PlayerCharacter.createCharacter()', () => {
         Influence:  { bonus: 0, value: 0 }, Movement:   { bonus: 0, value: 0 },
         Prescience: { bonus: 0, value: 0 }, Protection: { bonus: 0, value: 0 },
       })
+      expect(character.defaultAtkAttb).toBe("Might")
     })
 
     it(`has functioning attributes`, () => {

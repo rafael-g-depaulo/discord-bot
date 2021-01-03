@@ -35,6 +35,7 @@ export interface Pc {
       bonus: number,
     }
   },
+  defaultAtkAttb?: AttributeNames,
 }
 
 
@@ -44,6 +45,8 @@ import { rollDmg } from "./methods/rollDmg"
 export interface BasePcDocument extends Pc, Document<Types.ObjectId> {
   rollAttribute: rollAttribute,
   rollDmg: rollDmg,
+
+  defaultAtkAttb: AttributeNames,
 }
 // unpopulated document (this is what's returned by queries)
 export interface PcDocument extends BasePcDocument {}

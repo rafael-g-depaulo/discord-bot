@@ -10,6 +10,7 @@ describe("PlayerCharacter Model", () => {
   const pcInfo: Pc = {
     name: "character name",
     attributes: mockAttributes(),
+    defaultAtkAttb: "Agility",
   }
   describe("CRUD", () => {
     it("creates", async () => {
@@ -19,6 +20,7 @@ describe("PlayerCharacter Model", () => {
       expect(pc.name).toBe(pcInfo.name)
       expect(pc._id).toStrictEqual(pcSaved?._id)
       expect(pc.name).toBe(pcSaved.name)
+      expect(pc.defaultAtkAttb).toBe("Agility")
     })
 
     it("reads", async () => {
@@ -61,6 +63,11 @@ describe("PlayerCharacter Model", () => {
       const deleted = await PcModel.findById(pc._id)
       expect(deleted).toBe(null)
     })
+  })
+
+  it('default props work', () => {
+    const char = new PcModel({ name: "TestName", attributes: mockAttributes() })
+    expect(char.defaultAtkAttb).toBe("Might")
   })
 
   describe("methods", () => {

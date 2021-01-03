@@ -1,4 +1,5 @@
 import { Schema } from "mongoose"
+import { string } from "yargs"
 import { SchemaFields } from "../helpers"
 
 import { Pc } from "./types"
@@ -40,6 +41,10 @@ const PcSchemaFields: SchemaFields<Pc> = {
     Movement   : Attribute,
     Prescience : Attribute,
     Protection : Attribute,
-  }
+  },
+  defaultAtkAttb: {
+    type: String,
+    default: "Might",
+  },
 }
 export const PcSchema = new Schema<Pc>(PcSchemaFields)
