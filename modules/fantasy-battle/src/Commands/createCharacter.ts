@@ -1,12 +1,12 @@
 import { Command, RegexCommand } from "@discord-bot/create-client"
 
-import rejectIfNotPlayerOrDm from "../Utils/rejectIfNotPlayerOrDm"
 import parseFlags, { FlagsObject } from "../Utils/parseArgs"
+import { logFailure, logSuccess } from "../Utils/commandLog"
+import rejectIfNotPlayerOrDm from "../Utils/rejectIfNotPlayerOrDm"
 import { commandWithFlags } from "../Utils/regex"
-import logger from "../Utils/logger"
+import { getPlayerUser } from "../Utils/getUser"
 
 import PcModel from "../Models/PlayerCharacter"
-import { getPlayerUser } from "../Utils/getUser"
 
 export const test: RegexCommand.test = commandWithFlags(
   /create-char/,
@@ -22,23 +22,23 @@ export const execute: RegexCommand.execute = async (msg, regexResult) => {
     name: { type: "string" },
     player: { type: "string", optional: true },
   }
-  const args = parseFlags("!create-char", flagsObject, regexResult?.groups?.flags, msg)
-  if (args === null) return
+  const flags = parseFlags("!create-char", flagsObject, regexResult?.groups?.flags, msg)
+  if (flags === null) return
   
-  const { player } = await getPlayerUser("!create-char", msg, args.player)
+  const { player } = await getPlayerUser("!create-char", msg, flags.player)
   if (player === null) return
 
   // if repeated name, return
-  if (player.characters.some(char => char.name === args.name)) {
-    logger.info(`FB: (Command) createCharacter: user "${msg.author.username}" tried to !create-char, but already had a character named "${args.name}"`)
-    return msg.channel.send(`You already have a character named "${args.name}"! You can't repeat names, be more creative`)
+  if (player.characters.some(char => char.name === flags.name)) {
+    logFailure("!create-char", `already had a character named "${flags.name}"`, msg, flags)
+    return msg.channel.send(`You already have a character named "${flags.name}"! You can't repeat names, be more creative`)
   }
 
   // create character
-  const newPc = PcModel.createCharacter({ name: args.name! })
+  const newPc = PcModel.createCharacter({ name: flags.name! })
   player.addCharacter(newPc)
 
-  logger.info(`FB: (Command) createCharacter: user "${msg.author.username}" created character ${newPc.name}`)
+  logSuccess("!create-char", msg, flags)
   msg.channel.send(`Ok! Character "${newPc.name}" created for ${player.username}`)
 
   return player.save()
