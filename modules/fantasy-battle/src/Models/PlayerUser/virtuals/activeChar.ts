@@ -1,4 +1,4 @@
-import { PcDocument } from "Models/PlayerCharacter"
+import { PcDocument } from "../../../Models/PlayerCharacter"
 import { PlayerUserVirtualGetter } from "../types"
 
 const get: PlayerUserVirtualGetter<PcDocument | null> = function(this) {

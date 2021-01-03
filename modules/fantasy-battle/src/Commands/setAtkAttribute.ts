@@ -6,7 +6,7 @@ import validateAttributeName from "../Utils/validateAttributeName"
 import { commandWithFlags } from "../Utils/regex"
 import { getPlayerUser } from "../Utils/getUser"
 import getPlayerChar from "../Utils/getPlayerChar"
-import { logSuccess } from "Utils/commandLog"
+import { logSuccess } from "../Utils/commandLog"
 
 export const test: RegexCommand.test = commandWithFlags(
   /set(?:\s*|-)(atk|attk|attack|atack)(?:\s*|-)(attb|atb|atribute|attribute)/,
