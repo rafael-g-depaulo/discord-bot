@@ -80,11 +80,11 @@ describe("Command: setActiveChar", () => {
       
       it("works by default", async () => {
         const [message] = mockPlayerMessage()
-        message.content = `!set-active --char Mellot`
+        message.content = `!set-active --char Kuff`
 
         const playerUser = PlayerUserModel.createUser({ username: message.author.username, userId: message.author.id })
-        playerUser.addCharacter(PcModel.createCharacter({ name: "Kuff" }))
         playerUser.addCharacter(PcModel.createCharacter({ name: "Mellot" }))
+        playerUser.addCharacter(PcModel.createCharacter({ name: "Kuff'Ssah" }))
         await playerUser.save()
         expect(playerUser.activeCharIndex).toBe(0)
 
@@ -93,7 +93,7 @@ describe("Command: setActiveChar", () => {
         const fetchedUser = await PlayerUserModel.getUser(message.author.id)
         expect(fetchedUser?.activeCharIndex).toBe(1)
         expect(message.channel.send).toBeCalledTimes(1)
-        expect(message.channel.send).toBeCalledWith(`Ok! "Mellot" set as currently active character for ${message.author.username}`)
+        expect(message.channel.send).toBeCalledWith(`Ok! "Kuff'Ssah" set as currently active character for ${message.author.username}`)
       })
 
       it(`works with --player flag`, async () => {

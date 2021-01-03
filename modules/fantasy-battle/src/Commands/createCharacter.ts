@@ -7,6 +7,8 @@ import { commandWithFlags } from "../Utils/regex"
 import { getPlayerUser } from "../Utils/getUser"
 
 import PcModel from "../Models/PlayerCharacter"
+import { createPcProps } from "../Models/PlayerCharacter/statics/create"
+import { isAttributeName } from "Models/PlayerCharacter/helpers"
 
 export const test: RegexCommand.test = commandWithFlags(
   /create-char/,
@@ -18,9 +20,10 @@ export const execute: RegexCommand.execute = async (msg, regexResult) => {
   if (rejectIfNotPlayerOrDm(msg)) return
   
   // parse arguments
-  const flagsObject: FlagsObject<{ name: string, player: string }> = {
-    name: { type: "string" },
+  const flagsObject: FlagsObject<{ name: string, player: string, "atk-attb": string }> = {
     player: { type: "string", optional: true },
+    name: { type: "string" },
+    "atk-attb": { type: "string", optional: true },
   }
   const flags = parseFlags("!create-char", flagsObject, regexResult?.groups?.flags, msg)
   if (flags === null) return
@@ -34,8 +37,18 @@ export const execute: RegexCommand.execute = async (msg, regexResult) => {
     return msg.channel.send(`You already have a character named "${flags.name}"! You can't repeat names, be more creative`)
   }
 
+  // if invalid --atk-attb
+  if (flags["atk-attb"] !== undefined && !isAttributeName(flags["atk-attb"])) {
+    logFailure("!create-char", `value "${flags["atk-attb"]}" for --atk-attb flag is not a valid attribute name`, msg, flags)
+    return msg.channel.send(`value "${flags["atk-attb"]}" isn't a valid attribute name`)
+  }
+
   // create character
-  const newPc = PcModel.createCharacter({ name: flags.name! })
+  const pcProps: createPcProps = {
+    name: flags.name!,
+    atkAttb: flags["atk-attb"],
+  }
+  const newPc = PcModel.createCharacter(pcProps)
   player.addCharacter(newPc)
 
   logSuccess("!create-char", msg, flags)

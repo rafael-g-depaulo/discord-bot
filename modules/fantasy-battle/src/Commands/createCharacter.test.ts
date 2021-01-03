@@ -85,6 +85,16 @@ describe("Command: createCharacter", () => {
         expect(message.channel.send).toBeCalledTimes(1)
         expect(message.channel.send).toBeCalledWith(`player "Ragan" doesn't exist in my database. are you sure you typed their name correctly?`)
       })
+
+      it(`complains if bad --atk-attb`, async () => {
+        const [message] = mockDmMessage()
+        message.content = `!createChar --name "Kuff"   --atk-attb Maight`
+        
+        await execute(message, test.exec(message.content)!)
+
+        expect(message.channel.send).toBeCalledTimes(1)
+        expect(message.channel.send).toBeCalledWith(`value "Maight" isn't a valid attribute name`)
+      })
     })
 
     describe("happy paths", () => {
@@ -96,6 +106,19 @@ describe("Command: createCharacter", () => {
 
         expect(message.channel.send).toBeCalledTimes(1)
         expect(message.channel.send).toBeCalledWith(`Ok! Character "Horu" created for ${message.author.username}`)
+      })
+      
+      it("works with --atk-attb", async () => {
+        const [message] = mockPlayerMessage()
+        message.content = `!create-char --name "Kuff'Ssah" --atk-attb Fortitude`
+
+        await execute(message, test.exec(message.content)!)
+
+        const playerDoc = await PlayerUserModel.getUser(message.author.id)
+        expect(playerDoc?.activeChar.name).toBe("Kuff'Ssah")
+        expect(playerDoc?.activeChar.defaultAtkAttb).toBe("Fortitude")
+        expect(message.channel.send).toBeCalledTimes(1)
+        expect(message.channel.send).toBeCalledWith(`Ok! Character "Kuff'Ssah" created for ${message.author.username}`)
       })
 
       it(`works with --player flag`, async () => {
