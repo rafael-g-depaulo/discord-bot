@@ -3,12 +3,12 @@ import { Command, RegexCommand } from "@discord-bot/create-client"
 import parseFlags, { FlagsObject } from "../Utils/parseArgs"
 import { logFailure, logSuccess } from "../Utils/commandLog"
 import rejectIfNotPlayerOrDm from "../Utils/rejectIfNotPlayerOrDm"
+import validateAttributeName from "../Utils/validateAttributeName"
 import { commandWithFlags } from "../Utils/regex"
 import { getPlayerUser } from "../Utils/getUser"
 
 import PcModel from "../Models/PlayerCharacter"
 import { createPcProps } from "../Models/PlayerCharacter/statics/create"
-import { isAttributeName } from "Models/PlayerCharacter/helpers"
 
 export const test: RegexCommand.test = commandWithFlags(
   /create-char/,
@@ -38,15 +38,14 @@ export const execute: RegexCommand.execute = async (msg, regexResult) => {
   }
 
   // if invalid --atk-attb
-  if (flags["atk-attb"] !== undefined && !isAttributeName(flags["atk-attb"])) {
-    logFailure("!create-char", `value "${flags["atk-attb"]}" for --atk-attb flag is not a valid attribute name`, msg, flags)
-    return msg.channel.send(`value "${flags["atk-attb"]}" isn't a valid attribute name`)
-  }
+  const atkAttb = validateAttributeName("!create-char", msg, flags, "atk-attb")
+  if (atkAttb === null) return
 
   // create character
   const pcProps: createPcProps = {
     name: flags.name!,
-    atkAttb: flags["atk-attb"],
+    atkAttb,
+    // atkAttb: flags["atk-attb"],
   }
   const newPc = PcModel.createCharacter(pcProps)
   player.addCharacter(newPc)
