@@ -9,17 +9,17 @@ export interface Attribute {
   bonus: number,
 }
 export type Attributes = {
-  [key in AttributeNames]: Attribute
+  [key in AttributeName]: Attribute
 }
 
-export type AttributeNames =
+export type AttributeName =
   "Agility"    | "Fortitude"  | "Might"      | "Learning"  |
   "Logic"      | "Perception" | "Will"       | "Deception" |
   "Persuasion" | "Presence"   | "Alteration" | "Creation"  |
   "Energy"     | "Entropy"    | "Influence"  | "Movement"  |
   "Prescience" | "Protection"
 
-export const AttributeNames: AttributeNames[] = [
+export const AttributeNames: AttributeName[] = [
   "Agility"    , "Fortitude"  , "Might"      , "Learning"  ,
   "Logic"      , "Perception" , "Will"       , "Deception" ,
   "Persuasion" , "Presence"   , "Alteration" , "Creation"  ,
@@ -30,12 +30,12 @@ export const AttributeNames: AttributeNames[] = [
 export interface Pc {
   name: string,
   attributes: {
-    [key in AttributeNames]: {
+    [key in AttributeName]: {
       value: number,
       bonus: number,
     }
   },
-  defaultAtkAttb?: AttributeNames,
+  defaultAtkAttb?: AttributeName,
 }
 
 
@@ -46,7 +46,7 @@ export interface BasePcDocument extends Pc, Document<Types.ObjectId> {
   rollAttribute: rollAttribute,
   rollDmg: rollDmg,
 
-  defaultAtkAttb: AttributeNames,
+  defaultAtkAttb: AttributeName,
 }
 // unpopulated document (this is what's returned by queries)
 export interface PcDocument extends BasePcDocument {}

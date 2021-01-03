@@ -1,10 +1,10 @@
 import mockAttributes from "../../../Utils/mockAttributes"
 import PcModel, { Pc, PcDocument } from ".."
-import { AttributeNames, PcStaticMethod } from "../types"
+import { AttributeName, PcStaticMethod } from "../types"
 
 export interface createPcProps {
   name: string,
-  atkAttb?: AttributeNames,
+  atkAttb?: AttributeName,
 }
 
 export interface create {

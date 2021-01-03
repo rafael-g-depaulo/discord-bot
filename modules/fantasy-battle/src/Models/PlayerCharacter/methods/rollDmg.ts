@@ -1,8 +1,8 @@
 import { createDice, Dice, DiceRollResults } from "@discord-bot/dice"
-import { PcInstanceMethod, AttributeNames } from "../types"
+import { PcInstanceMethod, AttributeName } from "../types"
 
 export interface rollDmg {
-  (attbName: AttributeNames, bonus?: number): DiceRollResults,
+  (attbName: AttributeName, bonus?: number): DiceRollResults,
 }
 
 const damageDice: Dice[] = [
