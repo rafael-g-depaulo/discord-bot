@@ -5,6 +5,7 @@ import createRoles from "./Commands/createRoles"
 import createCharacter from "./Commands/createCharacter"
 import listChars from "./Commands/listChars"
 import setActiveChar from "./Commands/setActiveChar"
+import deleteCharacter from "./Commands/deleteCharacter"
 
 export const dbConnect = connect
 
@@ -16,6 +17,7 @@ export const TestModule: Module = {
     createCharacter,
     listChars,
     setActiveChar,
+    deleteCharacter,
   ],
 }
 

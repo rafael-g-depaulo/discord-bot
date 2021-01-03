@@ -9,7 +9,9 @@ describe(".getCharacter()", () => {
   it('allows getting a character by fullname', async () => {
     const user = mockUser()
     // add character
+    user.addCharacter(PcModel.createCharacter({ name: "Kuff" }))
     user.addCharacter(PcModel.createCharacter({ name: "Allor Aglon" }))
+    user.addCharacter(PcModel.createCharacter({ name: "Ynit" }))
     
     // const allor = user.getCharacter("Allor Aglon")
     const allor = getCharacter.call(user, "Allor Aglon")
@@ -22,6 +24,7 @@ describe(".getCharacter()", () => {
     const user = mockUser()
     // add character
     user.addCharacter(PcModel.createCharacter({ name: "Allor Aglon" }))
+    user.addCharacter(PcModel.createCharacter({ name: "Ynit" }))
     
     const allor = getCharacter.call(user, "ALLOR aglon")
 
@@ -32,6 +35,7 @@ describe(".getCharacter()", () => {
   it(`works with substrings of the full name`, async () => {
     const user = mockUser()
     // add character
+    user.addCharacter(PcModel.createCharacter({ name: "Ynit" }))
     user.addCharacter(PcModel.createCharacter({ name: "Allor Aglon" }))
     
     const allor1 = getCharacter.call(user, "allor")
