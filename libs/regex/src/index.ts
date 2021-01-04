@@ -13,6 +13,7 @@ export const optional = (regex: RegExp) => new RegExp(`(?:${regex.source})?`, re
 
 // make and anternation between 2 or more regexes
 export const or = (...regexes: RegExp[]) => new RegExp(regexes.map(r => `${r.source}`).join("|"), mergeFlags(...regexes))
+// export const or = (...regexes: RegExp[]) => new RegExp(`(?:${regexes.map(r => `${r.source}`).join("|")}`, mergeFlags(...regexes))
 
 // make a regex that matches 1 single word that belongs to the wordList
 export const fromList = (wordList: string[], flags?: string) => new RegExp(`[^\\d\\s\\w]*(?:${wordList.map(word => `${word}`).join("|")})[^\\d\\s\\w]*`, flags)

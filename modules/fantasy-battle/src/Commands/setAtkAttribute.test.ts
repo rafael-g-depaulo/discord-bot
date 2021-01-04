@@ -7,8 +7,8 @@ import { useDbConnection } from "Utils/mongoTest"
 
 import { test, execute } from "./setAtkAttribute"
 
-describe("Command: listChars", () => {
-  useDbConnection("Command_listChars")
+describe("Command: setAtkAttribute", () => {
+  useDbConnection("Command_setAtkAttribute")
 
   describe(".test", () => {
     it("works without args", () => {
