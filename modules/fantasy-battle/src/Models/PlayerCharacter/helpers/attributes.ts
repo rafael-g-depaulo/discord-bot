@@ -179,3 +179,17 @@ export const attributeNameRegex: RegExp = fromList(
   .values(alternateAttributeNames)
   .flat()
 )
+
+export const getAttributeByNickname = (nickname: string): AttributeName | null => {
+  // get all names for which nickname is an alias of
+  const names = Object
+    .entries(alternateAttributeNames)
+    .map(([attb, aliases]) => aliases.includes(nickname.toLowerCase()) ? attb : null)
+    .filter(name => name !== null)
+
+  // if no name found that works, return null
+  if (names.length === 0) return null
+
+  // return the first name that works for this nickname(and only, if i programmed this right)
+  return names[0] as AttributeName
+}
