@@ -73,6 +73,8 @@ describe("Command: setAtkAttribute", () => {
         await playerUser.save()
         message.content = `!set-atk-attb --char "Kuff"  --attb Maight`
         await execute(message, test.exec(message.content)!)
+        const playerUser2 = await PlayerUserModel.getUser(message.author.id)
+        expect(playerUser2?.activeChar.name).toBe("Kuff")
         expect(message.channel.send).toBeCalledTimes(1)
         expect(message.channel.send).toBeCalledWith(`value "Maight" isn't a valid attribute name`)
       })
@@ -90,7 +92,7 @@ describe("Command: setAtkAttribute", () => {
 
         await execute(message, test.exec(message.content)!)
 
-        const playerUser2 = await PlayerUserModel.getUser(message.author.id)
+        const playerUser2 = await PlayerUserModel.findById(playerUser.id)
         expect(playerUser2?.activeChar.defaultAtkAttb).toBe("Entropy")
         expect(message.channel.send).toBeCalledTimes(1)
         expect(message.channel.send).toBeCalledWith(`Ok! Horu's default attribute for attacks is now Entropy`)
@@ -129,8 +131,8 @@ describe("Command: setAtkAttribute", () => {
         expect(playerUser2?.characters[1].name).toBe("Ynit")
         expect(playerUser2?.characters[1].defaultAtkAttb).toBe("Agility")
         expect(message.channel.send).toBeCalledTimes(1)
-        expect(message.channel.send).toBeCalledWith(`Ok! Ynit's default attribute for attacks is now Agility`)})
+        expect(message.channel.send).toBeCalledWith(`Ok! Ynit's default attribute for attacks is now Agility`)
+      })
     })
-
   })
 })
