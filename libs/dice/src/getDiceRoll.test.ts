@@ -165,6 +165,7 @@ describe('getArgs', () => {
   it("extracts (dis)advantage", () => {
     expect(getArgs("!!-0adv"))    .toEqual({ explode: 2, advantage:  1, bonus: -0 })
     expect(getArgs(" -7dis "))    .toEqual({ explode: 0, advantage: -1, bonus: -7 })
+    expect(getArgs("+3adv+2"))    .toEqual({ explode: 0, advantage: +2, bonus:  3 })
     expect(getArgs("!!!adv- 4 ")) .toEqual({ explode: 3, advantage: -4, bonus:  0 })
     expect(getArgs("!-1dis-7"))   .toEqual({ explode: 1, advantage: -7, bonus: -1 })
     expect(getArgs("-0vant  + 4")).toEqual({ explode: 0, advantage:  4, bonus: -0 })

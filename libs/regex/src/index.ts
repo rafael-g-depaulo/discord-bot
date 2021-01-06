@@ -16,6 +16,6 @@ export const or = (...regexes: RegExp[]) => new RegExp(regexes.map(r => `${r.sou
 // export const or = (...regexes: RegExp[]) => new RegExp(`(?:${regexes.map(r => `${r.source}`).join("|")}`, mergeFlags(...regexes))
 
 // make a regex that matches 1 single word that belongs to the wordList
-export const fromList = (wordList: string[], flags?: string) => new RegExp(`[^\\d\\s\\w]*(?:${wordList.map(word => `${word}`).join("|")})[^\\d\\s\\w]*`, flags)
+export const fromList = (wordList: string[], flags?: string) => new RegExp(`[^\\d\\s\\w]*(?:${wordList.map(word => `${word}`).sort((a, b) => b.length - a.length).join("|")})[^\\d\\s\\w]*`, flags)
 
 export const optionalSpace = /\s*/
