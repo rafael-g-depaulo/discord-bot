@@ -27,6 +27,8 @@ type Without<T, K> = Pick<T, Exclude<keyof T, K>>
 // type to be returned by dice.args and dice.detailedRoll().diceArgs
 export interface DiceArgs extends Without<DiceProps, "randomFn"> {}
 
+export interface DiceExtraArgs extends Without<DiceArgs, "dieMax" | "dieAmmount" > {}
+
 export interface DieRollResult {
   value: number,      // the value of the die roll
   ignored?: boolean,  // wether or not the roll should be ignored because of advantage or disadvantage

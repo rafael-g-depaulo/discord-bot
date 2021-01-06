@@ -42,6 +42,8 @@ const boolDis = capture("boolDis", fromList(disadvantageWords, "i"))
 // regex for any kind of advantage
 const adv = or(posAdv, negAdv, posDis, negDis, boolDis, boolAdv)
 
+export const diceArgs = concat(optionalSpace, optional(explosion), optionalSpace, optional(bonus), optionalSpace, optional(adv))
+
 // final regex for checking if something is a dice roll
 export const diceRoll = concat(dice, optionalSpace, optional(explosion), optionalSpace, optional(bonus), optionalSpace, optional(adv))
 

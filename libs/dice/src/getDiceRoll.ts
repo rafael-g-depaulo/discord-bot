@@ -1,5 +1,5 @@
-import { DiceProps } from "./Dice"
-import diceRollRegex from "./regex"
+import { DiceExtraArgs, DiceProps } from "./Dice"
+import diceRollRegex, { diceArgs } from "./regex"
 
 export const testDiceRoll = (str: string) => {
   return diceRollRegex.test(str)
@@ -44,7 +44,31 @@ export const getDiceRoll: GetDiceRoll = (str) => {
     groups.explode = groups.dieMax - 1
 
   return groups
+}
 
+export const getArgs = (str: string): DiceExtraArgs => {
+  const regexGroups = diceArgs.exec(str)?.groups ?? {}
+  const rollExtraArgs: DiceExtraArgs = {
+    explode: 0,
+    advantage: 0,
+    bonus: 0,
+  }
+  // if (!regexGroups) return rollExtraArgs
+
+  // capture explosion
+  if (typeof regexGroups.explode === "string") rollExtraArgs.explode = regexGroups.explode.length
+  // capture bonus
+  if (typeof regexGroups.posBonus === "string") rollExtraArgs.bonus = string2Num(regexGroups.posBonus)
+  if (typeof regexGroups.negBonus === "string") rollExtraArgs.bonus = -string2Num(regexGroups.negBonus)
+  // capture advantage
+  if (typeof regexGroups.boolAdv === "string") rollExtraArgs.advantage = 1
+  if (typeof regexGroups.boolDis === "string") rollExtraArgs.advantage = -1
+  if (typeof regexGroups.posAdv === "string") rollExtraArgs.advantage = string2Num(regexGroups.posAdv)
+  if (typeof regexGroups.negAdv === "string") rollExtraArgs.advantage = -string2Num(regexGroups.negAdv)
+  if (typeof regexGroups.posDis === "string") rollExtraArgs.advantage = -string2Num(regexGroups.posDis)
+  if (typeof regexGroups.negDis === "string") rollExtraArgs.advantage = -string2Num(regexGroups.negDis)
+
+  return rollExtraArgs
 }
 
 export default getDiceRoll

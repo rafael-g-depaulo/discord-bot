@@ -1,5 +1,5 @@
 import { DiceProps } from "Dice"
-import getDiceRoll, { testDiceRoll } from "./getDiceRoll"
+import getDiceRoll, { getArgs, testDiceRoll } from "./getDiceRoll"
 
 describe('testDiceRoll', () => {
 
@@ -142,4 +142,32 @@ describe('getDiceRoll', () => {
     }
   })
 
+})
+
+describe('getArgs', () => {
+  it("works with empty strings", () => {
+    expect(getArgs("")).toEqual({ explode: 0, advantage: 0, bonus: 0 })
+    expect(getArgs("  \t ")).toEqual({ explode: 0, advantage: 0, bonus: 0 })
+  })
+
+  it("extracts explosion", () => {
+    expect(getArgs(" !!")).toEqual({ explode: 2, advantage: 0, bonus: 0 })
+    expect(getArgs(" ! \t ")).toEqual({ explode: 1, advantage: 0, bonus: 0 })
+  })
+
+  it("extracts bonus", () => {
+    expect(getArgs(" !! -0"))     .toEqual({ explode: 2, advantage: 0, bonus: -0 })
+    expect(getArgs(" -  7 \t "))  .toEqual({ explode: 0, advantage: 0, bonus: -7 })
+    expect(getArgs("!!!+  7 \t ")).toEqual({ explode: 3, advantage: 0, bonus: +7 })
+    expect(getArgs("!-1\t "))     .toEqual({ explode: 1, advantage: 0, bonus: -1 })
+  })
+
+  it("extracts (dis)advantage", () => {
+    expect(getArgs("!!-0adv"))    .toEqual({ explode: 2, advantage:  1, bonus: -0 })
+    expect(getArgs(" -7dis "))    .toEqual({ explode: 0, advantage: -1, bonus: -7 })
+    expect(getArgs("!!!adv- 4 ")) .toEqual({ explode: 3, advantage: -4, bonus:  0 })
+    expect(getArgs("!-1dis-7"))   .toEqual({ explode: 1, advantage: -7, bonus: -1 })
+    expect(getArgs("-0vant  + 4")).toEqual({ explode: 0, advantage:  4, bonus: -0 })
+    expect(getArgs("! dis +2"))   .toEqual({ explode: 1, advantage: -2, bonus:  0 })
+  })
 })
