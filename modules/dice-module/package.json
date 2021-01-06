@@ -1,6 +1,6 @@
 {
   "name": "@discord-bot/dice-module",
-  "version": "2.0.0",
+  "version": "2.5.0",
   "description": "DESCRIPTION HERE",
   "author": "Rafael G. de Paulo <rafael.g.depaulo@gmail.com>",
   "homepage": "https://github.com/rafael-g-depaulo/discord-bot#readme",
@@ -16,7 +16,7 @@
     "watch": "jest --watch"
   },
   "dependencies": {
-    "@discord-bot/dice": "^2.0.0",
+    "@discord-bot/dice": "^2.5.0",
     "@discord-bot/logging": "^2.0.0"
   },
   "bugs": {
