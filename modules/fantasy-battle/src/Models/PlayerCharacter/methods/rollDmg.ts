@@ -69,8 +69,9 @@ export const rollDmg: PcInstanceMethod<rollDmg> = function(this, attbName, rollA
   const {
     bonus = 0,
     advantage = 0,
-    explode = 1,
   } = rollArgs ?? {}
+
+  const explode = Math.max(Number(rollArgs?.explode), 1)
 
   const attributeValue = this.attributes[attbName].value + this.attributes[attbName].bonus
   return getAttributeDice(attributeValue + bonus, { advantage, explode }).detailedRoll()

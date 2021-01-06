@@ -1,6 +1,6 @@
 import { Command, RegexCommand } from "@discord-bot/create-client"
 import { resultString, getArgs } from "@discord-bot/dice"
-import { capture } from "@discord-bot/regex"
+import { capture, concat, fromList, optional, optionalSpace } from "@discord-bot/regex"
 
 import { attributeNameRegex, getAttributeByNickname } from "../Models/PlayerCharacter/helpers/attributes"
 
@@ -8,14 +8,26 @@ import parseFlags, { FlagsObject } from "../Utils/parseArgs"
 import rejectIfNotPlayerOrDm from "../Utils/rejectIfNotPlayerOrDm"
 import { commandWithFlags } from "../Utils/regex"
 import { getPlayerUser } from "../Utils/getUser"
-import getPlayerChar from "../Utils/getPlayerChar"
 import { logSuccess } from "../Utils/commandLog"
+import getPlayerChar from "../Utils/getPlayerChar"
 
 export const test: RegexCommand.test = commandWithFlags(
-  capture("attbNickname", attributeNameRegex),
+  concat(
+    fromList([
+      "dmg",
+      "damage",
+      "dano",
+      "rollDmg",
+      "rolaDano",
+      "rollDamage",
+    ], "i"),
+    optionalSpace,
+    optional(capture("attbNickname", attributeNameRegex))
+  ),
 )
 
 export const execute: RegexCommand.execute = async (message, regexResult) => {
+  
   // if user isn't admin or Player or DM, ignore
   if (rejectIfNotPlayerOrDm(message)) return
 
@@ -25,32 +37,34 @@ export const execute: RegexCommand.execute = async (message, regexResult) => {
     char: { type: "string", optional: true },
     bonus: { type: "number", optional: true },
   }
-  const flags = parseFlags("!rollAttribute", flagsObject, regexResult?.groups?.flags, message)
+  const flags = parseFlags("!rollDmg", flagsObject, regexResult?.groups?.flags, message)
   if (flags === null) return
   
-  const { player } = await getPlayerUser("!rollAttribute", message, flags.player)
+  const { player } = await getPlayerUser("!rollDmg", message, flags.player)
   if (player === null) return
 
-  const character = getPlayerChar("!rollAttribute", player, message, flags)
+  const character = getPlayerChar("!rollDmg", player, message, flags)
   if (!character) return
 
   const attbName = getAttributeByNickname(regexResult.groups?.attbNickname ?? "")
-  if (attbName === null) return // attbName should never be null, so i won't bother sending a message here
 
   // string representing the arguments after the attribute in the command
   // ex: "!might +2 adv-2" would become " +2 adv-2"
-  const argsAfterAttribute = message.content.slice(message.content.indexOf(regexResult.groups!.attbNickname) + regexResult.groups!.attbNickname.length)
+  const argsAfterAttribute = regexResult.groups?.attbNickname
+    ? message.content.slice(message.content.indexOf(regexResult.groups!.attbNickname) + regexResult.groups!.attbNickname?.length ?? 0)
+    : test.exec(message.content)?.groups?.flags ?? ""
+  const attributeName = attbName ?? character.defaultAtkAttb
   // roll the character's attribute, applying extra arguments
-  const rollResult = character.rollAttribute(attbName, getArgs(argsAfterAttribute))
+  const rollResult = character.rollDmg(attributeName, getArgs(argsAfterAttribute))
 
-  logSuccess("!rollAttribute", message, flags)
-  message.channel.send(`**${character.name}**, rolling ${attbName}:\n\n${resultString(rollResult)}`)
+  logSuccess("!rollDmg", message, flags)
+  message.channel.send(`**${character.name}**, rolling damage for ${attributeName}:\n\n${resultString(rollResult)}`)
 }
 
-export const rollAttribute: Command = {
-  id: "Fantasy Battle: rollAttribute",
+export const rollDmg: Command = {
+  id: "Fantasy Battle: rollDmg",
   test,
   execute,
 }
 
-export default rollAttribute
+export default rollDmg
