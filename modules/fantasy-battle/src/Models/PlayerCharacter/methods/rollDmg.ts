@@ -1,11 +1,11 @@
-import { createDice, Dice, DiceRollResults } from "@discord-bot/dice"
+import { createDice, Dice, DiceArgs, DiceExtraArgs, DiceProps, DiceRollResults } from "@discord-bot/dice"
 import { PcInstanceMethod, AttributeName } from "../types"
 
 export interface rollDmg {
-  (attbName: AttributeName, bonus?: number): DiceRollResults,
+  (attbName: AttributeName, rollArgs?: DiceExtraArgs): DiceRollResults,
 }
 
-const damageDice: Dice[] = [
+const damageDice: DiceProps[] = [
   { dieAmmount:  1, dieMax:  2 },   // ( 0)  1d2
   
   { dieAmmount:  1, dieMax:  4 },   // ( 1)  1d4
@@ -32,10 +32,27 @@ const damageDice: Dice[] = [
   { dieAmmount: 11, dieMax:  8 },   // (19) 11d8
   { dieAmmount: 10, dieMax: 10 },   // (20) 10d10
 
-].map(props => createDice(props))
+]
+
+// cache dice
+const diceCache = new Map<string, Dice>()
+const useCache = (key: string, diceGenerator: () => Dice) => {
+  if (!diceCache.has(key))
+    diceCache.set(key, diceGenerator())
+  return diceCache.get(key)!
+}
 
 // get correct dice to roll for attribute value
-const getDmgDice = (value: number) => {
+const getAttributeDice = (dmgValue: number, args: DiceExtraArgs) => {
+  // create diceArgs and add user overrides (advantage, bonus, explosion)
+  const diceArgs: DiceProps = { ...getDmgDiceArg(dmgValue), ...args }
+
+  return useCache(JSON.stringify(diceArgs), () => createDice(diceArgs))
+}
+
+
+// get correct dice to roll for attribute value
+const getDmgDiceArg = (value: number) => {
   const attbValue = value - value % 1
 
   // attbValue of 0 or below
@@ -48,9 +65,15 @@ const getDmgDice = (value: number) => {
   return damageDice[attbValue]
 }
 
-export const rollDmg: PcInstanceMethod<rollDmg> = function(this, attbName, bonus = 0) {
+export const rollDmg: PcInstanceMethod<rollDmg> = function(this, attbName, rollArgs) {
+  const {
+    bonus = 0,
+    advantage = 0,
+    explode = 1,
+  } = rollArgs ?? {}
+
   const attributeValue = this.attributes[attbName].value + this.attributes[attbName].bonus
-  return getDmgDice(attributeValue + bonus).detailedRoll()
+  return getAttributeDice(attributeValue + bonus, { advantage, explode }).detailedRoll()
 }
 
 export default rollDmg
