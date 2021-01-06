@@ -124,24 +124,24 @@ describe("Command: setAtkAttribute", () => {
 
         const playerUser = PlayerUserModel.createUser({ userId: message.author.id, username: message.author.username })
         playerUser.addCharacter(PcModel.createCharacter({ name: "Horu" }))
-        playerUser.characters[0].attributes.Fortitude.value = 1
-        playerUser.characters[0].attributes.Fortitude.value = 2
+        playerUser.characters[0].attributes.Agility.bonus = 1
+        playerUser.characters[0].attributes.Agility.value = 2
         await playerUser.save()
 
         await execute(message, test.exec(message.content)!)
 
         expect(message.channel.send).toBeCalledTimes(1)
         const messageSent = (message.channel.send as unknown as jest.MockedFunction<(a:string) => {}>).mock.calls[0][0]
-        expect(messageSent).toMatch(/__\*\*1d20\+12\*\*__: \d+ \(\+12\) = \d+/)
+        expect(messageSent).toMatch(/__\*\*1d20\+9\*\*__: \d+ \(\+9\) = \d+/)
         expect(messageSent.indexOf("**Horu**, rolling Agility:\n")).not.toBe(-1)
       })
       it(`works with advantage`, async () => {
         const [message] = mockDmMessage()
-        message.content = `!agility -7adv+2`
+        message.content = `!fort -3adv+2`
 
         const playerUser = PlayerUserModel.createUser({ userId: message.author.id, username: message.author.username })
         playerUser.addCharacter(PcModel.createCharacter({ name: "Horu" }))
-        playerUser.characters[0].attributes.Fortitude.value = 1
+        playerUser.characters[0].attributes.Fortitude.bonus = -1
         playerUser.characters[0].attributes.Fortitude.value = 2
         await playerUser.save()
 
@@ -149,7 +149,8 @@ describe("Command: setAtkAttribute", () => {
 
         expect(message.channel.send).toBeCalledTimes(1)
         const messageSent = (message.channel.send as unknown as jest.MockedFunction<(a:string) => {}>).mock.calls[0][0]
-        expect(false).toBe(true)
+        expect(messageSent).toMatch(/__\*\*1d20-1 adv\+2\*\*__: .+ \(-1\) = \d+/)
+        expect(messageSent.indexOf("**Horu**, rolling Fortitude:\n")).not.toBe(-1)
       })
     })
   })
