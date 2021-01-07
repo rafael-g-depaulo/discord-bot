@@ -33,6 +33,8 @@ PlayerUserSchema.virtual("activeChar").get(activeChar.get)
 // import and define instance methods
 import addCharacter from "./methods/addCharacter"
 PlayerUserSchema.methods.addCharacter = addCharacter
+import removeCharacter from "./methods/removeCharacter"
+PlayerUserSchema.methods.removeCharacter = removeCharacter
 import getCharacter from "./methods/getCharacter"
 PlayerUserSchema.methods.getCharacter = getCharacter
 

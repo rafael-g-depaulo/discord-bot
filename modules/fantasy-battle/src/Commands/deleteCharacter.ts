@@ -31,7 +31,7 @@ export const execute: RegexCommand.execute = async (message, regexResult) => {
   if (!character) return
 
   // delete character
-  player.characters = player.characters.filter(c => c !== character)
+  player.removeCharacter(character)
   await player.save()
 
   logSuccess("!delete-char", message, flags)

@@ -18,11 +18,13 @@ export interface PlayerUser {
 }
 
 // base document interface
-import { addCharacter } from "./methods/addCharacter"
 import { getCharacter } from "./methods/getCharacter"
+import { addCharacter } from "./methods/addCharacter"
+import { removeCharacter } from "./methods/removeCharacter"
 interface BasePlayerUserDocument extends PlayerUser, Document<Types.ObjectId> {
-  addCharacter: addCharacter,
   getCharacter: getCharacter,
+  addCharacter: addCharacter,
+  removeCharacter: removeCharacter,
 
   activeChar: PcDocument,
 }

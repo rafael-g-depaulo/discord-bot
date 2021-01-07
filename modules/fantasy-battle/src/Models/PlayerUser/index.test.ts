@@ -154,6 +154,53 @@ describe("PlayerUser Model", () => {
       })
     })
 
+    describe(".removeCharacter()", () => {
+      it('allows removing a character', async () => {
+        const user = PlayerUserModel.createUser({ username: "userTest", userId: "420" })
+        // add character
+        const allor = PcModel.createCharacter({ name: "Allor" })
+        user.addCharacter(allor)
+        
+        // check that the character was removed from user
+        expect(user.characters[0].name).toBe("Allor")
+        expect(user.characters.length).toBe(1)
+        expect(user.activeCharIndex).toBe(0)
+
+        // remove character
+        user.removeCharacter(allor)
+        // check that the character was removed from user
+        expect(user.characters.length).toBe(0)
+        expect(user.activeCharIndex).toBe(undefined)
+      })
+
+      it('resets the characterIndex', () => {
+        const user = PlayerUserModel.createUser({ username: "userTest", userId: "420" })
+        // add character
+        const allor = PcModel.createCharacter({ name: "Allor" })
+        const horu = PcModel.createCharacter({ name: "Horu" })
+        user.addCharacter(allor)
+        user.addCharacter(horu)
+        
+        // check that the character was removed from user
+        expect(user.characters.length).toBe(2)
+        expect(user.characters[0].name).toBe("Allor")
+        expect(user.characters[1].name).toBe("Horu")
+        expect(user.activeCharIndex).toBe(0)
+
+        // remove character
+        user.removeCharacter(allor)
+        // check that the character was removed from user
+        expect(user.characters.length).toBe(1)
+        expect(user.activeCharIndex).toBe(0)
+
+        // remove character
+        user.removeCharacter(horu)
+        // check that the character was removed from user
+        expect(user.characters.length).toBe(0)
+        expect(user.activeCharIndex).toBe(undefined)
+      })
+    })
+
     describe(".getCharacter()", () => {  
       it('allows getting a character by fullname', async () => {
         const user = PlayerUserModel.createUser({ userId: "123456789", username: "usernameTest" })
