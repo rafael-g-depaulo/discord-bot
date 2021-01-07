@@ -1,13 +1,13 @@
 import CreateAddCommand from "./addCommand"
 import { mockClientWithMessage } from "../../mockDiscord"
-import { CommandState } from "Client/CommandClient"
+import { CommandState } from "./types"
 import CreateRemoveCommand from "./removeCommand"
 
 describe("removeCommand", () => {
 
   it("removes a command when given an id", () => {
     const state: CommandState = {
-      commands: [],
+      commandListeners: new Map(),
     }
     const discordClient = mockClientWithMessage("message test")
     const addCommand = CreateAddCommand({ discordClient }, state)
@@ -20,17 +20,14 @@ describe("removeCommand", () => {
 
     removeCommand("3")
 
-    expect(state.commands.length).toBe(1)
-    expect(state.commands).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining({ command: cmd2, id: "2" }),
-      ])
-    )
+    const commands = Array.from(state.commandListeners.entries())
+    expect(state.commandListeners.size).toBe(1)
+    expect(commands[0][0]).toEqual('2')
   })
   
   it("removes a command when given the command object", () => {
     const state: CommandState = {
-      commands: [],
+      commandListeners: new Map(),
     }
     const discordClient = mockClientWithMessage("message test")
     const addCommand = CreateAddCommand({ discordClient }, state)
@@ -43,11 +40,8 @@ describe("removeCommand", () => {
 
     removeCommand(cmd3)
 
-    expect(state.commands.length).toBe(1)
-    expect(state.commands).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining({ command: cmd2, id: "2" }),
-      ])
-    )
+    const commands = Array.from(state.commandListeners.entries())
+    expect(state.commandListeners.size).toBe(1)
+    expect(commands[0][0]).toEqual('2')
   })
 })

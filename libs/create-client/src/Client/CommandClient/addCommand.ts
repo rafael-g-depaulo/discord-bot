@@ -1,45 +1,36 @@
 import { Message } from "discord.js"
-import { Command, CommandProps, CommandState, isRegexCommand } from "./index"
+import { Command, CommandListener, CommandProps, CommandState } from "./types"
+import { isRegexCommand } from "./helpers"
 
 export const CreateAddCommand = (props: CommandProps, state: CommandState) => (cmd: Command) => {
-  const { discordClient } = props
+  const {
+    commandListeners,
+  } = state
 
   // create and add event listener
-  let eventListener: undefined | ((msg: Message) => void)
+  let eventListener: undefined | CommandListener
 
-    // if is a regex-style command
-    if (isRegexCommand(cmd)) {
-      eventListener = (msg: Message) => {
-        // if from bot, ignore
-        if (msg.author.bot) return
-        // if message is command, execute it
-        const commandRegex = cmd.test
-        const result = commandRegex.exec(msg.content)
-        if (result) cmd.execute(msg, result)
-      }
+  // if is a regex-style command
+  if (isRegexCommand(cmd)) {
+    eventListener = {
+      test: (msg: Message) => cmd.test.test(msg.content),
+      execute: async (msg: Message) => await cmd.execute(msg, cmd.test.exec(msg.content)!)
     }
-
-    // if default command type
-    else {
-      eventListener = (msg: Message) => {
-        // if from bot, ignore
-        if (msg.author.bot) return
-        // if message is command, execute it
-        if (cmd.test(msg)) cmd.execute(msg)
-      }
+  }
+  // if default command type
+  else {
+    eventListener = {
+      test: (msg: Message) => cmd.test(msg),
+      execute: async (msg: Message) => await cmd.execute(msg)
     }
-
-  // if got error, throw
-  if (eventListener instanceof Error) {
-    throw eventListener
   }
 
-  // add event listener to client
-  discordClient.on("message", eventListener)
+  // add event listener to map
+  commandListeners.set(cmd.id, eventListener)
 
-  // add command to list
-  state.commands.push({ command: cmd, id: cmd.id, eventListener })
-
+  // re-create message listener to reflect new command
+  // (apperently isn't needed as the listener properly uses the current map, and doesn't need the referece to be reset)
+  // resetMasterMessageListener(props, state)
 }
 
 export default CreateAddCommand
