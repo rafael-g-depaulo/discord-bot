@@ -9,6 +9,7 @@ import deleteCharacter from "./Commands/deleteCharacter"
 import setAtkAttribute from "./Commands/setAtkAttribute"
 import rollAttribute from "./Commands/rollAttribute"
 import rollDmg from "./Commands/rollDmg"
+import setAttribute from "./Commands/setAttribute"
 
 export const dbConnect = connect
 
@@ -24,6 +25,7 @@ export const TestModule: Module = {
     setAtkAttribute,
     rollAttribute,
     rollDmg,
+    setAttribute,
   ],
 }
 
