@@ -37,7 +37,7 @@ export const execute: RegexCommand.execute = async (msg, regexResult) => {
     return msg.channel.send(`You already have a character named "${flags.name}"! You can't repeat names, be more creative`)
   }
 
-  // if invalid --atk-attb
+  // if (existing but) invalid --atk-attb
   const atkAttb = validateAttributeName("!create-char", msg, flags, "atk-attb")
   if (atkAttb === null) return
 

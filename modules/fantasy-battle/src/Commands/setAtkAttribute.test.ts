@@ -83,7 +83,7 @@ describe("Command: setAtkAttribute", () => {
     describe("happy paths", () => {
       it("works by default", async () => {
         const [message] = mockPlayerMessage()
-        message.content = `!set-atk-attb --char Horu --attb Entropy`
+        message.content = `!set-atk-attb --char Horu --attb entro`
 
         const playerUser = PlayerUserModel.createUser({ userId: message.author.id, username: message.author.username })
         playerUser.addCharacter(PcModel.createCharacter({ name: "Horu" }))
@@ -118,7 +118,7 @@ describe("Command: setAtkAttribute", () => {
 
       it(`works with --player flag`, async () => {
         const [message] = mockDmMessage()
-        message.content = `!set-atk-attb --char Ynit --player "testPlayer" --attb Agility`
+        message.content = `!set-atk-attb --char Ynit --player "testPlayer" --attb agi`
 
         const playerUser = PlayerUserModel.createUser({ userId: "42069420", username: "testPlayer" })
         playerUser.addCharacter(PcModel.createCharacter({ name: "Horu" }))
