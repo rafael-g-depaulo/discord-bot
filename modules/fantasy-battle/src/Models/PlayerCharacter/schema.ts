@@ -36,6 +36,11 @@ const PcSchemaFields: SchemaFields<Pc> = {
     type: String,
     required: true,
   },
+  level: {
+    type: Number,
+    required: true,
+    default: 1,
+  },
   attributes: {
     Agility    : Attribute,
     Fortitude  : Attribute,

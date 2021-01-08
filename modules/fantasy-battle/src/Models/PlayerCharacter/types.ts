@@ -29,6 +29,7 @@ export const AttributeNames: AttributeName[] = [
 
 export interface Pc {
   name: string,
+  level?: number,
   attributes: {
     [key in AttributeName]: {
       value: number,
@@ -49,6 +50,7 @@ export interface BasePcDocument extends Pc, Document<Types.ObjectId> {
   rollAttribute: rollAttribute,
   rollDmg: rollDmg,
 
+  level: number,
   defaultAtkAttb: AttributeName,
   // scaling for hp/mp
   hpScaling: Scaling,

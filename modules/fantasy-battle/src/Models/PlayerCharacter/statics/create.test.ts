@@ -17,11 +17,13 @@ describe('PlayerCharacter.createCharacter()', () => {
     it(`passes direct props`, () => {
       const pcProps: createPcProps = {
         name: "Ssaak",
-        atkAttb: "Agility"
+        atkAttb: "Agility",
+        level: 3
       }
       const character = create.call(PcModel, pcProps)
       expect(character.name).toBe("Ssaak")
       expect(character.defaultAtkAttb).toBe("Agility")
+      expect(character.level).toBe(3)
     })
 
     it(`creates empty attributes`, () => {
@@ -42,6 +44,8 @@ describe('PlayerCharacter.createCharacter()', () => {
 
     it(`creates empty resource scaling`, () => {
       const character = create.call(PcModel, { name: "Mellhot" })
+      // default level
+      expect(character.level).toBe(1)
 
       // hp scaling
       expect(character.hpScaling.base)      .toBe(8)

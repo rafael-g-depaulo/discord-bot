@@ -20,6 +20,7 @@ describe("PlayerCharacter Model", () => {
       expect(pc._id).toStrictEqual(pcSaved?._id)
       expect(pc.name).toBe(pcSaved.name)
       expect(pc.defaultAtkAttb).toBe("Agility")
+      expect(pc.level).toBe(1)
 
       // hp scaling
       expect(pc.hpScaling.base)      .toBe(8)
