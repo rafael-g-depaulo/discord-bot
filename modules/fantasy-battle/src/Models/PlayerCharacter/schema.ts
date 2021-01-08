@@ -17,6 +17,20 @@ const Attribute = {
     default: 0,
   },
 }
+const ScalingItem = {
+  type: Number,
+  default: 0,
+  required: true,
+}
+const ResourceScaling = {
+  base:       ScalingItem,  level:      ScalingItem,  bonus:      ScalingItem,
+  Agility:    ScalingItem,  Fortitude:  ScalingItem,  Might:      ScalingItem,
+  Learning:   ScalingItem,  Logic:      ScalingItem,  Perception: ScalingItem,
+  Will:       ScalingItem,  Deception:  ScalingItem,  Persuasion: ScalingItem,
+  Presence:   ScalingItem,  Alteration: ScalingItem,  Creation:   ScalingItem,
+  Energy:     ScalingItem,  Entropy:    ScalingItem,  Influence:  ScalingItem,
+  Movement:   ScalingItem,  Prescience: ScalingItem,  Protection: ScalingItem,
+}
 const PcSchemaFields: SchemaFields<Pc> = {
   name: {
     type: String,
@@ -45,6 +59,23 @@ const PcSchemaFields: SchemaFields<Pc> = {
   defaultAtkAttb: {
     type: String,
     default: "Might",
+  },
+  hpScaling: {
+    ...ResourceScaling,
+    base:      { ...ScalingItem, default: 8 },
+    level:     { ...ScalingItem, default: 2 },
+    Fortitude: { ...ScalingItem, default: 2 },
+    Might:     { ...ScalingItem, default: 1.5 },
+    Will:      { ...ScalingItem, default: 1 },
+    Presence:  { ...ScalingItem, default: 2 },
+  },
+  mpScaling: {
+    ...ResourceScaling,
+    base:      { ...ScalingItem, default: 8 },
+    level:     { ...ScalingItem, default: 2 },
+    Learning:  { ...ScalingItem, default: 2 },
+    Logic:     { ...ScalingItem, default: 1.5 },
+    Will:      { ...ScalingItem, default: 1 },
   },
 }
 export const PcSchema = new Schema<Pc>(PcSchemaFields)

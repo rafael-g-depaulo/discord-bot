@@ -40,6 +40,27 @@ describe('PlayerCharacter.createCharacter()', () => {
       expect(character.defaultAtkAttb).toBe("Might")
     })
 
+    it(`creates empty resource scaling`, () => {
+      const character = create.call(PcModel, { name: "Mellhot" })
+
+      // hp scaling
+      expect(character.hpScaling.base)      .toBe(8)
+      expect(character.hpScaling.level)     .toBe(2)
+      expect(character.hpScaling.bonus)     .toBe(0)
+      expect(character.hpScaling.Fortitude) .toBe(2)
+      expect(character.hpScaling.Might)     .toBe(1.5)
+      expect(character.hpScaling.Will)      .toBe(1)
+      expect(character.hpScaling.Presence)  .toBe(2)
+
+      // mp scaling
+      expect(character.mpScaling.base)      .toBe(8)
+      expect(character.mpScaling.level)     .toBe(2)
+      expect(character.mpScaling.bonus)     .toBe(0)
+      expect(character.mpScaling.Learning)  .toBe(2)
+      expect(character.mpScaling.Logic)     .toBe(1.5)
+      expect(character.mpScaling.Will)      .toBe(1)
+    })
+
     it(`has functioning attributes`, () => {
       const char = create.call(PcModel, { name: "Horu" })
 

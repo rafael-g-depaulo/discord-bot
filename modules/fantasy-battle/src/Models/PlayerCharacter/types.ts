@@ -36,6 +36,9 @@ export interface Pc {
     }
   },
   defaultAtkAttb?: AttributeName,
+  // scaling for hp/mp
+  hpScaling?: Scaling,
+  mpScaling?: Scaling,
 }
 
 
@@ -47,6 +50,9 @@ export interface BasePcDocument extends Pc, Document<Types.ObjectId> {
   rollDmg: rollDmg,
 
   defaultAtkAttb: AttributeName,
+  // scaling for hp/mp
+  hpScaling: Scaling,
+  mpScaling: Scaling,
 }
 // unpopulated document (this is what's returned by queries)
 export interface PcDocument extends BasePcDocument {}
@@ -67,3 +73,14 @@ export interface PcInstanceMethod<M extends (...args: any) => any> extends Insta
 export interface PcStaticMethod<M extends (...args: any) => any> extends StaticMethod<PcDocument, PcModel, M> {}
 // type defition for a function defining an instance virtual property
 export interface PcVirtualGetter<T> extends VirtualGetter<BasePcDocument, T> {}
+
+// type that determines the scaling for a resource (hp/mp)
+type Scaling = {
+  // level scaling
+  level: number,
+  // base hp/mp
+  base: number,
+  // bonus hp/mp
+  bonus: number,
+// one entry for every attribute
+} & { [key in AttributeName]: number }

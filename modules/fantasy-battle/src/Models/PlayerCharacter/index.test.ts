@@ -16,11 +16,27 @@ describe("PlayerCharacter Model", () => {
     it("creates", async () => {
       const pc = new PcModel(pcInfo)
       const pcSaved = await pc.save()
-
       expect(pc.name).toBe(pcInfo.name)
       expect(pc._id).toStrictEqual(pcSaved?._id)
       expect(pc.name).toBe(pcSaved.name)
       expect(pc.defaultAtkAttb).toBe("Agility")
+
+      // hp scaling
+      expect(pc.hpScaling.base)      .toBe(8)
+      expect(pc.hpScaling.level)     .toBe(2)
+      expect(pc.hpScaling.bonus)     .toBe(0)
+      expect(pc.hpScaling.Fortitude) .toBe(2)
+      expect(pc.hpScaling.Might)     .toBe(1.5)
+      expect(pc.hpScaling.Will)      .toBe(1)
+      expect(pc.hpScaling.Presence)  .toBe(2)
+
+      // mp scaling
+      expect(pc.mpScaling.base)      .toBe(8)
+      expect(pc.mpScaling.level)     .toBe(2)
+      expect(pc.mpScaling.bonus)     .toBe(0)
+      expect(pc.mpScaling.Learning)  .toBe(2)
+      expect(pc.mpScaling.Logic)     .toBe(1.5)
+      expect(pc.mpScaling.Will)      .toBe(1)
     })
 
     it("reads", async () => {
