@@ -48,21 +48,22 @@ describe('PlayerCharacter.createCharacter()', () => {
       expect(character.level).toBe(1)
 
       // hp scaling
-      expect(character.hpScaling.base)      .toBe(8)
-      expect(character.hpScaling.level)     .toBe(2)
-      expect(character.hpScaling.bonus)     .toBe(0)
-      expect(character.hpScaling.Fortitude) .toBe(2)
-      expect(character.hpScaling.Might)     .toBe(1.5)
-      expect(character.hpScaling.Will)      .toBe(1)
-      expect(character.hpScaling.Presence)  .toBe(2)
+      expect(character.hpScaling.base)     .toBe(8)
+      expect(character.hpScaling.level)    .toBe(2)
+      expect(character.hpScaling.bonus)    .toBe(0)
+      expect(character.hpScaling.Fortitude).toBe(2)
+      expect(character.hpScaling.Might)    .toBe(1.5)
+      expect(character.hpScaling.Will)     .toBe(1)
+      expect(character.hpScaling.Presence) .toBe(1.5)
 
       // mp scaling
-      expect(character.mpScaling.base)      .toBe(8)
-      expect(character.mpScaling.level)     .toBe(2)
-      expect(character.mpScaling.bonus)     .toBe(0)
-      expect(character.mpScaling.Learning)  .toBe(2)
-      expect(character.mpScaling.Logic)     .toBe(1.5)
-      expect(character.mpScaling.Will)      .toBe(1)
+      expect(character.mpScaling.base)          .toBe(8)
+      expect(character.mpScaling.level)         .toBe(2)
+      expect(character.mpScaling.bonus)         .toBe(0)
+      expect(character.mpScaling.Learning)      .toBe(2)
+      expect(character.mpScaling.Logic)         .toBe(1.5)
+      expect(character.mpScaling.Will)          .toBe(1)
+      expect(character.mpScaling.highestSpecial).toBe(1.5)
     })
 
     it(`has functioning attributes`, () => {

@@ -21,8 +21,14 @@ import create from "./statics/create"
 PcSchema.statics.createCharacter = create
 
 // import and define virtuals
-// import virtualName from "./virtuals/virtualName"
-// PcSchema.virtual("virtualName").get(virtualName.get)
+import highestPhysical from "./virtuals/highestPhysical"
+PcSchema.virtual("highestPhysical").get(highestPhysical.get)
+import highestMental from "./virtuals/highestMental"
+PcSchema.virtual("highestMental").get(highestMental.get)
+import highestSocial from "./virtuals/highestSocial"
+PcSchema.virtual("highestSocial").get(highestSocial.get)
+import highestSpecial from "./virtuals/highestSpecial"
+PcSchema.virtual("highestSpecial").get(highestSpecial.get)
   
 // import and define instance methods
 import rollAttribute from "./methods/rollAttribute"

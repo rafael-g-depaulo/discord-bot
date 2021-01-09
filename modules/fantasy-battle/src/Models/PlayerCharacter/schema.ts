@@ -1,7 +1,7 @@
 import { Schema } from "mongoose"
-import { string } from "yargs"
 import { SchemaFields } from "../helpers"
 
+import { ResourceSchema } from "../PcResource"
 import { Pc } from "./types"
 
 // mongoDb schema to define data type
@@ -30,6 +30,8 @@ const ResourceScaling = {
   Presence:   ScalingItem,  Alteration: ScalingItem,  Creation:   ScalingItem,
   Energy:     ScalingItem,  Entropy:    ScalingItem,  Influence:  ScalingItem,
   Movement:   ScalingItem,  Prescience: ScalingItem,  Protection: ScalingItem,
+  highestPhysicalAttribute: ScalingItem, highestMentalAttribute:   ScalingItem,
+  highestSocialAttribute:   ScalingItem, highestSpecialAttribute:  ScalingItem,
 }
 const PcSchemaFields: SchemaFields<Pc> = {
   name: {
@@ -40,6 +42,14 @@ const PcSchemaFields: SchemaFields<Pc> = {
     type: Number,
     required: true,
     default: 1,
+  },
+  hp: {
+    type: ResourceSchema,
+    required: true,
+  },
+  mp: {
+    type: ResourceSchema,
+    required: true,
   },
   attributes: {
     Agility    : Attribute,
@@ -71,8 +81,8 @@ const PcSchemaFields: SchemaFields<Pc> = {
     level:     { ...ScalingItem, default: 2 },
     Fortitude: { ...ScalingItem, default: 2 },
     Might:     { ...ScalingItem, default: 1.5 },
+    Presence:  { ...ScalingItem, default: 1.5 },
     Will:      { ...ScalingItem, default: 1 },
-    Presence:  { ...ScalingItem, default: 2 },
   },
   mpScaling: {
     ...ResourceScaling,
@@ -80,6 +90,7 @@ const PcSchemaFields: SchemaFields<Pc> = {
     level:     { ...ScalingItem, default: 2 },
     Learning:  { ...ScalingItem, default: 2 },
     Logic:     { ...ScalingItem, default: 1.5 },
+    highestSpecial: { ...ScalingItem, default: 1.5 },
     Will:      { ...ScalingItem, default: 1 },
   },
 }

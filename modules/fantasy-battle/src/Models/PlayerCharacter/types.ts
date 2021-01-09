@@ -8,6 +8,9 @@ export interface Attribute {
   value: number,
   bonus: number,
 }
+export interface HighestAttribute extends Attribute {
+  name: AttributeName,
+}
 export type Attributes = {
   [key in AttributeName]: Attribute
 }
@@ -30,12 +33,18 @@ export const AttributeNames: AttributeName[] = [
 export interface Pc {
   name: string,
   level?: number,
+  // hp & mp
+  hp?: ResourceDocument,
+  mp?: ResourceDocument,
+
+  // attributes
   attributes: {
     [key in AttributeName]: {
       value: number,
       bonus: number,
     }
   },
+
   defaultAtkAttb?: AttributeName,
   // scaling for hp/mp
   hpScaling?: Scaling,
@@ -44,13 +53,27 @@ export interface Pc {
 
 
 // base document interface
+// import { updateMaxResources } from "./methods/updateMaxResources"
 import { rollAttribute } from "./methods/rollAttribute"
 import { rollDmg } from "./methods/rollDmg"
 export interface BasePcDocument extends Pc, Document<Types.ObjectId> {
+  // updateMaxResources: updateMaxResources,
   rollAttribute: rollAttribute,
   rollDmg: rollDmg,
 
+  // hp & mp
+  hp: ResourceDocument,
+  mp: ResourceDocument,
+
+  // level
   level: number,
+
+  // get highest attribute of each kind
+  highestPhysical: HighestAttribute,
+  highestMental: HighestAttribute,
+  highestSocial: HighestAttribute,
+  highestSpecial: HighestAttribute,
+
   defaultAtkAttb: AttributeName,
   // scaling for hp/mp
   hpScaling: Scaling,
@@ -64,6 +87,7 @@ export interface PcPopulatedDocument extends BasePcDocument {}
 
 // interface for model, with all static methods defined
 import { create } from "./statics/create"
+import { ResourceDocument } from "Models/PcResource"
 export interface PcModel extends Model<PcDocument> {
   createCharacter: create,
 }
@@ -84,5 +108,12 @@ type Scaling = {
   base: number,
   // bonus hp/mp
   bonus: number,
+
+  // highest attribute of a single kind
+  highestPhysical: number,
+  highestMental: number,
+  highestSocial: number,
+  highestSpecial: number,
+
 // one entry for every attribute
 } & { [key in AttributeName]: number }

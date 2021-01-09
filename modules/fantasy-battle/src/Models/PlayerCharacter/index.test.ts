@@ -1,3 +1,4 @@
+import ResourceModel from "Models/PcResource"
 import mockAttributes from "Utils/mockAttributes"
 import { useDbConnection } from "Utils/mongoTest"
 import PcModel, { Pc } from "./index"
@@ -11,6 +12,8 @@ describe("PlayerCharacter Model", () => {
     name: "character name",
     attributes: mockAttributes(),
     defaultAtkAttb: "Agility",
+    hp: new ResourceModel({ base_max: 10, bonus_max: 0, current: 10, temporary: 0 }),
+    mp: new ResourceModel({ base_max: 10, bonus_max: 0, current: 10, temporary: 0 }),
   }
   describe("CRUD", () => {
     it("creates", async () => {
@@ -23,21 +26,22 @@ describe("PlayerCharacter Model", () => {
       expect(pc.level).toBe(1)
 
       // hp scaling
-      expect(pc.hpScaling.base)      .toBe(8)
-      expect(pc.hpScaling.level)     .toBe(2)
-      expect(pc.hpScaling.bonus)     .toBe(0)
-      expect(pc.hpScaling.Fortitude) .toBe(2)
-      expect(pc.hpScaling.Might)     .toBe(1.5)
-      expect(pc.hpScaling.Will)      .toBe(1)
-      expect(pc.hpScaling.Presence)  .toBe(2)
+      expect(pc.hpScaling.base)     .toBe(8)
+      expect(pc.hpScaling.level)    .toBe(2)
+      expect(pc.hpScaling.bonus)    .toBe(0)
+      expect(pc.hpScaling.Fortitude).toBe(2)
+      expect(pc.hpScaling.Might)    .toBe(1.5)
+      expect(pc.hpScaling.Will)     .toBe(1)
+      expect(pc.hpScaling.Presence) .toBe(1.5)
 
       // mp scaling
-      expect(pc.mpScaling.base)      .toBe(8)
-      expect(pc.mpScaling.level)     .toBe(2)
-      expect(pc.mpScaling.bonus)     .toBe(0)
-      expect(pc.mpScaling.Learning)  .toBe(2)
-      expect(pc.mpScaling.Logic)     .toBe(1.5)
-      expect(pc.mpScaling.Will)      .toBe(1)
+      expect(pc.mpScaling.base)          .toBe(8)
+      expect(pc.mpScaling.level)         .toBe(2)
+      expect(pc.mpScaling.bonus)         .toBe(0)
+      expect(pc.mpScaling.Learning)      .toBe(2)
+      expect(pc.mpScaling.Logic)         .toBe(1.5)
+      expect(pc.mpScaling.Will)          .toBe(1)
+      expect(pc.mpScaling.highestSpecial).toBe(1.5)
     })
 
     it("reads", async () => {
@@ -179,6 +183,96 @@ describe("PlayerCharacter Model", () => {
             Influence:  { bonus: 0, value: 0 }, Movement:   { bonus: 0, value: 0 },
             Prescience: { bonus: 0, value: 0 }, Protection: { bonus: 0, value: 0 },
           })
+        })
+      })
+    })
+  })
+
+  describe("virtuals", () => {
+    describe(".highestPhysical", () => {
+      it("works", () => {
+        const pc1 = PcModel.createCharacter({ name: "test", level: 1 })
+        // highest physical attribute (either fort, agi or might, since they have the same value)
+        const highestAttb1 = pc1.highestPhysical
+        expect(highestAttb1.bonus).toBe(0)
+        expect(highestAttb1.value).toBe(0)
+        expect(highestAttb1.name).toMatch(/Might|Agility|Fortitude/)
+        
+        const pc2 = PcModel.createCharacter({ name: "test", level: 1 })
+        pc2.attributes.Might.value = 2
+        pc2.attributes.Might.bonus = 4
+        pc2.attributes.Agility.value = 1
+        // highest physical attribute (either fort, agi or might, since they have the same value)
+        const highestAttb2 = pc2.highestPhysical
+        expect(highestAttb2.bonus).toBe(4)
+        expect(highestAttb2.value).toBe(2)
+        expect(highestAttb2.name).toBe("Might")
+      })
+    })
+    describe(".highestMental", () => {
+      it("works", () => {
+        const pc1 = PcModel.createCharacter({ name: "test", level: 1 })
+        // highest physical attribute (either fort, agi or might, since they have the same value)
+        const highestAttb1 = pc1.highestMental
+        expect(highestAttb1.bonus).toBe(0)
+        expect(highestAttb1.value).toBe(0)
+        expect(highestAttb1.name).toMatch(/Learning|Logic|Perception|Will/)
+        
+        const pc2 = PcModel.createCharacter({ name: "test", level: 1 })
+        pc2.attributes.Perception.value = 2
+        pc2.attributes.Perception.bonus = 4
+        pc2.attributes.Will.value = 1
+        pc2.attributes.Will.bonus = 8
+        // highest physical attribute (either fort, agi or might, since they have the same value)
+        const highestAttb2 = pc2.highestMental
+        expect(highestAttb2.value).toBe(2)
+        expect(highestAttb2.bonus).toBe(4)
+        expect(highestAttb2.name).toBe("Perception")
+      })
+    })
+    describe(".highestSocial", () => {
+      it("works", () => {
+        const pc1 = PcModel.createCharacter({ name: "test", level: 1 })
+        // highest physical attribute (either fort, agi or might, since they have the same value)
+        const highestAttb1 = pc1.highestSocial
+        expect(highestAttb1.bonus).toBe(0)
+        expect(highestAttb1.value).toBe(0)
+        expect(highestAttb1.name).toMatch(/Deception|Persuasion|Presence/)
+        
+        const pc2 = PcModel.createCharacter({ name: "test", level: 1 })
+        pc2.attributes.Perception.value = 2
+        pc2.attributes.Perception.bonus = 4
+        pc2.attributes.Persuasion.value = 1
+        pc2.attributes.Persuasion.bonus = 5
+        pc2.attributes.Presence.value = 0
+        pc2.attributes.Presence.bonus = 9
+        // highest physical attribute (either fort, agi or might, since they have the same value)
+        const highestAttb2 = pc2.highestSocial
+        expect(highestAttb2.value).toBe(1)
+        expect(highestAttb2.bonus).toBe(5)
+        expect(highestAttb2.name).toBe("Persuasion")
+      })
+      describe(".highestSpecial", () => {
+        it("works", () => {
+          const pc1 = PcModel.createCharacter({ name: "test", level: 1 })
+          // highest physical attribute (either fort, agi or might, since they have the same value)
+          const highestAttb1 = pc1.highestSpecial
+          expect(highestAttb1.bonus).toBe(0)
+          expect(highestAttb1.value).toBe(0)
+          expect(highestAttb1.name).toMatch(/Alteration|Creation|Energy|Entropy|Influence|Movement|Prescience|Protection/)
+          
+          const pc2 = PcModel.createCharacter({ name: "test", level: 1 })
+          pc2.attributes.Perception.value = 2
+          pc2.attributes.Perception.bonus = 4
+          pc2.attributes.Entropy.value = 1
+          pc2.attributes.Entropy.bonus = 5
+          pc2.attributes.Alteration.value = 0
+          pc2.attributes.Alteration.bonus = 9
+          // highest physical attribute (either fort, agi or might, since they have the same value)
+          const highestAttb2 = pc2.highestSpecial
+          expect(highestAttb2.value).toBe(1)
+          expect(highestAttb2.bonus).toBe(5)
+          expect(highestAttb2.name).toBe("Entropy")
         })
       })
     })
