@@ -31,6 +31,8 @@ import highestSpecial from "./virtuals/highestSpecial"
 PcSchema.virtual("highestSpecial").get(highestSpecial.get)
   
 // import and define instance methods
+import updateMaxResources from "./methods/updateMaxResources"
+PcSchema.methods.updateMaxResources = updateMaxResources
 import rollAttribute from "./methods/rollAttribute"
 PcSchema.methods.rollAttribute = rollAttribute
 import rollDmg from "./methods/rollDmg"

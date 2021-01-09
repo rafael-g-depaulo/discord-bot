@@ -42,6 +42,14 @@ describe('PlayerCharacter.createCharacter()', () => {
       expect(character.defaultAtkAttb).toBe("Might")
     })
 
+    it(`creates empty resources`, () => {
+      const character = create.call(PcModel, { name: "Mellhot" })
+      expect(character.hp.max).toBe(10)
+      expect(character.hp.current).toBe(10)
+
+      expect(character.mp.max).toBe(10)
+      expect(character.mp.current).toBe(10)
+    })
     it(`creates empty resource scaling`, () => {
       const character = create.call(PcModel, { name: "Mellhot" })
       // default level

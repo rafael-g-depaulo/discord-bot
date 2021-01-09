@@ -53,11 +53,11 @@ export interface Pc {
 
 
 // base document interface
-// import { updateMaxResources } from "./methods/updateMaxResources"
+import { updateMaxResources } from "./methods/updateMaxResources"
 import { rollAttribute } from "./methods/rollAttribute"
 import { rollDmg } from "./methods/rollDmg"
 export interface BasePcDocument extends Pc, Document<Types.ObjectId> {
-  // updateMaxResources: updateMaxResources,
+  updateMaxResources: updateMaxResources,
   rollAttribute: rollAttribute,
   rollDmg: rollDmg,
 

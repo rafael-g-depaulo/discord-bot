@@ -32,23 +32,28 @@ export const getMaxHp = ({
   highestSocial,
   highestSpecial,
 }: PcDocument): number => {
-  const maxHp = hpScaling.base
+  const base =
+    + hpScaling.base
     + hpScaling.bonus
     + hpScaling.level * level
     
+  const physical =
     + hpScaling.Agility    * attributes.Agility   .value
     + hpScaling.Fortitude  * attributes.Fortitude .value
     + hpScaling.Might      * attributes.Might     .value
 
+  const mental =
     + hpScaling.Learning   * attributes.Learning  .value
     + hpScaling.Logic      * attributes.Logic     .value
     + hpScaling.Perception * attributes.Perception.value
     + hpScaling.Will       * attributes.Will      .value
     
+  const social =
     + hpScaling.Deception  * attributes.Deception .value
     + hpScaling.Persuasion * attributes.Persuasion.value
     + hpScaling.Presence   * attributes.Presence  .value
     
+  const special =
     + hpScaling.Alteration * attributes.Alteration.value
     + hpScaling.Creation   * attributes.Creation  .value
     + hpScaling.Energy     * attributes.Energy    .value
@@ -58,11 +63,14 @@ export const getMaxHp = ({
     + hpScaling.Prescience * attributes.Prescience.value
     + hpScaling.Protection * attributes.Protection.value
 
+  const highest =
     + hpScaling.highestPhysical * highestPhysical .value
     + hpScaling.highestMental   * highestMental   .value
     + hpScaling.highestSocial   * highestSocial   .value
     + hpScaling.highestSpecial  * highestSpecial  .value
-  return maxHp
+
+  const maxHp = base + physical + mental + social + special + highest
+  return Math.floor(maxHp)
 }
 
 export const getMaxMp = ({
@@ -73,25 +81,29 @@ export const getMaxMp = ({
   highestMental,
   highestSocial,
   highestSpecial,
-  name
 }: PcDocument): number => {
-  const maxMp = 
+  const base =
     + mpScaling.base
     + mpScaling.bonus
     + mpScaling.level * level
+  
+    const physical =
     + mpScaling.Agility    * attributes.Agility   .value
     + mpScaling.Fortitude  * attributes.Fortitude .value
     + mpScaling.Might      * attributes.Might     .value
     
+  const mental =
     + mpScaling.Learning   * attributes.Learning  .value
     + mpScaling.Logic      * attributes.Logic     .value
     + mpScaling.Perception * attributes.Perception.value
     + mpScaling.Will       * attributes.Will      .value
     
+  const social =
     + mpScaling.Deception  * attributes.Deception .value
     + mpScaling.Persuasion * attributes.Persuasion.value
     + mpScaling.Presence   * attributes.Presence  .value
 
+  const special =
     + mpScaling.Alteration * attributes.Alteration.value
     + mpScaling.Creation   * attributes.Creation  .value
     + mpScaling.Energy     * attributes.Energy    .value
@@ -101,9 +113,12 @@ export const getMaxMp = ({
     + mpScaling.Prescience * attributes.Prescience.value
     + mpScaling.Protection * attributes.Protection.value
 
+  const highest =
     + mpScaling.highestPhysical * highestPhysical .value
     + mpScaling.highestMental   * highestMental   .value
     + mpScaling.highestSocial   * highestSocial   .value
     + mpScaling.highestSpecial  * highestSpecial  .value
-  return maxMp
+    
+  const maxMp = base + physical + mental + social + special + highest
+  return Math.floor(maxMp)
 }
