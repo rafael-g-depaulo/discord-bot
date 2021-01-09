@@ -44,7 +44,7 @@ describe("Command: rollDmg", () => {
       
       it(`doesn't allow a non-DM user to use command with --player flag`, async () => {
         const [message] = mockPlayerMessage()
-        message.content = `!dmg dmg --player "OtherPlayer"`
+        message.content = `!dmg --player "OtherPlayer"`
         await execute(message, test.exec(message.content)!)
         expect(message.channel.send).toBeCalledTimes(1)
         expect(message.channel.send).toBeCalledWith(`only DM's can use this command with the --player flag`)
