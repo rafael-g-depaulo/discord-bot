@@ -30,9 +30,10 @@ const ResourceScaling = {
   Presence:   ScalingItem,  Alteration: ScalingItem,  Creation:   ScalingItem,
   Energy:     ScalingItem,  Entropy:    ScalingItem,  Influence:  ScalingItem,
   Movement:   ScalingItem,  Prescience: ScalingItem,  Protection: ScalingItem,
-  highestPhysicalAttribute: ScalingItem, highestMentalAttribute:   ScalingItem,
-  highestSocialAttribute:   ScalingItem, highestSpecialAttribute:  ScalingItem,
+  highestPhysical: ScalingItem, highestMental:   ScalingItem,
+  highestSocial:   ScalingItem, highestSpecial:  ScalingItem,
 }
+const defaultResource =  { current: 0, base_max: 0, bonus_max: 0, temporary: 0 }
 const PcSchemaFields: SchemaFields<Pc> = {
   name: {
     type: String,
@@ -45,10 +46,12 @@ const PcSchemaFields: SchemaFields<Pc> = {
   },
   hp: {
     type: ResourceSchema,
+    default: defaultResource,
     required: true,
   },
   mp: {
     type: ResourceSchema,
+    default: defaultResource,
     required: true,
   },
   attributes: {

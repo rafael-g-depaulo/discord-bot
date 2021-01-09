@@ -17,7 +17,11 @@ import { ResourceSchema } from "./schema"
 export { ResourceSchema }
 
 // import and define static methods
-// import and define static methods
+import createHp from "./statics/createHp"
+ResourceSchema.statics.createHp = createHp
+import createMp from "./statics/createMp"
+ResourceSchema.statics.createMp = createMp
+
 
 // import and define virtuals
 import max from "./virtuals/max"
