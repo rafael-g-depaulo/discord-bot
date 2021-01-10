@@ -87,7 +87,7 @@ export interface PcPopulatedDocument extends BasePcDocument {}
 
 // interface for model, with all static methods defined
 import { create } from "./statics/create"
-import { ResourceDocument } from "Models/PcResource"
+import { ResourceDocument } from "../../Models/PcResource"
 export interface PcModel extends Model<PcDocument> {
   createCharacter: create,
 }

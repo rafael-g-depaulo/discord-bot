@@ -1,5 +1,9 @@
-import { Attribute, Pc, PcDocument } from "../PlayerCharacter/types"
+import { PcDocument } from "../PlayerCharacter/types"
 import { Resource } from "./types"
+
+export const hpRegex = /hp|pv|vida|saude|life|health|healthpoints/i
+
+export const mpRegex = /mp|pm|mana|energia|ki|reyatsu|chakra/i
 
 export const mockResource = (): Resource => ({
   base_max: 0,

@@ -1,14 +1,14 @@
 import { Command, RegexCommand } from "@discord-bot/create-client"
-import { ResourceDocument } from "Models/PcResource"
 
-import { Attribute } from "Models/PlayerCharacter/types"
-import { logSuccess } from "Utils/commandLog"
+import { ResourceDocument } from "../Models/PcResource"
+import { Attribute } from "../Models/PlayerCharacter/types"
 
-import getPlayerChar from "Utils/getPlayerChar"
-import { getPlayerUser } from "Utils/getUser"
-import parseFlags, { FlagsObject } from "Utils/parseArgs"
-import rejectIfNotPlayerOrDm from "Utils/rejectIfNotPlayerOrDm"
+import parseFlags, { FlagsObject } from "../Utils/parseArgs"
+import rejectIfNotPlayerOrDm from "../Utils/rejectIfNotPlayerOrDm"
 import { commandWithFlags } from "../Utils/regex"
+import { getPlayerUser } from "../Utils/getUser"
+import { logSuccess } from "../Utils/commandLog"
+import getPlayerChar from "../Utils/getPlayerChar"
 
 export const test: RegexCommand.test = commandWithFlags(
   /bio/,
