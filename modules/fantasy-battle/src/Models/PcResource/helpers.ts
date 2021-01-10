@@ -3,7 +3,7 @@ import { Resource } from "./types"
 
 export const hpRegex = /hp|pv|vida|saude|life|health|healthpoints/i
 
-export const mpRegex = /mp|pm|mana|energia|ki|reyatsu|chakra/i
+export const mpRegex = /mp|pm|mana|energia|ki|reyatsu|chackra|chakra/i
 
 export const mockResource = (): Resource => ({
   base_max: 0,
