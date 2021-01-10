@@ -17,5 +17,8 @@
   },
   "bugs": {
     "url": "https://github.com/rafael-g-depaulo/discord-bot/issues"
+  },
+  "dependencies": {
+    "@discord-bot/regex": "*"
   }
 }

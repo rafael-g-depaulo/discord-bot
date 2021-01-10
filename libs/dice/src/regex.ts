@@ -1,17 +1,11 @@
+import { capture, concat, fromList, optional, or, negNum, posNum, signedInteger } from "@discord-bot/regex"
 import { advantageWords, disadvantageWords } from "./advWords"
-import { capture, concat, fromList, optional, or } from "./Utils/regex"
 
 // regex for a whole number
 const number = /\d+/
 
 // regex for optional space
 const optionalSpace = /\s*/
-
-// regex for a positive signed number (must contain + sign)
-export const posNum = (groupName: string) => concat(/\+/, optionalSpace, capture(groupName, number))
-
-// regex for a negative signed number
-export const negNum = (groupName: string) => concat(/-/, optionalSpace, capture(groupName, number))
 
 // regex for a "d20" format
   // captures the "20" as dieMax group
@@ -24,10 +18,7 @@ export const dice = concat(optional(capture("dieAmmount", number)), optionalSpac
 // captures the ! for a dice explosion
 const explosion = capture("explode", /!+/)
 
-// regex for a positive or negative bonus
-  // ex: " - 5" captures the 5 as a negative bonus
-  // ex: "+13"  captures the 13 as a positive bonus
-const bonus = or(posNum("posBonus"), negNum("negBonus"))
+const bonus = signedInteger("posBonus", "negBonus")
 
 // regex for explicit (dis)advantage (adv +NUMBER)
 const posAdv = concat(fromList(advantageWords, "i"), optionalSpace, posNum("posAdv"))
