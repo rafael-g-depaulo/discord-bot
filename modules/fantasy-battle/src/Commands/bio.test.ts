@@ -6,8 +6,8 @@ import { useDbConnection } from "Utils/mongoTest"
 
 import { test, execute } from "./bio"
 
-describe("Command: rollDmg", () => {
-  useDbConnection("Command_rollDmg")
+describe("Command: bio", () => {
+  useDbConnection("Command_bio")
 
   describe(".test", () => {
     it("works", () => {

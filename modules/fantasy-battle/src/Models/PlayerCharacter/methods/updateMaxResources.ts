@@ -1,4 +1,4 @@
-import ResourceModel from "Models/PcResource"
+import ResourceModel from "../../../Models/PcResource"
 import { PcInstanceMethod } from "../types"
 
 export interface updateMaxResources {
