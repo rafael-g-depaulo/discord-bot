@@ -32,7 +32,6 @@ describe("Command: rollDmg", () => {
   })
 
   describe(".execute", () => {
-    
     describe("permissions", () => {
       it(`doesn't allow a non-player, non-DM user to use command`, async () => {
         const [ message ] = mockMessage()

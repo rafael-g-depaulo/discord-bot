@@ -6,13 +6,13 @@ import { attributeNameRegex, getAttributeByNickname } from "../Models/PlayerChar
 import parseFlags, { FlagsObject } from "../Utils/parseArgs"
 import { logFailure, logSuccess } from "../Utils/commandLog"
 import rejectIfNotPlayerOrDm from "../Utils/rejectIfNotPlayerOrDm"
-import { commandWithFlags } from "../Utils/regex"
+import { commandWithFlags, setWords } from "../Utils/regex"
 import { getPlayerUser } from "../Utils/getUser"
 import getPlayerChar from "../Utils/getPlayerChar"
 
 export const test: RegexCommand.test = commandWithFlags(
   concat(
-    /(?:set|settar|setar|sett)/,
+    setWords,
     optionalSpace,
     optional(fromList([
       "attb",

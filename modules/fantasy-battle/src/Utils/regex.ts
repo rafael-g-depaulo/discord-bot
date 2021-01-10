@@ -18,3 +18,5 @@ export const commandWithoutFlags = (...commandNames: RegExp[]) =>
     /!/i,
     nonCapture(or(...commandNames)),
   )
+
+export const setWords = /(?:set|settar|setar|sett)/i

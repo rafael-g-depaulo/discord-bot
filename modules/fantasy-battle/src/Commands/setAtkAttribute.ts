@@ -1,15 +1,16 @@
 import { Command, RegexCommand } from "@discord-bot/create-client"
+import { concat } from "@discord-bot/regex"
 
 import parseFlags, { FlagsObject } from "../Utils/parseArgs"
 import rejectIfNotPlayerOrDm from "../Utils/rejectIfNotPlayerOrDm"
 import validateAttributeName from "../Utils/validateAttributeName"
-import { commandWithFlags } from "../Utils/regex"
+import { commandWithFlags, setWords } from "../Utils/regex"
 import { getPlayerUser } from "../Utils/getUser"
 import getPlayerChar from "../Utils/getPlayerChar"
 import { logSuccess } from "../Utils/commandLog"
 
 export const test: RegexCommand.test = commandWithFlags(
-  /set(?:\s*|-)(atk|attk|attack|atack)(?:\s*|-)(attb|atb|atribute|attribute)/,
+  concat(setWords, /(?:\s*|-)(atk|attk|attack|atack)(?:\s*|-)(attb|atb|atribute|attribute)/),
 )
 
 export const execute: RegexCommand.execute = async (message, regexResult) => {
