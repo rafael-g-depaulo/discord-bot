@@ -11,6 +11,7 @@ import rollAttribute from "./Commands/rollAttribute"
 import rollDmg from "./Commands/rollDmg"
 import setAttribute from "./Commands/setAttribute"
 import changeResource from "./Commands/changeResource"
+import setResourceScaling from "./Commands/setResourceScaling"
 
 export const dbConnect = connect
 
@@ -28,6 +29,7 @@ export const TestModule: Module = {
     rollDmg,
     setAttribute,
     changeResource,
+    setResourceScaling,
   ],
 }
 
