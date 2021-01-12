@@ -32,12 +32,17 @@ export const parseFlags = <FlagInterface extends FlagTypeMap> (
 
   // parse arguments
   const argsArr = parseArgsStringToArgv(argsString)
-  const args = yargs(argsArr).argv
+  const argsRaw = yargs(argsArr).argv
+  // make all flag names to be in loweCase
+  const args = Object.fromEntries(Object
+    .entries(argsRaw)
+    .map(([key, value]) => [key.toLowerCase(), value])
+  )
 
   let parsedFlags: Partial<FlagInterface> = {}
   const flagNames = Object.keys(flagsObject)
-  
   for (const flagName of flagNames) {
+    // const flag = getFlag(flagsObject, flagName, args)
     // flag doesn't exist in string and isn't optional
     if (!flagsObject[flagName].optional && args[flagName] === undefined) {
       logger.info(`FB: (Command) ${commandName}: user "${message.author.username}" forgot the --${flagName} flag`)
@@ -47,7 +52,7 @@ export const parseFlags = <FlagInterface extends FlagTypeMap> (
     // wrong arg types (don't allow if recied flag is undefined and flag is optional, though)
     else if (flagsObject[flagName].type !== typeof args[flagName] && !(flagsObject[flagName].optional && args[flagName] === undefined)) {
       logger.info(`FB: (Command) ${commandName}: user "${message.author.username}" gave the wrong type for flag --${flagName}. Expected ${flagsObject[flagName].type}, but recieved ${typeof args[flagName]}`)
-      message.channel.send(`"**${commandName}**": wrong type for flag --${flagName}. Flag expects type ${flagsObject[flagName].type}, but recieved type ${typeof args[flagName]}`)
+      message.channel.send(`"**${commandName}**": wrong type for flag --${flagName}. Flag expects type ${flagsObject[flagName].type}, but received type ${typeof args[flagName]}`)
       return null
     }
 
