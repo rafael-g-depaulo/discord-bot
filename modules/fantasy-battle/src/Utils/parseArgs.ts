@@ -51,7 +51,7 @@ export const parseFlags = <FlagInterface extends FlagTypeMap> (
     }
     // wrong arg types (don't allow if recied flag is undefined and flag is optional, though)
     else if (flagsObject[flagName].type !== typeof args[flagName] && !(flagsObject[flagName].optional && args[flagName] === undefined)) {
-      logger.info(`FB: (Command) ${commandName}: user "${message.author.username}" gave the wrong type for flag --${flagName}. Expected ${flagsObject[flagName].type}, but recieved ${typeof args[flagName]}`)
+      logger.info(`FB: (Command) ${commandName}: user "${message.author.username}" gave the wrong type for flag --${flagName}. Expected ${flagsObject[flagName].type}, but received ${typeof args[flagName]}`)
       message.channel.send(`"**${commandName}**": wrong type for flag --${flagName}. Flag expects type ${flagsObject[flagName].type}, but received type ${typeof args[flagName]}`)
       return null
     }
