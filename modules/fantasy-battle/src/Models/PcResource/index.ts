@@ -1,4 +1,4 @@
-import { model } from "mongoose"
+import { model, models } from "mongoose"
 
 // import and export types
 import {
@@ -31,6 +31,7 @@ ResourceSchema.virtual("max").get(max.get)
 // import and define instance methods
 
 // model to generate and query scrolls
+export const ModelName = "Resource"
 export type ResourceModel = _ResourceModel
-export const ResourceModel = model<ResourceDocument, ResourceModel>("Resource", ResourceSchema)
+export const ResourceModel = (models[ModelName] as _ResourceModel) || model<ResourceDocument, ResourceModel>(ModelName, ResourceSchema)
 export default ResourceModel

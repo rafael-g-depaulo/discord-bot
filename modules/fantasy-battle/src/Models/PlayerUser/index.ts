@@ -1,4 +1,4 @@
-import { model } from "mongoose"
+import { model, models } from "mongoose"
 
 // import and export types
 import {
@@ -39,6 +39,7 @@ import getCharacter from "./methods/getCharacter"
 PlayerUserSchema.methods.getCharacter = getCharacter
 
 // model to generate and query scrolls
+export const ModelName = "PlayerUser"
 export type PlayerUserModel = _PlayerUserModel
-export const PlayerUserModel = model<PlayerUserDocument, PlayerUserModel>("PlayerUser", PlayerUserSchema)
+export const PlayerUserModel = (models[ModelName] as _PlayerUserModel) || model<PlayerUserDocument, PlayerUserModel>(ModelName, PlayerUserSchema)
 export default PlayerUserModel

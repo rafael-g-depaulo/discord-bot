@@ -1,4 +1,4 @@
-import { model } from "mongoose"
+import { model, models } from "mongoose"
 
 // import and export types
 import {
@@ -39,6 +39,7 @@ import rollDmg from "./methods/rollDmg"
 PcSchema.methods.rollDmg = rollDmg
 
 // model to generate and query scrolls
+export const ModelName = "Pc"
 export type PcModel = _PcModel
-export const PcModel = model<PcDocument, PcModel>("Pc", PcSchema)
+export const PcModel = (models[ModelName] as _PcModel) || model<PcDocument, PcModel>(ModelName, PcSchema)
 export default PcModel

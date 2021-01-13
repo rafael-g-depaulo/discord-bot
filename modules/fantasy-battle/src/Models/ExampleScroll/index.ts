@@ -1,4 +1,4 @@
-import { model } from "mongoose"
+import { model, models } from "mongoose"
 
 // import and export types
 import {
@@ -29,6 +29,7 @@ import getNext from "./methods/getNext"
 ScrollSchema.methods.getNext = getNext
 
 // model to generate and query scrolls
+export const ModelName = "Scroll"
 export type ScrollModel = _ScrollModel
-export const ScrollModel = model<ScrollDocument, ScrollModel>("Scroll", ScrollSchema)
+export const ScrollModel = (models[ModelName] as _ScrollModel) || model<ScrollDocument, ScrollModel>(ModelName, ScrollSchema)
 export default ScrollModel
