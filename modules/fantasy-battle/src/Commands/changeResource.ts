@@ -3,11 +3,11 @@ import { capture, concat, nonCapture, optionalSpace, signedInteger } from "@disc
 
 import { hpRegex, mpRegex } from "../Models/PcResource/helpers"
 
-import parseFlags, { FlagsObject } from "../Utils/parseArgs"
-import rejectIfNotPlayerOrDm from "../Utils/rejectIfNotPlayerOrDm"
+import parseFlags, { FlagsObject } from "../Utils/CommandStep/parseArgs"
+import rejectIfNotPlayerOrDm from "../Utils/CommandStep/rejectIfNotPlayerOrDm"
 import { commandWithFlags } from "../Utils/regex"
-import { getPlayerUser } from "../Utils/getUser"
-import getPlayerChar from "../Utils/getPlayerChar"
+import { getPlayerUser } from "../Utils/CommandStep/getUser"
+import getPlayerChar from "../Utils/CommandStep/getPlayerChar"
 
 export const test: RegexCommand.test = commandWithFlags(
   concat(

@@ -1,6 +1,6 @@
 import { mockMessage } from "@discord-bot/discord-mock"
 
-import parseFlags, { FlagsObject } from "../Utils/parseArgs"
+import parseFlags, { FlagsObject } from "./parseArgs"
 
 describe("Utils: parseArgs", () => {
 

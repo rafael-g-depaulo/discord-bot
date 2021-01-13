@@ -1,10 +1,10 @@
 import { Discord } from "@discord-bot/create-client"
 
-import { getAttributeByNickname } from "../Models/PlayerCharacter/helpers/attributes"
+import { getAttributeByNickname } from "../../Models/PlayerCharacter/helpers/attributes"
 // import { isAttributeName } from "../Models/PlayerCharacter/helpers"
-import { AttributeName } from "../Models/PlayerCharacter/types"
+import { AttributeName } from "../../Models/PlayerCharacter/types"
 
-import { logFailure, Flags } from "./commandLog"
+import { logFailure, Flags } from "../commandLog"
 
 const validateAttributeName = (commandName: string, message: Discord.Message, flags: Flags, attributeFlagName: string): AttributeName | undefined | null => {
   const attributeNickname = flags[attributeFlagName]

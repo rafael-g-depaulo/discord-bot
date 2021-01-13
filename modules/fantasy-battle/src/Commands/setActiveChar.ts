@@ -1,11 +1,11 @@
 import { Command, RegexCommand } from "@discord-bot/create-client"
 
-import rejectIfNotPlayerOrDm from "../Utils/rejectIfNotPlayerOrDm"
+import rejectIfNotPlayerOrDm from "../Utils/CommandStep/rejectIfNotPlayerOrDm"
 import { commandWithFlags, setWords } from "../Utils/regex"
-import parseFlags, { FlagsObject } from "../Utils/parseArgs"
+import parseFlags, { FlagsObject } from "../Utils/CommandStep/parseArgs"
 import { logSuccess } from "../Utils/commandLog"
-import { getPlayerUser } from "../Utils/getUser"
-import getPlayerChar from "../Utils/getPlayerChar"
+import { getPlayerUser } from "../Utils/CommandStep/getUser"
+import getPlayerChar from "../Utils/CommandStep/getPlayerChar"
 import { concat } from "@discord-bot/regex"
 
 export const test: RegexCommand.test = commandWithFlags(

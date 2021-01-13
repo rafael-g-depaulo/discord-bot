@@ -1,8 +1,8 @@
 import { Discord } from "@discord-bot/create-client"
 
-import { PlayerUserDocument } from "../Models/PlayerUser"
+import { PlayerUserDocument } from "../../Models/PlayerUser"
 
-import { logFailure, Flags } from "./commandLog"
+import { logFailure, Flags } from "../commandLog"
 
 const getPlayerChar = (commandName: string, player: PlayerUserDocument, message: Discord.Message, flags: Flags) => {
 

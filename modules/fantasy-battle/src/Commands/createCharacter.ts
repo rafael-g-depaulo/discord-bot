@@ -1,11 +1,11 @@
 import { Command, RegexCommand } from "@discord-bot/create-client"
 
-import parseFlags, { FlagsObject } from "../Utils/parseArgs"
+import parseFlags, { FlagsObject } from "../Utils/CommandStep/parseArgs"
 import { logFailure, logSuccess } from "../Utils/commandLog"
-import rejectIfNotPlayerOrDm from "../Utils/rejectIfNotPlayerOrDm"
-import validateAttributeName from "../Utils/validateAttributeName"
+import rejectIfNotPlayerOrDm from "../Utils/CommandStep/rejectIfNotPlayerOrDm"
+import validateAttributeName from "../Utils/CommandStep/validateAttributeName"
 import { commandWithFlags } from "../Utils/regex"
-import { getPlayerUser } from "../Utils/getUser"
+import { getPlayerUser } from "../Utils/CommandStep/getUser"
 
 import PcModel from "../Models/PlayerCharacter"
 import { createPcProps } from "../Models/PlayerCharacter/statics/create"

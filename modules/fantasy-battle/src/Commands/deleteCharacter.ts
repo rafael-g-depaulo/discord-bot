@@ -1,9 +1,9 @@
 import { Command, RegexCommand } from "@discord-bot/create-client"
 
-import getPlayerChar from "../Utils/getPlayerChar"
-import { getPlayerUser } from "../Utils/getUser"
-import parseFlags, { FlagsObject } from "../Utils/parseArgs"
-import rejectIfNotPlayerOrDm from "../Utils/rejectIfNotPlayerOrDm"
+import getPlayerChar from "../Utils/CommandStep/getPlayerChar"
+import { getPlayerUser } from "../Utils/CommandStep/getUser"
+import parseFlags, { FlagsObject } from "../Utils/CommandStep/parseArgs"
+import rejectIfNotPlayerOrDm from "../Utils/CommandStep/rejectIfNotPlayerOrDm"
 import { commandWithFlags } from "../Utils/regex"
 import { logSuccess } from "../Utils/commandLog"
 

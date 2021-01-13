@@ -4,11 +4,11 @@ import { capture } from "@discord-bot/regex"
 
 import { attributeNameRegex, getAttributeByNickname } from "../Models/PlayerCharacter/helpers/attributes"
 
-import parseFlags, { FlagsObject } from "../Utils/parseArgs"
-import rejectIfNotPlayerOrDm from "../Utils/rejectIfNotPlayerOrDm"
+import parseFlags, { FlagsObject } from "../Utils/CommandStep/parseArgs"
+import rejectIfNotPlayerOrDm from "../Utils/CommandStep/rejectIfNotPlayerOrDm"
 import { commandWithFlags } from "../Utils/regex"
-import { getPlayerUser } from "../Utils/getUser"
-import getPlayerChar from "../Utils/getPlayerChar"
+import { getPlayerUser } from "../Utils/CommandStep/getUser"
+import getPlayerChar from "../Utils/CommandStep/getPlayerChar"
 import { logSuccess } from "../Utils/commandLog"
 
 export const test: RegexCommand.test = commandWithFlags(

@@ -1,9 +1,9 @@
 import { Discord } from "@discord-bot/create-client"
 
-import PlayerUserModel, { PlayerUserDocument } from "../Models/PlayerUser"
+import PlayerUserModel, { PlayerUserDocument } from "../../Models/PlayerUser"
 
-import { isDm } from "./userPermissions"
-import logger from "./logger"
+import { isDm } from "../userPermissions"
+import logger from "../logger"
 
 export type getPlayerUser = (commandName: string, message: Discord.Message, playerFlag?: string) => Promise<{ player: PlayerUserDocument | null, fromFlags: boolean }>
 export const getPlayerUser: getPlayerUser = async (commandName, message, playerFlag) => {

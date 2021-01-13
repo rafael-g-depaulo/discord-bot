@@ -1,6 +1,6 @@
 import { Discord } from "@discord-bot/create-client"
-import logger from "./logger"
-import { isDm, isPlayer } from "./userPermissions"
+import logger from "../logger"
+import { isDm, isPlayer } from "../userPermissions"
 
 const rejectIfNotPlayerOrDm = (msg: Discord.Message) => {
   // if user isn't admin or Player or DM, ignore

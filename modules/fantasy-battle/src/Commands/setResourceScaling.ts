@@ -5,11 +5,11 @@ import { PcDocument } from "../Models/PlayerCharacter"
 import { hpRegex, mpRegex } from "../Models/PcResource/helpers"
 
 import { commandWithFlags, setWords } from "../Utils/regex"
-import parseFlags, { FlagsObject } from "../Utils/parseArgs"
+import parseFlags, { FlagsObject } from "../Utils/CommandStep/parseArgs"
 import { logFailure, logSuccess } from "../Utils/commandLog"
-import rejectIfNotPlayerOrDm from "../Utils/rejectIfNotPlayerOrDm"
-import { getPlayerUser } from "../Utils/getUser"
-import getPlayerChar from "../Utils/getPlayerChar"
+import rejectIfNotPlayerOrDm from "../Utils/CommandStep/rejectIfNotPlayerOrDm"
+import { getPlayerUser } from "../Utils/CommandStep/getUser"
+import getPlayerChar from "../Utils/CommandStep/getPlayerChar"
 
 // parse arguments
 const flagsObject: FlagsObject<{

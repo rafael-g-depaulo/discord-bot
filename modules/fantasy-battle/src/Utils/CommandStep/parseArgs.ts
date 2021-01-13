@@ -1,7 +1,7 @@
 import { Discord } from "@discord-bot/create-client"
 import parseArgsStringToArgv from "string-argv"
 import yargs from "yargs"
-import logger from "./logger"
+import logger from "../logger"
 
 export type FlagTypeStr = "string" | "number" | "boolean"
 export type FlagType = string | number | boolean
