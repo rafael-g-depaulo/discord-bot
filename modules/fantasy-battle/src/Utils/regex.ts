@@ -20,3 +20,5 @@ export const commandWithoutFlags = (...commandNames: RegExp[]) =>
   )
 
 export const setWords = /(?:set|settar|setar|sett)/i
+
+export const damageWords = /(?:dmg|damage|dano|rollDmg|rolaDano|rollDamage)/i
