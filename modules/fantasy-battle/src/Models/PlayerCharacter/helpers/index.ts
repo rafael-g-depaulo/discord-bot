@@ -7,3 +7,5 @@ export const isAttributeName = (str?: any): str is AttributeName =>
   !!str && typeof str === "string" && AttributeNames.includes(str as AttributeName)
 
 export { alternateAttributeNames } from "./attributes"
+
+export * from "./dmgDice"

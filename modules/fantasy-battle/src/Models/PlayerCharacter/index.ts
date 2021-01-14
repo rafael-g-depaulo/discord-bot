@@ -10,7 +10,7 @@ import {
 export { Pc, PcDocument, PcPopulatedDocument }
 
 // import and export helpers
-export { isPC } from "./helpers"
+export * from "./helpers"
 
 // import and export schema
 import { PcSchema } from "./schema"
