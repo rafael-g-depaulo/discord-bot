@@ -12,6 +12,7 @@ import rollDmg from "./Commands/rollDmg"
 import setAttribute from "./Commands/setAttribute"
 import changeResource from "./Commands/changeResource"
 import setResourceScaling from "./Commands/setResourceScaling"
+import dmgTable from "./Commands/dmgTable"
 
 export const dbConnect = connect
 
@@ -30,6 +31,7 @@ export const TestModule: Module = {
     setAttribute,
     changeResource,
     setResourceScaling,
+    dmgTable,
   ],
 }
 

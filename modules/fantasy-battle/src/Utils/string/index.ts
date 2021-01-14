@@ -1,1 +1,1 @@
-export const monoSpaced = (str: string) => "```" + str + "```"
+export const monoSpaced = (str: string) => "```\n" + str + "```"
