@@ -2,7 +2,7 @@ import { mockMessage } from "@discord-bot/discord-mock"
 import PcModel from "Models/PlayerCharacter"
 import PlayerUserModel from "Models/PlayerUser"
 import { mockDmMessage, mockPlayerMessage } from "Utils/mockMessage"
-import { useDbConnection } from "Utils/mongoTest"
+import { useDbConnection } from "Utils/Mongo/mongoTest"
 
 import { test, execute } from "./setResourceScaling"
 

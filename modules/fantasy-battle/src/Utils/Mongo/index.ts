@@ -1,5 +1,5 @@
 import { Mongoose } from "mongoose"
-import logger from "./logger"
+import logger from "../logger"
 
 // utility function to remove all documents from all collections
 export const deleteAllDocuments = (conn: Mongoose) => {

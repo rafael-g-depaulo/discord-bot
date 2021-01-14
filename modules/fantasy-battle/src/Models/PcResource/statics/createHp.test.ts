@@ -1,5 +1,5 @@
 import PcModel from "Models/PlayerCharacter"
-import { useDbConnection } from "Utils/mongoTest"
+import { useDbConnection } from "Utils/Mongo/mongoTest"
 import ResourceModel from ".."
 
 import createHp from "./createHp"

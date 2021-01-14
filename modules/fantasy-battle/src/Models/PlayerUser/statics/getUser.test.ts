@@ -1,4 +1,4 @@
-import { useDbConnection } from "Utils/mongoTest"
+import { useDbConnection } from "Utils/Mongo/mongoTest"
 import PlayerUserModel from ".."
 import { PlayerUser } from "../types"
 import getUser from "./getUser"

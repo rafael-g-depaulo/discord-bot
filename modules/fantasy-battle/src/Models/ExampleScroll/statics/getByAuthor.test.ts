@@ -1,4 +1,4 @@
-import { useDbConnection } from "Utils/mongoTest"
+import { useDbConnection } from "Utils/Mongo/mongoTest"
 import ScrollModel from ".."
 import { Scroll } from "../types"
 import getByAuthor from "./getByAuthor"

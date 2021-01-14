@@ -1,4 +1,4 @@
-import { useDbConnection } from "Utils/mongoTest"
+import { useDbConnection } from "Utils/Mongo/mongoTest"
 import PcModel from ".."
 
 import highestSocial from "./highestSocial"

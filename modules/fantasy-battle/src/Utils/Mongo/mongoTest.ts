@@ -1,15 +1,16 @@
-import connect from "Db"
 import { Mongoose } from "mongoose"
-import logger from "./logger"
 
-import { deleteAllDocuments, dropAllCollections } from "./mongo"
+import connect from "../../Db"
+import logger from "../logger"
+
+import { deleteAllDocuments, dropAllCollections } from "./index"
 
 export const dbConnect: (dbName: string) => Promise<Mongoose> = (dbName: string = "test") => new Promise((resolve, reject) => {
   // connect to mongodb before tests
   let conn: Mongoose
   beforeAll(async done => {
     try {
-      logger.debug(`Utils/MongoTest: connecting to database "${dbName}"`)
+      logger.debug(`Utils/Mongo/mongoTest: connecting to database "${dbName}"`)
       // connect to db
       conn = await connect({ dbName })
       resolve(conn)
@@ -22,12 +23,12 @@ export const dbConnect: (dbName: string) => Promise<Mongoose> = (dbName: string 
 })
 
 export const dbDisconnect = (connPromise: Promise<Mongoose>, beforeDisconnect: (conn: Mongoose) => Promise<unknown> | unknown = () => {}) => {
-  logger.debug("Utils/MongoTest: start of dbDisconnect")
+  logger.debug("Utils/Mongo/mongoTest: start of dbDisconnect")
   // disconnect from mongodb after tests
   afterAll(async () => {
     const conn = await connPromise
 
-    logger.debug("Utils/MongoTest: running afterAll teardown")
+    logger.debug("Utils/Mongo/mongoTest: running afterAll teardown")
     // if given, use callback before disconnecting
     const beforeDbDisconnect = async (c: Mongoose) => await beforeDisconnect(c)
     await beforeDbDisconnect(conn)
@@ -35,7 +36,7 @@ export const dbDisconnect = (connPromise: Promise<Mongoose>, beforeDisconnect: (
     // disconnect from db
     await conn?.disconnect()
   })
-  logger.debug("Utils/MongoTest: end of dbDisconnect")
+  logger.debug("Utils/Mongo/mongoTest: end of dbDisconnect")
 }
 
 export interface ConnectionHooks {
@@ -48,7 +49,7 @@ const defaultHooks = {
 }
 export const useDbConnection = (dbName: string = "test", hooks: Partial<ConnectionHooks> = {}) => {
 
-  logger.debug("Utils/MongoTest: start of useDbConnection")
+  logger.debug("Utils/Mongo/mongoTest: start of useDbConnection")
   
   // before all tests connect to db
   const connPromise = dbConnect(dbName)
@@ -62,5 +63,5 @@ export const useDbConnection = (dbName: string = "test", hooks: Partial<Connecti
   // after all tests run beforeDisconnect callback and then disconnect
   dbDisconnect(connPromise, beforeDisconnect)
   
-  logger.debug("Utils/MongoTest: end of useDbConnection")
+  logger.debug("Utils/Mongo/mongoTest: end of useDbConnection")
 }
