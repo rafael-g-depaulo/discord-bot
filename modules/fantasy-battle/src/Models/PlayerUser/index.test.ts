@@ -1,4 +1,4 @@
-import mockAttributes from "Utils/mockAttributes"
+import mockAttributes from "Utils/Mock/mockAttributes"
 import { useDbConnection } from "Utils/Mongo/mongoTest"
 import PcModel, { Pc } from "Models/PlayerCharacter"
 import PlayerUserModel, { PlayerUser } from "./index"

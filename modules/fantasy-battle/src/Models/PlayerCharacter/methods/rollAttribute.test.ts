@@ -1,4 +1,4 @@
-import mockAttributes from "Utils/mockAttributes"
+import mockAttributes from "Utils/Mock/mockAttributes"
 import PcModel, { Pc } from ".."
 import rollAttribute from "./rollAttribute"
 
