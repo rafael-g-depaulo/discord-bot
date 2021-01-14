@@ -31,5 +31,5 @@ ScrollSchema.methods.getNext = getNext
 // model to generate and query scrolls
 export const ModelName = "Scroll"
 export type ScrollModel = _ScrollModel
-export const ScrollModel = (models[ModelName] as _ScrollModel) || model<ScrollDocument, ScrollModel>(ModelName, ScrollSchema)
+export const ScrollModel = (models[ModelName] as ScrollModel) || model<ScrollDocument, ScrollModel>(ModelName, ScrollSchema)
 export default ScrollModel

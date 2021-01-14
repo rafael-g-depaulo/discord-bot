@@ -33,5 +33,5 @@ ResourceSchema.virtual("max").get(max.get)
 // model to generate and query scrolls
 export const ModelName = "Resource"
 export type ResourceModel = _ResourceModel
-export const ResourceModel = (models[ModelName] as _ResourceModel) || model<ResourceDocument, ResourceModel>(ModelName, ResourceSchema)
+export const ResourceModel = (models[ModelName] as ResourceModel) || model<ResourceDocument, ResourceModel>(ModelName, ResourceSchema)
 export default ResourceModel

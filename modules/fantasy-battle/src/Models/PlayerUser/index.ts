@@ -41,5 +41,5 @@ PlayerUserSchema.methods.getCharacter = getCharacter
 // model to generate and query scrolls
 export const ModelName = "PlayerUser"
 export type PlayerUserModel = _PlayerUserModel
-export const PlayerUserModel = (models[ModelName] as _PlayerUserModel) || model<PlayerUserDocument, PlayerUserModel>(ModelName, PlayerUserSchema)
+export const PlayerUserModel = (models[ModelName] as PlayerUserModel) || model<PlayerUserDocument, PlayerUserModel>(ModelName, PlayerUserSchema)
 export default PlayerUserModel

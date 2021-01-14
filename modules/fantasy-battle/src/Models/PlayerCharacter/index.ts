@@ -41,5 +41,5 @@ PcSchema.methods.rollDmg = rollDmg
 // model to generate and query scrolls
 export const ModelName = "Pc"
 export type PcModel = _PcModel
-export const PcModel = (models[ModelName] as _PcModel) || model<PcDocument, PcModel>(ModelName, PcSchema)
+export const PcModel = (models[ModelName] as PcModel) || model<PcDocument, PcModel>(ModelName, PcSchema)
 export default PcModel
