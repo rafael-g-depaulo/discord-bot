@@ -1,4 +1,9 @@
-import { Document, Model } from "mongoose"
+import { mongoose } from "@discord-bot/mongo"
+export const model = mongoose.model
+export const models = mongoose.models
+
+export type Document<T = any> = mongoose.Document<T>
+export type Model<T extends mongoose.Document<any>> = mongoose.Model<T>
 
 // make sure that the schema fields have at least all of the fields from the original data type (but it can have more, because of things)
 export type SchemaFields<T> = Record<keyof T, any>

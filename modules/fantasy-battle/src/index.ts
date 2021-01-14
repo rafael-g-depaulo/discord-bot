@@ -1,5 +1,4 @@
 import { Module } from "@discord-bot/create-client"
-import connect from "./Db"
 
 import createRoles from "./Commands/createRoles"
 import createCharacter from "./Commands/createCharacter"
@@ -14,10 +13,10 @@ import changeResource from "./Commands/changeResource"
 import setResourceScaling from "./Commands/setResourceScaling"
 import dmgTable from "./Commands/dmgTable"
 
-export const dbConnect = connect
+export { connect as dbConnect } from "@discord-bot/mongo"
 
 // test module
-export const TestModule: Module = {
+export const FantasyBattle: Module = {
   id: "Fantasy Battle",
   commands: [
     createRoles,
@@ -35,4 +34,4 @@ export const TestModule: Module = {
   ],
 }
 
-export default TestModule
+export default FantasyBattle

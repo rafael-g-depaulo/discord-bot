@@ -1,7 +1,7 @@
 import { mockMessage } from "@discord-bot/discord-mock"
 import AsciiTable from "ascii-table"
 import { damageDice } from "Models/PlayerCharacter"
-import { useDbConnection } from "Utils/Mongo/mongoTest"
+import { useDbConnection } from "@discord-bot/mongo"
 
 import { test, execute, createDamageTable } from "./dmgTable"
 

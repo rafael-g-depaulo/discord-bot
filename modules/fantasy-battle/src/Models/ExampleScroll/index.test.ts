@@ -1,6 +1,6 @@
 import ScrollModel, { Scroll } from "./index"
 
-import { useDbConnection } from "Utils/Mongo/mongoTest"
+import { useDbConnection } from "@discord-bot/mongo"
 
 describe("ExampleScroll", () => {
   

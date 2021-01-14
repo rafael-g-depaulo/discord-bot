@@ -1,4 +1,4 @@
-import { model, models } from "mongoose"
+import { model, models } from "../helpers"
 
 // import and export types
 import {

@@ -1,4 +1,4 @@
-import { useDbConnection } from "Utils/Mongo/mongoTest"
+import { useDbConnection } from "@discord-bot/mongo"
 import PlayerUserModel from ".."
 import { PlayerUser } from "../types"
 import getUser from "./getUser"

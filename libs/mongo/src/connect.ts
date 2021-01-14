@@ -21,5 +21,3 @@ export const connect = (config: Partial<DbConfig> = {}) => {
 
   return mongoose.connect(`${url}/${dbName}`, connectOptions)
 }
-
-export default connect

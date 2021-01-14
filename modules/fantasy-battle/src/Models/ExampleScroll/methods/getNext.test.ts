@@ -1,4 +1,4 @@
-import { useDbConnection } from "Utils/Mongo/mongoTest"
+import { useDbConnection } from "@discord-bot/mongo"
 import { Scroll } from "../types"
 import ScrollModel from ".."
 import { getNextMethod } from "./getNext"

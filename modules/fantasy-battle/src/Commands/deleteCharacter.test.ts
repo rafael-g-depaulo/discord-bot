@@ -1,10 +1,10 @@
 
 import { mockMessage } from "@discord-bot/discord-mock"
+import { useDbConnection } from "@discord-bot/mongo"
 import PcModel from "Models/PlayerCharacter"
 import PlayerUserModel from "Models/PlayerUser"
 
 import { mockDmMessage, mockPlayerMessage } from "../Utils/Mock/mockMessage"
-import { useDbConnection } from "../Utils/Mongo/mongoTest"
 
 import { test, execute } from "./deleteCharacter"
 

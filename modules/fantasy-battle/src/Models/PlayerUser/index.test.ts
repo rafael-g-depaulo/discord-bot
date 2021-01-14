@@ -1,5 +1,5 @@
 import mockAttributes from "Utils/Mock/mockAttributes"
-import { useDbConnection } from "Utils/Mongo/mongoTest"
+import { useDbConnection } from "@discord-bot/mongo"
 import PcModel, { Pc } from "Models/PlayerCharacter"
 import PlayerUserModel, { PlayerUser } from "./index"
 import { createPlayerUserProps } from "./statics/create"

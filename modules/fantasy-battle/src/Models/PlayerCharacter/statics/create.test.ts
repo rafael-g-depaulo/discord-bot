@@ -1,4 +1,4 @@
-import { useDbConnection } from "Utils/Mongo/mongoTest"
+import { useDbConnection } from "@discord-bot/mongo"
 
 import create, { createPcProps } from "./create"
 import PcModel from ".."

@@ -1,5 +1,5 @@
 import PcModel from "Models/PlayerCharacter"
-import { useDbConnection } from "Utils/Mongo/mongoTest"
+import { useDbConnection } from "@discord-bot/mongo"
 import ResourceModel from ".."
 
 import createMp from "./createMp"

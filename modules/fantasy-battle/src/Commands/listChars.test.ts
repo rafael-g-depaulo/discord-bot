@@ -4,7 +4,7 @@ import PcModel from "Models/PlayerCharacter"
 import PlayerUserModel from "Models/PlayerUser"
 
 import { mockPlayerMessage } from "Utils/Mock/mockMessage"
-import { useDbConnection } from "Utils/Mongo/mongoTest"
+import { useDbConnection } from "@discord-bot/mongo"
 
 import { test, execute } from "./listChars"
 
