@@ -25,6 +25,7 @@
     "@discord-bot/regex": "^2.8.0",
     "@types/mongodb": "^3.6.3",
     "@types/mongoose": "^5.10.3",
+    "ascii-table": "^0.0.9",
     "mongodb": "^3.6.3",
     "mongoose": "^5.11.8",
     "string-argv": "^0.3.1",
