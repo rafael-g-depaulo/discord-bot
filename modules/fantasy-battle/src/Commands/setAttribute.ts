@@ -1,7 +1,7 @@
 import { Command, RegexCommand } from "@discord-bot/create-client"
 import { capture, concat, fromList, optional, optionalSpace } from "@discord-bot/regex"
 
-import { attributeNameRegex, getAttributeByNickname } from "../Models/PlayerCharacter/helpers/attributes"
+import { attributeNameRegex, getAttributeByNickname } from "../Models/PlayerCharacter"
 
 import parseFlags, { FlagsObject } from "../Utils/CommandStep/parseArgs"
 import { logFailure, logSuccess } from "../Utils/commandLog"

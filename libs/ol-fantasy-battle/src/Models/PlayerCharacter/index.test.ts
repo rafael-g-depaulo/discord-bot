@@ -1,5 +1,5 @@
 import ResourceModel from "Models/PcResource"
-import mockAttributes from "Utils/Mock/mockAttributes"
+import mockAttributes from "Utils/mockAttributes"
 import { useDbConnection } from "@discord-bot/mongo"
 import PcModel, { Pc } from "./index"
 import { createPcProps } from "./statics/create"

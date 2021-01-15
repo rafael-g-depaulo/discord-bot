@@ -1,7 +1,7 @@
 import { Command, RegexCommand } from "@discord-bot/create-client"
 
 import { ResourceDocument } from "../Models/PcResource"
-import { Attribute } from "../Models/PlayerCharacter/types"
+import { Attribute } from "../Models/PlayerCharacter"
 
 import parseFlags, { FlagsObject } from "../Utils/CommandStep/parseArgs"
 import rejectIfNotPlayerOrDm from "../Utils/CommandStep/rejectIfNotPlayerOrDm"

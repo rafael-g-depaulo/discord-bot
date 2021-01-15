@@ -10,7 +10,7 @@ import {
 export { Resource, ResourceDocument, ResourcePopulatedDocument }
 
 // import and export helpers
-// import and export helpers
+export * from "./helpers"
 
 // import and export schema
 import { ResourceSchema } from "./schema"
@@ -21,7 +21,6 @@ import createHp from "./statics/createHp"
 ResourceSchema.statics.createHp = createHp
 import createMp from "./statics/createMp"
 ResourceSchema.statics.createMp = createMp
-
 
 // import and define virtuals
 import max from "./virtuals/max"

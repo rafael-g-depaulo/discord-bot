@@ -6,8 +6,22 @@ import {
   PcDocument,
   PcPopulatedDocument,
   PcModel as _PcModel,
+  Attribute,
+  Attributes,
+  AttributeName,
+  AttributeNames,
+  HighestAttribute,
 } from "./types"
-export { Pc, PcDocument, PcPopulatedDocument }
+export {
+  Pc,
+  PcDocument,
+  PcPopulatedDocument, 
+  Attribute,
+  Attributes,
+  AttributeName,
+  AttributeNames,
+  HighestAttribute,
+}
 
 // import and export helpers
 export * from "./helpers"

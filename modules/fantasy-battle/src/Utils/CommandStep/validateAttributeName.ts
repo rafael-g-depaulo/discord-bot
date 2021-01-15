@@ -1,8 +1,7 @@
 import { Discord } from "@discord-bot/create-client"
 
-import { getAttributeByNickname } from "../../Models/PlayerCharacter/helpers/attributes"
-// import { isAttributeName } from "../Models/PlayerCharacter/helpers"
-import { AttributeName } from "../../Models/PlayerCharacter/types"
+import { getAttributeByNickname } from "../../Models/PlayerCharacter"
+import { AttributeName } from "../../Models/PlayerCharacter"
 
 import { logFailure, Flags } from "../commandLog"
 

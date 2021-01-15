@@ -1,7 +1,7 @@
 import { Command, RegexCommand } from "@discord-bot/create-client"
 import { capture, concat, nonCapture, optionalSpace, signedInteger } from "@discord-bot/regex"
 
-import { hpRegex, mpRegex } from "../Models/PcResource/helpers"
+import { hpRegex, mpRegex } from "../Models/PcResource"
 
 import parseFlags, { FlagsObject } from "../Utils/CommandStep/parseArgs"
 import rejectIfNotPlayerOrDm from "../Utils/CommandStep/rejectIfNotPlayerOrDm"

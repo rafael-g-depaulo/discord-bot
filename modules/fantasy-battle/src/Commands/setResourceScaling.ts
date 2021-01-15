@@ -2,7 +2,7 @@ import { Command, RegexCommand } from "@discord-bot/create-client"
 import { capture, concat, optionalSpace } from "@discord-bot/regex"
 
 import { PcDocument } from "../Models/PlayerCharacter"
-import { hpRegex, mpRegex } from "../Models/PcResource/helpers"
+import { hpRegex, mpRegex } from "../Models/PcResource"
 
 import { commandWithFlags, setWords } from "../Utils/regex"
 import parseFlags, { FlagsObject } from "../Utils/CommandStep/parseArgs"

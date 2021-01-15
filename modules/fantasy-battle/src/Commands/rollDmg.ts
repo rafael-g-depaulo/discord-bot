@@ -2,7 +2,7 @@ import { Command, RegexCommand } from "@discord-bot/create-client"
 import { resultString, getArgs } from "@discord-bot/dice"
 import { capture, concat, fromList, optional, optionalSpace } from "@discord-bot/regex"
 
-import { attributeNameRegex, getAttributeByNickname } from "../Models/PlayerCharacter/helpers/attributes"
+import { attributeNameRegex, getAttributeByNickname } from "../Models/PlayerCharacter"
 
 import parseFlags, { FlagsObject } from "../Utils/CommandStep/parseArgs"
 import rejectIfNotPlayerOrDm from "../Utils/CommandStep/rejectIfNotPlayerOrDm"

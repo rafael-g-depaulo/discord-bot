@@ -10,7 +10,7 @@ import {
 export { PlayerUser, PlayerUserDocument, PlayerUserPopulatedDocument }
 
 // import and export helpers
-export { isPlayerUser } from "./helpers"
+export * from "./helpers"
 
 // import and export schema
 import { PlayerUserSchema } from "./schema"
