@@ -51,6 +51,8 @@ import rollAttribute from "./methods/rollAttribute"
 PcSchema.methods.rollAttribute = rollAttribute
 import rollDmg from "./methods/rollDmg"
 PcSchema.methods.rollDmg = rollDmg
+import rollAtk from "./methods/rollAtk"
+PcSchema.methods.rollAtk = rollAtk
 
 // model to generate and query scrolls
 export const ModelName = "Pc"

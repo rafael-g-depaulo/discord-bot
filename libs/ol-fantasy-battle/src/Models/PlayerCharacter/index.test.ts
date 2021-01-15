@@ -152,6 +152,22 @@ describe("PlayerCharacter Model", () => {
         expect(mockedPc.rollDmg("Might", { bonus: +5, advantage: -3}).diceArgs).toEqual(expect.objectContaining({ dieAmmount: 4, dieMax: 10, advantage: -3 }))
       })
     })
+    
+    describe(".rollAtk()", () => {
+      it('works', () => {
+        const mockedPc = PcModel.createCharacter({ name: "test" })
+        mockedPc.attributes.Agility.value = 2
+        mockedPc.attributes.Agility.bonus = 1
+        expect(mockedPc.rollAtk("Agility").diceArgs).toEqual(expect.objectContaining({ dieAmmount: 1, dieMax: 20, bonus: 6 }))
+      })
+    
+      it('works with bonus arguments', () => {
+        const mockedPc = PcModel.createCharacter({ name: "test" })
+        mockedPc.attributes.Entropy.value = 1
+        mockedPc.attributes.Entropy.bonus = -3
+        expect(mockedPc.rollAtk("Entropy", { advantage: 2, bonus: -3 }).diceArgs).toEqual(expect.objectContaining({ dieAmmount: 1, dieMax: 20, advantage: 2, bonus: -7 }))
+      })
+    })
 
     describe(".updateMaxResources()", () => {
       it("works", () => {
