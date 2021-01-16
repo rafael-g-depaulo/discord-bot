@@ -158,14 +158,14 @@ describe("PlayerCharacter Model", () => {
         const mockedPc = PcModel.createCharacter({ name: "test" })
         mockedPc.attributes.Agility.value = 2
         mockedPc.attributes.Agility.bonus = 1
-        expect(mockedPc.rollAtk("Agility").diceArgs).toEqual(expect.objectContaining({ dieAmmount: 1, dieMax: 20, bonus: 6 }))
+        expect(mockedPc.rollAtk("Agility").diceArgs).toEqual(expect.objectContaining({ dieAmmount: 1, dieMax: 20, bonus: 3 }))
       })
     
       it('works with bonus arguments', () => {
         const mockedPc = PcModel.createCharacter({ name: "test" })
         mockedPc.attributes.Entropy.value = 1
         mockedPc.attributes.Entropy.bonus = -3
-        expect(mockedPc.rollAtk("Entropy", { advantage: 2, bonus: -3 }).diceArgs).toEqual(expect.objectContaining({ dieAmmount: 1, dieMax: 20, advantage: 2, bonus: -7 }))
+        expect(mockedPc.rollAtk("Entropy", { advantage: 2, bonus: -3 }).diceArgs).toEqual(expect.objectContaining({ dieAmmount: 1, dieMax: 20, advantage: 2, bonus: -5 }))
       })
     })
 

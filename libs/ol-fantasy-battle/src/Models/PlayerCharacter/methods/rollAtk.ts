@@ -28,7 +28,7 @@ export const rollAtk: PcInstanceMethod<rollAtk> = function(this, attbName, rollA
   const attributeValue = this.attributes[attbName].value + this.attributes[attbName].bonus
 
   return getAttributeDice({
-    bonus: attributeValue * 2 + bonus,
+    bonus: attributeValue + bonus,
     dieMax: 20,
     advantage,
     dieAmmount: 1,
