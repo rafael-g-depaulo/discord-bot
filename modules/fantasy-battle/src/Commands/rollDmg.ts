@@ -4,9 +4,10 @@ import { capture, concat, fromList, optional, optionalSpace } from "@discord-bot
 
 import { attributeNameRegex, getAttributeByNickname } from "../Models/PlayerCharacter"
 
+import { commandWithFlags, damageWords, rollWords } from "../Utils/regex"
 import parseFlags, { FlagsObject } from "../Utils/CommandStep/parseArgs"
 import rejectIfNotPlayerOrDm from "../Utils/CommandStep/rejectIfNotPlayerOrDm"
-import { commandWithFlags, damageWords, rollWords } from "../Utils/regex"
+import { indexAfterSubstr } from "../Utils/string"
 import { getPlayerUser } from "../Utils/CommandStep/getUser"
 import { logSuccess } from "../Utils/commandLog"
 import getPlayerChar from "../Utils/CommandStep/getPlayerChar"
@@ -45,7 +46,7 @@ export const execute: RegexCommand.execute = async (message, regexResult) => {
   // string representing the arguments after the attribute in the command
   // ex: "!might +2 adv-2" would become " +2 adv-2"
   const argsAfterAttribute = regexResult.groups?.attbNickname
-    ? message.content.slice(message.content.indexOf(regexResult.groups!.attbNickname) + regexResult.groups!.attbNickname?.length ?? 0)
+    ? indexAfterSubstr(message.content, regexResult.groups!.attbNickname)
     : test.exec(message.content)?.groups?.flags ?? ""
   const attributeName = attbName ?? character.defaultAtkAttb
   // roll the character's attribute, applying extra arguments
