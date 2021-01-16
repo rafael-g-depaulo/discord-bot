@@ -29,6 +29,9 @@ export interface Pc {
   // scaling for hp/mp
   hpScaling?: ResourceScaling,
   mpScaling?: ResourceScaling,
+  // scaling for guard/dodge
+  guardScaling?: DefenseScaling,
+  dodgeScaling?: DefenseScaling,
 }
 
 // base document interface
@@ -59,6 +62,9 @@ export interface BasePcDocument extends Pc, Document<Types.ObjectId> {
   // scaling for hp/mp
   hpScaling: ResourceScaling,
   mpScaling: ResourceScaling,
+  // scaling for guard/dodge
+  guardScaling: DefenseScaling,
+  dodgeScaling: DefenseScaling,
 }
 // unpopulated document (this is what's returned by queries)
 export interface PcDocument extends BasePcDocument {}
@@ -67,6 +73,7 @@ export interface PcPopulatedDocument extends BasePcDocument {}
 
 // interface for model, with all static methods defined
 import { create } from "../statics/create"
+import { DefenseScaling } from "./DefenseScaling"
 export interface PcModel extends Model<PcDocument> {
   createCharacter: create,
 }

@@ -16,7 +16,7 @@ const Attribute = {
     type: Number,
     default: 0,
   },
-}
+} 
 const ScalingItem = {
   type: Number,
   default: 0,
@@ -33,6 +33,7 @@ const ResourceScaling = {
   highestPhysical: ScalingItem, highestMental:   ScalingItem,
   highestSocial:   ScalingItem, highestSpecial:  ScalingItem,
 }
+const DefenseScaling = ResourceScaling
 const defaultResource =  { current: 0, base_max: 0, bonus_max: 0, temporary: 0 }
 const PcSchemaFields: SchemaFields<Pc> = {
   name: {
@@ -95,6 +96,18 @@ const PcSchemaFields: SchemaFields<Pc> = {
     Logic:     { ...ScalingItem, default: 1.5 },
     highestSpecial: { ...ScalingItem, default: 1.5 },
     Will:      { ...ScalingItem, default: 1 },
+  },
+  guardScaling: {
+    ...DefenseScaling,
+    Might:      { ...ScalingItem, default: 1 },
+    Fortitude:  { ...ScalingItem, default: 0.75 },
+    Protection: { ...ScalingItem, default: 0.5 },
+  },
+  dodgeScaling: {
+    ...DefenseScaling,
+    Agility:    { ...ScalingItem, default: 0.75 },
+    Perception: { ...ScalingItem, default: 0.5 },
+    Deception:  { ...ScalingItem, default: 1 },
   },
 }
 export const PcSchema = new Schema<Pc>(PcSchemaFields)

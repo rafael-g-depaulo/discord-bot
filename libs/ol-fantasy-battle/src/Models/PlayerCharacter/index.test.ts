@@ -209,6 +209,12 @@ describe("PlayerCharacter Model", () => {
         expect(pc.hp.current).toBe(27)
       })
     })
+
+    // describe(".updateDefenses()", async () => {
+    //   it("works", () => {
+    //     expect(true).toBe(false)
+    //   })
+    // })
   })
 
   describe("statics", () => {
@@ -239,6 +245,20 @@ describe("PlayerCharacter Model", () => {
             Energy:     { bonus: 0, value: 0 }, Entropy:    { bonus: 0, value: 0 },
             Influence:  { bonus: 0, value: 0 }, Movement:   { bonus: 0, value: 0 },
             Prescience: { bonus: 0, value: 0 }, Protection: { bonus: 0, value: 0 },
+          })
+        })
+
+        it(`creates defenses according to proper defense scaling`, () => {
+          const character = PcModel.createCharacter({ name: "Mellhot" })
+          expect(character.dodgeScaling).toMatchObject({
+            Agility: 0.75,
+            Perception: 0.5,
+            Deception: 1,
+          })
+          expect(character.guardScaling).toMatchObject({
+            Might: 1,
+            Fortitude: 0.75,
+            Protection: 0.5,
           })
         })
       })
