@@ -13,15 +13,15 @@ describe("Command: rollAttribute", () => {
     it("works", () => {
       expect(`!Might`).toMatch(test)
       expect(`!agi`).toMatch(test)
-      expect(`!decep`).toMatch(test)
+      expect(`!roll decep`).toMatch(test)
       expect(`!learn`).toMatch(test)
       expect(`!fORTitude`).toMatch(test)
     })
     it(`captures flags`, () => {
       expect(`!fORTitude`).toMatch(test)
       expect(test.exec(`!fORTitude`)?.groups).toMatchObject({ attbNickname: "fORTitude" })
-      expect(`!mig --player=Jorge`).toMatch(test)
-      expect(test.exec(`!mig --player=Jorge`)?.groups).toMatchObject({ attbNickname: "mig", flags: "--player=Jorge"})
+      expect(`!rollmig --player=Jorge`).toMatch(test)
+      expect(test.exec(`!rollmig --player=Jorge`)?.groups).toMatchObject({ attbNickname: "mig", flags: "--player=Jorge"})
       expect(`!learn  --player "Jorge"`).toMatch(test)
       expect(test.exec(`!learn  --player "Jorge"`)?.groups).toMatchObject({ attbNickname: "learn", flags: "--player \"Jorge\""})
     })

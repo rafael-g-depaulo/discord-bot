@@ -13,7 +13,7 @@ describe("Command: rollDmg", () => {
     it("works", () => {
       expect(`!dmg`).toMatch(test)
       expect(`!dmg Might`).toMatch(test)
-      expect(`!dmg    decep`).toMatch(test)
+      expect(`!rolldmg    decep`).toMatch(test)
       expect(`!damage    agi`).toMatch(test)
       expect(`!rolldamage fORTitude`).toMatch(test)
     })

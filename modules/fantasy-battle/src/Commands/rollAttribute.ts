@@ -1,18 +1,21 @@
 import { Command, RegexCommand } from "@discord-bot/create-client"
 import { resultString, getArgs } from "@discord-bot/dice"
-import { capture } from "@discord-bot/regex"
+import { capture, concat, optional, optionalSpace } from "@discord-bot/regex"
 
 import { attributeNameRegex, getAttributeByNickname } from "../Models/PlayerCharacter"
 
 import parseFlags, { FlagsObject } from "../Utils/CommandStep/parseArgs"
 import rejectIfNotPlayerOrDm from "../Utils/CommandStep/rejectIfNotPlayerOrDm"
-import { commandWithFlags } from "../Utils/regex"
+import { commandWithFlags, rollWords } from "../Utils/regex"
 import { getPlayerUser } from "../Utils/CommandStep/getUser"
 import getPlayerChar from "../Utils/CommandStep/getPlayerChar"
 import { logSuccess } from "../Utils/commandLog"
 
 export const test: RegexCommand.test = commandWithFlags(
-  capture("attbNickname", attributeNameRegex),
+  concat(
+    optional(concat(rollWords, optionalSpace)),
+    capture("attbNickname", attributeNameRegex),
+  )
 )
 
 export const execute: RegexCommand.execute = async (message, regexResult) => {
