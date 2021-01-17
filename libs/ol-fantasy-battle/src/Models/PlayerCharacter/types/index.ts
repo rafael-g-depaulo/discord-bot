@@ -17,6 +17,9 @@ export interface Pc {
   // hp & mp
   hp?: ResourceDocument,
   mp?: ResourceDocument,
+  // guard & dodge
+  guard?: DefenseDocument,
+  dodge?: DefenseDocument,
   // attributes
   attributes: {
     [key in AttributeName]: {
@@ -36,11 +39,13 @@ export interface Pc {
 
 // base document interface
 import { updateMaxResources } from "../methods/updateMaxResources"
+import { updateDefenses } from "../methods/updateDefenses"
 import { rollAttribute } from "../methods/rollAttribute"
 import { rollAtk } from "../methods/rollAtk"
 import { rollDmg } from "../methods/rollDmg"
 export interface BasePcDocument extends Pc, Document<Types.ObjectId> {
   updateMaxResources: updateMaxResources,
+  updateDefenses: updateDefenses,
   rollAttribute: rollAttribute,
   rollAtk: rollAtk,
   rollDmg: rollDmg,
@@ -48,6 +53,10 @@ export interface BasePcDocument extends Pc, Document<Types.ObjectId> {
   // hp & mp
   hp: ResourceDocument,
   mp: ResourceDocument,
+  
+  // guard & dodge
+  guard: DefenseDocument,
+  dodge: DefenseDocument,
 
   // level
   level: number,
@@ -74,6 +83,7 @@ export interface PcPopulatedDocument extends BasePcDocument {}
 // interface for model, with all static methods defined
 import { create } from "../statics/create"
 import { DefenseScaling } from "./DefenseScaling"
+import { DefenseDocument } from "Models/PcDefense"
 export interface PcModel extends Model<PcDocument> {
   createCharacter: create,
 }

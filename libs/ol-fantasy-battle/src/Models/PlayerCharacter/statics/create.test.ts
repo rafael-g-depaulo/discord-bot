@@ -50,6 +50,7 @@ describe('PlayerCharacter.createCharacter()', () => {
       expect(character.mp.max).toBe(10)
       expect(character.mp.current).toBe(10)
     })
+  
     it(`creates empty resource scaling`, () => {
       const character = create.call(PcModel, { name: "Mellhot" })
       // default level
@@ -72,6 +73,33 @@ describe('PlayerCharacter.createCharacter()', () => {
       expect(character.mpScaling.Logic)         .toBe(1.5)
       expect(character.mpScaling.Will)          .toBe(1)
       expect(character.mpScaling.highestSpecial).toBe(1.5)
+    })
+
+    it(`creates defenses`, () => {
+      const character = create.call(PcModel, { name: "Mellhot" })
+      expect(character.guard.value).toBe(0)
+      expect(character.guard.bonus).toBe(0)
+      expect(character.dodge.value).toBe(0)
+      expect(character.dodge.bonus).toBe(0)
+    })
+    
+    it(`creates empty defebse scaling`, () => {
+      const character = create.call(PcModel, { name: "Mellhot" })
+      // guard scaling
+      expect(character.guard.value)            .toBe(0)
+      expect(character.guardScaling.level)     .toBe(0)
+      expect(character.guardScaling.bonus)     .toBe(0)
+      expect(character.guardScaling.Might)     .toBe(1)
+      expect(character.guardScaling.Fortitude) .toBe(0.75)
+      expect(character.guardScaling.Protection).toBe(0.5)
+
+      // dodge scaling
+      expect(character.dodge.value)            .toBe(0)
+      expect(character.dodgeScaling.level)     .toBe(0)
+      expect(character.dodgeScaling.bonus)     .toBe(0)
+      expect(character.dodgeScaling.Deception) .toBe(1)
+      expect(character.dodgeScaling.Agility)   .toBe(0.75)
+      expect(character.dodgeScaling.Perception).toBe(0.5)
     })
 
     it(`has functioning attributes`, () => {

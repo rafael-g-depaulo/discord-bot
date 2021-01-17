@@ -1,6 +1,7 @@
 import { Schema } from "mongoose"
 import { SchemaFields } from "../helpers"
 
+import { DefenseSchema } from "../PcDefense"
 import { ResourceSchema } from "../PcResource"
 import { Pc } from "./types"
 
@@ -35,6 +36,7 @@ const ResourceScaling = {
 }
 const DefenseScaling = ResourceScaling
 const defaultResource =  { current: 0, base_max: 0, bonus_max: 0, temporary: 0 }
+const defaultDefense = { value: 0, current: 0 }
 const PcSchemaFields: SchemaFields<Pc> = {
   name: {
     type: String,
@@ -53,6 +55,16 @@ const PcSchemaFields: SchemaFields<Pc> = {
   mp: {
     type: ResourceSchema,
     default: defaultResource,
+    required: true,
+  },
+  guard: {
+    type: DefenseSchema,
+    default: defaultDefense,
+    required: true,
+  },
+  dodge: {
+    type: DefenseSchema,
+    default: defaultDefense,
     required: true,
   },
   attributes: {

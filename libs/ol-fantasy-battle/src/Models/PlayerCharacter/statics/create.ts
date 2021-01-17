@@ -2,6 +2,7 @@ import mockAttributes from "../../../Utils/mockAttributes"
 import PcModel, { Pc, PcDocument } from ".."
 import { AttributeName, PcStaticMethod } from "../types"
 import ResourceModel from "../../PcResource"
+import DefenseModel from "Models/PcDefense"
 
 export interface createPcProps {
   name: string,
@@ -26,6 +27,8 @@ const create: PcStaticMethod<create> = function(this, { name, atkAttb, level }) 
   const pc = new PcModel(pcProps)
   pc.hp = ResourceModel.createHp(pc)
   pc.mp = ResourceModel.createMp(pc)
+  pc.guard = DefenseModel.createGuard(pc)
+  pc.dodge = DefenseModel.createDodge(pc)
   return pc
 }
 
