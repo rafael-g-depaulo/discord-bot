@@ -51,6 +51,8 @@ import updateDefenses from "./methods/updateDefenses"
 PcSchema.methods.updateDefenses = updateDefenses
 import rollAttribute from "./methods/rollAttribute"
 PcSchema.methods.rollAttribute = rollAttribute
+import takeDamage from "./methods/takeDamage"
+PcSchema.methods.takeDamage = takeDamage
 import rollDmg from "./methods/rollDmg"
 PcSchema.methods.rollDmg = rollDmg
 import rollAtk from "./methods/rollAtk"

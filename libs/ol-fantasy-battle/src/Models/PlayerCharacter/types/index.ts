@@ -41,12 +41,14 @@ export interface Pc {
 import { updateMaxResources } from "../methods/updateMaxResources"
 import { updateDefenses } from "../methods/updateDefenses"
 import { rollAttribute } from "../methods/rollAttribute"
+import { takeDamage } from "../methods/takeDamage"
 import { rollAtk } from "../methods/rollAtk"
 import { rollDmg } from "../methods/rollDmg"
 export interface BasePcDocument extends Pc, Document<Types.ObjectId> {
   updateMaxResources: updateMaxResources,
   updateDefenses: updateDefenses,
   rollAttribute: rollAttribute,
+  takeDamage: takeDamage,
   rollAtk: rollAtk,
   rollDmg: rollDmg,
 
