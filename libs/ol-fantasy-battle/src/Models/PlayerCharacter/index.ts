@@ -49,6 +49,8 @@ import updateMaxResources from "./methods/updateMaxResources"
 PcSchema.methods.updateMaxResources = updateMaxResources
 import updateDefenses from "./methods/updateDefenses"
 PcSchema.methods.updateDefenses = updateDefenses
+import rollInitiative from "./methods/rollInitiative"
+PcSchema.methods.rollInitiative = rollInitiative
 import rollAttribute from "./methods/rollAttribute"
 PcSchema.methods.rollAttribute = rollAttribute
 import takeDamage from "./methods/takeDamage"

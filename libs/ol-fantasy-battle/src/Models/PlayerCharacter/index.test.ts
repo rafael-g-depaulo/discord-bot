@@ -334,6 +334,22 @@ describe("PlayerCharacter Model", () => {
         expect(hpDamageTaken2).toBe(0)
       })
     })
+
+    describe(".rollInitiative()", () => {
+      it('works', () => {
+        const mockedPc = PcModel.createCharacter({ name: "test" })
+        mockedPc.attributes.Agility.value = 1
+        mockedPc.attributes.Agility.bonus = 3    
+        expect(mockedPc.rollInitiative().diceArgs).toEqual(expect.objectContaining({ dieMax: 20, bonus: 4 }))
+      })
+      it('works with aditional args', () => {
+        const mockedPc = PcModel.createCharacter({ name: "test" })
+        mockedPc.attributes.Agility.value = 2
+        mockedPc.attributes.Agility.bonus = 3    
+        expect(mockedPc.rollInitiative({ advantage: -1, bonus: 2 }).diceArgs).toEqual(expect.objectContaining({ dieMax: 20, bonus: 7, advantage: -1 }))
+      })
+    })
+
   })
 
   describe("statics", () => {
