@@ -13,6 +13,7 @@ import changeResource from "./Commands/changeResource"
 import setResourceScaling from "./Commands/setResourceScaling"
 import dmgTable from "./Commands/dmgTable"
 import viewBio from "./Commands/viewBio"
+import viewStats from "./Commands/viewStats"
 
 export { connect as dbConnect } from "@discord-bot/mongo"
 
@@ -33,6 +34,7 @@ export const FantasyBattle: Module = {
     setResourceScaling,
     dmgTable,
     viewBio,
+    viewStats,
   ],
 }
 

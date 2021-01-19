@@ -1,12 +1,10 @@
 import { Command, RegexCommand } from "@discord-bot/create-client"
 import { concat, optional } from "@discord-bot/regex"
 
-import { ResourceDocument } from "../Models/PcResource"
-import { Attribute, PcDocument } from "../Models/PlayerCharacter"
-
+import { attributeGroupString, attributeString, defensesString, resourceString } from "../Utils/string"
+import { commandWithFlags, viewWords } from "../Utils/regex"
 import parseFlags, { FlagsObject } from "../Utils/CommandStep/parseArgs"
 import rejectIfNotPlayerOrDm from "../Utils/CommandStep/rejectIfNotPlayerOrDm"
-import { commandWithFlags, viewWords } from "../Utils/regex"
 import { getPlayerUser } from "../Utils/CommandStep/getUser"
 import { logSuccess } from "../Utils/commandLog"
 import getPlayerChar from "../Utils/CommandStep/getPlayerChar"
@@ -14,21 +12,6 @@ import getPlayerChar from "../Utils/CommandStep/getPlayerChar"
 export const test: RegexCommand.test = commandWithFlags(
   concat(optional(viewWords), /bio/)
 )
-
-const bonusString = (bonus: number) => 
-  bonus > 0 ? ` (+${bonus})` :
-  bonus < 0 ? ` (${bonus})` :
-  ""
-
-const defensesString = (char: PcDocument) =>
-  `\nGuard: ${char.guard.value}${bonusString(char.guard.bonus)}   Dodge: ${char.dodge.value}${bonusString(char.dodge.bonus)}`
-
-const resourceString = (name: string, resource: ResourceDocument) =>
-  `\n${name}:   **${resource.current}/${resource.max}**`
-
-const attributeGroupString = (name: string) => `\n\n**${name}**:`
-const attributeString = (attbName: string, attb: Attribute) =>
-  `\n\t${attbName}: ${attb.value}${bonusString(attb.bonus)}`
 
 export const execute: RegexCommand.execute = async (message, regexResult) => {
   
@@ -54,9 +37,7 @@ export const execute: RegexCommand.execute = async (message, regexResult) => {
     + resourceString("MP", character.mp)
 
     + defensesString(character)
-    // + defenseString("Guard", character.guard)
-    // + defenseString("Dodge", character.dodge)
-
+    
     + attributeGroupString("Physical")
     + attributeString("Agility"    , character.attributes.Agility)
     + attributeString("Fortitude"  , character.attributes.Fortitude)
