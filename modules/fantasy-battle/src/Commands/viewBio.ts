@@ -1,7 +1,8 @@
 import { Command, RegexCommand } from "@discord-bot/create-client"
 
 import { ResourceDocument } from "../Models/PcResource"
-import { Attribute } from "../Models/PlayerCharacter"
+import { DefenseDocument } from "../Models/PcDefense"
+import { Attribute, PcDocument } from "../Models/PlayerCharacter"
 
 import parseFlags, { FlagsObject } from "../Utils/CommandStep/parseArgs"
 import rejectIfNotPlayerOrDm from "../Utils/CommandStep/rejectIfNotPlayerOrDm"
@@ -18,6 +19,9 @@ const bonusString = (bonus: number) =>
   bonus > 0 ? ` (+${bonus})` :
   bonus < 0 ? ` (${bonus})` :
   ""
+
+const defensesString = (char: PcDocument) =>
+  `\nGuard: ${char.guard.value}${bonusString(char.guard.bonus)}   Dodge: ${char.dodge.value}${bonusString(char.dodge.bonus)}`
 
 const resourceString = (name: string, resource: ResourceDocument) =>
   `\n${name}:   **${resource.current}/${resource.max}**`
@@ -48,6 +52,10 @@ export const execute: RegexCommand.execute = async (message, regexResult) => {
   const bioString = `**${character.name}** (level ${character.level})\n`
     + resourceString("HP", character.hp)
     + resourceString("MP", character.mp)
+
+    + defensesString(character)
+    // + defenseString("Guard", character.guard)
+    // + defenseString("Dodge", character.dodge)
 
     + attributeGroupString("Physical")
     + attributeString("Agility"    , character.attributes.Agility)

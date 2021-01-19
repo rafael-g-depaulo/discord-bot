@@ -4,7 +4,7 @@ import PlayerUserModel from "Models/PlayerUser"
 import { mockDmMessage, mockPlayerMessage } from "Utils/Mock/mockMessage"
 import { useDbConnection } from "@discord-bot/mongo"
 
-import { test, execute } from "./bio"
+import { test, execute } from "./viewBio"
 
 describe("Command: bio", () => {
   useDbConnection("Command_bio")
@@ -81,6 +81,7 @@ describe("Command: bio", () => {
           "**Horu** (level 3)\n" +
           "\nHP:   **11/20**" +
           "\nMP:   **8/14**" +
+          "\nGuard: 0   Dodge: 0" +
 
           "\n\n**Physical**:" +
           "\n\tAgility: 0" + 
@@ -122,6 +123,10 @@ describe("Command: bio", () => {
         playerUser.characters[1].attributes.Might.value = 4
         playerUser.characters[1].attributes.Might.bonus = -3
         playerUser.characters[1].attributes.Creation.bonus = 3
+        playerUser.characters[1].guard.bonus = -2
+        playerUser.characters[1].guard.value = 0
+        playerUser.characters[1].dodge.bonus = 0
+        playerUser.characters[1].dodge.value = -1
         playerUser.characters[1].updateMaxResources()
         playerUser.characters[1].hp.current = 11
         playerUser.characters[1].mp.current = 8
@@ -136,6 +141,7 @@ describe("Command: bio", () => {
           "**Kuff** (level 1)\n" +
           "\nHP:   **11/32**" +
           "\nMP:   **8/10**" +
+          "\nGuard: 0 (-2)   Dodge: -1" +
 
           "\n\n**Physical**:" +
           "\n\tAgility: 0" + 
@@ -175,6 +181,10 @@ describe("Command: bio", () => {
         playerUser.characters[0].attributes.Might.value = 4
         playerUser.characters[0].attributes.Might.bonus = -3
         playerUser.characters[0].attributes.Creation.bonus = 3
+        playerUser.characters[0].guard.bonus = 2
+        playerUser.characters[0].guard.value = 1
+        playerUser.characters[0].dodge.bonus = 0
+        playerUser.characters[0].dodge.value = 1
         playerUser.characters[0].updateMaxResources()
         playerUser.characters[0].hp.current = 11
         playerUser.characters[0].mp.current = 8
@@ -188,6 +198,7 @@ describe("Command: bio", () => {
           "**Llat Drat'sab** (level 2)\n" +
           "\nHP:   **11/34**" +
           "\nMP:   **8/12**" +
+          "\nGuard: 1 (+2)   Dodge: 1" +
 
           "\n\n**Physical**:" +
           "\n\tAgility: 0" + 
