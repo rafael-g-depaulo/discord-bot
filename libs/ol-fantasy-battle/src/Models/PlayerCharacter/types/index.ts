@@ -61,6 +61,7 @@ export interface BasePcDocument extends Pc, Document<Types.ObjectId> {
   // guard & dodge
   guard: DefenseDocument,
   dodge: DefenseDocument,
+  AC: number,
 
   // level
   level: number,

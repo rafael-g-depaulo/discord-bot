@@ -43,6 +43,8 @@ import highestSocial from "./virtuals/highestSocial"
 PcSchema.virtual("highestSocial").get(highestSocial.get)
 import highestSpecial from "./virtuals/highestSpecial"
 PcSchema.virtual("highestSpecial").get(highestSpecial.get)
+import AC from "./virtuals/AC"
+PcSchema.virtual("AC").get(AC.get)
   
 // import and define instance methods
 import updateMaxResources from "./methods/updateMaxResources"

@@ -401,6 +401,28 @@ describe("PlayerCharacter Model", () => {
   })
 
   describe("virtuals", () => {
+    describe(".AC", () => {
+      it("works with dodge 0", () => {
+        const pc = PcModel.createCharacter({ name: "test" })
+        pc.dodge.value = 0
+        pc.dodge.bonus = 0
+        expect(pc.AC).toBe(8)
+      })
+
+      it("works with positive dodge", () => {
+        const pc = PcModel.createCharacter({ name: "test" })
+        pc.dodge.value = 1
+        pc.dodge.bonus = 3
+        expect(pc.AC).toBe(12)
+      })
+
+      it("works with negative dodge", () => {
+        const pc = PcModel.createCharacter({ name: "test" })
+        pc.dodge.value = -4
+        pc.dodge.bonus = 2
+        expect(pc.AC).toBe(6)
+      })
+    })
     describe(".highestPhysical", () => {
       it("works", () => {
         const pc1 = PcModel.createCharacter({ name: "test", level: 1 })
