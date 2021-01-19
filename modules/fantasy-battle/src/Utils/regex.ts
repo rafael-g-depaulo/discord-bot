@@ -1,4 +1,4 @@
-import { capture, concat, nonCapture, optionalSpace, or } from "@discord-bot/regex"
+import { capture, concat, fromList, nonCapture, optionalSpace, or } from "@discord-bot/regex"
 
 export const flags = concat(
   optionalSpace,
@@ -25,3 +25,6 @@ export const atkWords = /(?:atk|attk|atkk|attkk|ataque|ataq|ataqe|ataqu|attack|a
 export const rollWords = /(?:roll|rol|rolar|role|rola)/i
 
 export const damageWords = /(?:dmg|damage|dano|rollDmg|rolaDano|rollDamage)/i
+
+export const viewWords = fromList(["view", "ver", "visu", "visualizar"])
+export const charWords = fromList(["char", "chara", "charac",  "personagem", "character", "pers", "perso", "person"])

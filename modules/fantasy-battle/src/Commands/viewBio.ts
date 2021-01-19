@@ -1,18 +1,18 @@
 import { Command, RegexCommand } from "@discord-bot/create-client"
+import { concat, optional } from "@discord-bot/regex"
 
 import { ResourceDocument } from "../Models/PcResource"
-import { DefenseDocument } from "../Models/PcDefense"
 import { Attribute, PcDocument } from "../Models/PlayerCharacter"
 
 import parseFlags, { FlagsObject } from "../Utils/CommandStep/parseArgs"
 import rejectIfNotPlayerOrDm from "../Utils/CommandStep/rejectIfNotPlayerOrDm"
-import { commandWithFlags } from "../Utils/regex"
+import { commandWithFlags, viewWords } from "../Utils/regex"
 import { getPlayerUser } from "../Utils/CommandStep/getUser"
 import { logSuccess } from "../Utils/commandLog"
 import getPlayerChar from "../Utils/CommandStep/getPlayerChar"
 
 export const test: RegexCommand.test = commandWithFlags(
-  /bio/,
+  concat(optional(viewWords), /bio/)
 )
 
 const bonusString = (bonus: number) => 
