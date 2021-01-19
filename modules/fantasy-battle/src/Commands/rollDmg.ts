@@ -1,6 +1,6 @@
 import { Command, RegexCommand } from "@discord-bot/create-client"
 import { resultString, getArgs } from "@discord-bot/dice"
-import { capture, concat, fromList, optional, optionalSpace } from "@discord-bot/regex"
+import { capture, concat, optional, optionalSpace } from "@discord-bot/regex"
 
 import { attributeNameRegex, getAttributeByNickname } from "../Models/PlayerCharacter"
 

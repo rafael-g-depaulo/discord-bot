@@ -1,8 +1,6 @@
 import { ResourceDocument } from "@discord-bot/ol-fantasy-battle/dist/Models/PcResource"
 import { Attribute, PcDocument } from "@discord-bot/ol-fantasy-battle/dist/Models/PlayerCharacter"
 
-export const monoSpaced = (str: string) => "```\n" + str + "```"
-
 export const indexAfterSubstr = (str: string, subst: string) => str
   .slice(str.indexOf(subst) + subst.length)
 

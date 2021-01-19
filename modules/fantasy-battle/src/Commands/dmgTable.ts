@@ -8,7 +8,7 @@ import { damageDice, getDmgDiceArg } from "../Models/PlayerCharacter"
 
 import { commandWithoutFlags, damageWords } from "../Utils/regex"
 import { logSuccess } from "../Utils/commandLog"
-import { monoSpaced } from "../Utils/string"
+import { monoSpaced } from "../Utils/string/markdown"
 
 const arrayOfSize = (n: number) => Array.from({ length: n }, (_, i) => i)
 
