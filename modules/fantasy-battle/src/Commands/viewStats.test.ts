@@ -85,7 +85,8 @@ describe("Command: viewStats", () => {
           "**Horu** (level 3)\n" +
           "\nHP:   **11/14**" +
           "\nMP:   **8/14**" +
-          "\nGuard: 1 (+1)   Dodge: 2"
+          "\nGuard: 1 (+1)   Dodge: 2" +
+          "\nAC: 10"
         )
       })
     })

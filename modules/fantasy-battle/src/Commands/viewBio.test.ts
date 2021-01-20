@@ -82,6 +82,7 @@ describe("Command: bio", () => {
           "\nHP:   **11/20**" +
           "\nMP:   **8/14**" +
           "\nGuard: 0   Dodge: 0" +
+          `\nAC: 8` +
 
           "\n\n**Physical**:" +
           "\n\tAgility: 0" + 
@@ -142,6 +143,7 @@ describe("Command: bio", () => {
           "\nHP:   **11/32**" +
           "\nMP:   **8/10**" +
           "\nGuard: 0 (-2)   Dodge: -1" +
+          `\nAC: 7` +
 
           "\n\n**Physical**:" +
           "\n\tAgility: 0" + 
@@ -199,6 +201,7 @@ describe("Command: bio", () => {
           "\nHP:   **11/34**" +
           "\nMP:   **8/12**" +
           "\nGuard: 1 (+2)   Dodge: 1" +
+          `\nAC: 9` +
 
           "\n\n**Physical**:" +
           "\n\tAgility: 0" + 

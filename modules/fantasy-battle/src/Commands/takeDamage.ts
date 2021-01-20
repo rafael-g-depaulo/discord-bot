@@ -1,17 +1,14 @@
 import { Command, RegexCommand } from "@discord-bot/create-client"
-import { resultString, getArgs } from "@discord-bot/dice"
-import { capture, concat, fromList, optional, optionalSpace } from "@discord-bot/regex"
+import { capture, concat, fromList, optionalSpace } from "@discord-bot/regex"
 
-import { attributeNameRegex, getAttributeByNickname } from "../Models/PlayerCharacter"
-
-import { commandWithFlags, damageWords, rollWords } from "../Utils/regex"
+import { commandWithFlags, damageWords } from "../Utils/regex"
 import parseFlags, { FlagsObject } from "../Utils/CommandStep/parseArgs"
 import rejectIfNotPlayerOrDm from "../Utils/CommandStep/rejectIfNotPlayerOrDm"
-import { indexAfterSubstr, resourceString } from "../Utils/string"
+import { resourceString } from "../Utils/string"
 import { getPlayerUser } from "../Utils/CommandStep/getUser"
 import { logSuccess } from "../Utils/commandLog"
 import getPlayerChar from "../Utils/CommandStep/getPlayerChar"
-import { bold } from "Utils/string/markdown"
+import { bold } from "../Utils/string/markdown"
 
 const takeWords = fromList(["take", "tk", "tak", "tke", "tome", "toma", "tomar"])
 

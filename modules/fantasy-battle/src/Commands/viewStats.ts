@@ -1,13 +1,13 @@
 import { Command, RegexCommand } from "@discord-bot/create-client"
 import { concat, fromList, optional } from "@discord-bot/regex"
-import { logSuccess } from "Utils/commandLog"
-import getPlayerChar from "Utils/CommandStep/getPlayerChar"
-import { getPlayerUser } from "Utils/CommandStep/getUser"
-import parseFlags, { FlagsObject } from "Utils/CommandStep/parseArgs"
-import rejectIfNotPlayerOrDm from "Utils/CommandStep/rejectIfNotPlayerOrDm"
-import { defensesString, resourceString } from "Utils/string"
 
+import { acString, defensesString, resourceString } from "../Utils/string"
 import { charWords, commandWithFlags, viewWords } from "../Utils/regex"
+import parseFlags, { FlagsObject } from "../Utils/CommandStep/parseArgs"
+import rejectIfNotPlayerOrDm from "../Utils/CommandStep/rejectIfNotPlayerOrDm"
+import { getPlayerUser } from "../Utils/CommandStep/getUser"
+import { logSuccess } from "../Utils/commandLog"
+import getPlayerChar from "../Utils/CommandStep/getPlayerChar"
 
 const stats = fromList(["stat", "stats", "status", "estatus", "dados"])
 
@@ -39,6 +39,7 @@ export const execute: RegexCommand.execute = async (message, regexResult) => {
     + resourceString("HP", character.hp)
     + resourceString("MP", character.mp)
     + defensesString(character)
+    + acString(character)
 
   logSuccess("!viewStats", message, flags)
   message.channel.send(statsString)

@@ -1,7 +1,7 @@
 import { Command, RegexCommand } from "@discord-bot/create-client"
 import { concat, optional } from "@discord-bot/regex"
 
-import { attributeGroupString, attributeString, defensesString, resourceString } from "../Utils/string"
+import { acString, attributeGroupString, attributeString, defensesString, resourceString } from "../Utils/string"
 import { commandWithFlags, viewWords } from "../Utils/regex"
 import parseFlags, { FlagsObject } from "../Utils/CommandStep/parseArgs"
 import rejectIfNotPlayerOrDm from "../Utils/CommandStep/rejectIfNotPlayerOrDm"
@@ -37,6 +37,7 @@ export const execute: RegexCommand.execute = async (message, regexResult) => {
     + resourceString("MP", character.mp)
 
     + defensesString(character)
+    + acString(character)
     
     + attributeGroupString("Physical")
     + attributeString("Agility"    , character.attributes.Agility)

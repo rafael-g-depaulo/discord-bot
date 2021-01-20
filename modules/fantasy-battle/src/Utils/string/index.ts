@@ -12,6 +12,9 @@ export const bonusString = (bonus: number) =>
 export const defensesString = (char: PcDocument) =>
   `\nGuard: ${char.guard.value}${bonusString(char.guard.bonus)}   Dodge: ${char.dodge.value}${bonusString(char.dodge.bonus)}`
 
+export const acString = (char: PcDocument) =>
+  `\nAC: ${char.AC}`
+
 export const resourceString = (name: string, resource: ResourceDocument) =>
   `\n${name}:   **${resource.current}/${resource.max}**`
 
