@@ -1,6 +1,6 @@
 {
   "name": "@discord-bot/fantasy-battle",
-  "version": "2.12.0",
+  "version": "2.13.0",
   "description": "DESCRIPTION HERE",
   "author": "Rafael G. de Paulo <rafael.g.depaulo@gmail.com>",
   "homepage": "https://github.com/rafael-g-depaulo/discord-bot#readme",
@@ -23,7 +23,7 @@
     "@discord-bot/dice": "^2.8.0",
     "@discord-bot/logging": "^2.0.0",
     "@discord-bot/mongo": "^2.9.0",
-    "@discord-bot/ol-fantasy-battle": "^2.12.0",
+    "@discord-bot/ol-fantasy-battle": "^2.13.0",
     "@discord-bot/regex": "^2.8.0",
     "ascii-table": "^0.0.9",
     "string-argv": "^0.3.1",

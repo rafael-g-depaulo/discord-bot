@@ -1,14 +1,14 @@
 import { Command, RegexCommand } from "@discord-bot/create-client"
-import { concat, fromList, nonCapture, optional, optionalSpace, or } from "@discord-bot/regex"
+import { concat, fromList, nonCapture, optionalSpace, or } from "@discord-bot/regex"
 
-import { acString, defensesString, resourceString } from "../Utils/string"
-import { charWords, commandWithFlags, restWords, viewWords } from "../Utils/regex"
+import { commandWithFlags, restWords } from "../Utils/regex"
 import parseFlags, { FlagsObject } from "../Utils/CommandStep/parseArgs"
 import rejectIfNotPlayerOrDm from "../Utils/CommandStep/rejectIfNotPlayerOrDm"
+import { resourceString } from "../Utils/string"
 import { getPlayerUser } from "../Utils/CommandStep/getUser"
 import { logSuccess } from "../Utils/commandLog"
 import getPlayerChar from "../Utils/CommandStep/getPlayerChar"
-import { bold } from "Utils/string/markdown"
+import { bold } from "../Utils/string/markdown"
 
 const longWords = fromList(["long", "longo", "lon", "long", "lng", "curto", "pequeno"])
 export const test: RegexCommand.test = commandWithFlags(

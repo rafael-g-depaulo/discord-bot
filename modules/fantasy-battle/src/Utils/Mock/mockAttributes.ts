@@ -1,4 +1,4 @@
-import { Attributes } from "../../Models/PlayerCharacter/types"
+import { Attributes } from "../../Models/PlayerCharacter"
 
 export const mockAttributes = (): Attributes => ({
   Agility    : { value: 0, bonus: 0 }, Fortitude  : { value: 0, bonus: 0 },

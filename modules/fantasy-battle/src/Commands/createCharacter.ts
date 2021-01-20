@@ -8,7 +8,7 @@ import { commandWithFlags } from "../Utils/regex"
 import { getPlayerUser } from "../Utils/CommandStep/getUser"
 
 import PcModel from "../Models/PlayerCharacter"
-import { createPcProps } from "../Models/PlayerCharacter/statics/create"
+import { createPcProps } from "@discord-bot/ol-fantasy-battle/dist/Models/PlayerCharacter/statics/create"
 
 export const test: RegexCommand.test = commandWithFlags(
   /create-char/,
