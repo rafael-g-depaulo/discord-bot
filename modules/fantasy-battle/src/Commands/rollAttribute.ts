@@ -24,10 +24,9 @@ export const execute: RegexCommand.execute = async (message, regexResult) => {
   if (rejectIfNotPlayerOrDm(message)) return
 
   // parse arguments
-  const flagsObject: FlagsObject<{ player: string, char: string, bonus: number }> = {
+  const flagsObject: FlagsObject<{ player: string, char: string }> = {
     player: { type: "string", optional: true },
     char: { type: "string", optional: true },
-    bonus: { type: "number", optional: true },
   }
   const flags = parseFlags("!rollAttribute", flagsObject, regexResult?.groups?.flags, message)
   if (flags === null) return
