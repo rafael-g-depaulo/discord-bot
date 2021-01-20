@@ -18,6 +18,7 @@ import takeDamage from "./Commands/takeDamage"
 import rollInitiative from "./Commands/rollInitiative"
 import setLevel from "./Commands/setLevel"
 import shortRest from "./Commands/shortRest"
+import longRest from "./Commands/longRest"
 
 export { connect as dbConnect } from "@discord-bot/mongo"
 
@@ -43,6 +44,7 @@ export const FantasyBattle: Module = {
     rollInitiative,
     setLevel,
     shortRest,
+    longRest,
   ],
 }
 
