@@ -66,6 +66,13 @@ PcSchema.methods.rollDmg = rollDmg
 import rollAtk from "./methods/rollAtk"
 PcSchema.methods.rollAtk = rollAtk
 
+// add hooks (this should be defined somewhere else probably, but fuck it)
+PcSchema.pre("save", function(this: PcDocument, next) {
+  this.updateMaxResources()
+  this.updateDefenses()
+  next()
+})
+
 // model to generate and query scrolls
 export const ModelName = "Pc"
 export type PcModel = _PcModel
