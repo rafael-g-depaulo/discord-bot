@@ -90,6 +90,17 @@ const PcSchemaFields: SchemaFields<Pc> = {
   defaultAtkAttb: {
     type: String,
     default: "Might",
+    required: true,
+  },
+  hpDiceAttb: {
+    type: String,
+    default: "Fortitude",
+    required: true,
+  },
+  mpDiceAttb: {
+    type: String,
+    default: "Learning",
+    required: true,
   },
   hpScaling: {
     ...ResourceScaling,

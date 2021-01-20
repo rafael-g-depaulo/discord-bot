@@ -28,7 +28,11 @@ export interface Pc {
     }
   },
 
+  // attb used for attacks
   defaultAtkAttb?: AttributeName,
+  // attbs used for determining hp/mp regained through rest
+  hpDiceAttb?: AttributeName,
+  mpDiceAttb?: AttributeName,
   // scaling for hp/mp
   hpScaling?: ResourceScaling,
   mpScaling?: ResourceScaling,
@@ -72,7 +76,11 @@ export interface BasePcDocument extends Pc, Document<Types.ObjectId> {
   highestSocial: HighestAttribute,
   highestSpecial: HighestAttribute,
 
+  // attb used for attacks
   defaultAtkAttb: AttributeName,
+  // attbs used for determining hp/mp regained through rest
+  hpDiceAttb: AttributeName,
+  mpDiceAttb: AttributeName,
   // scaling for hp/mp
   hpScaling: ResourceScaling,
   mpScaling: ResourceScaling,
