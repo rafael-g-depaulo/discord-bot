@@ -69,7 +69,7 @@ export const execute: RegexCommand.execute = async (message, regexResult) => {
 
   await player.save()
 
-  const messageStr = `Ok! ${character.name}'s ${attbName} value changed from ${oldValue}${bonusString(oldBonus)} to ${newValue}${bonusString(newBonus)}`
+  const messageStr = `Ok! ${character.name}'s ${attbName} value changed from ${oldValue}${bonusString(oldBonus).replace(" ", "")} to ${newValue}${bonusString(newBonus).replace(" ", "")}`
   logSuccess("!setAttribute", message, flags)
   return message.channel.send(messageStr)
 }
