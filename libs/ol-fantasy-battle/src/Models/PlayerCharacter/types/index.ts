@@ -7,6 +7,7 @@ export { Attribute, AttributeName, AttributeNames, Attributes, HighestAttribute 
 import { ResourceScaling } from "./ResourceScaling"
 export { ResourceScaling }
 export * from "./methods"
+export * from "./Rest"
 
 // PC interface for document creation
 // this contains the real data typings for the type, but with typescript types and not mongo ones
