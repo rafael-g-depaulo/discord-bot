@@ -26,6 +26,9 @@ export const rollWords = /(?:roll|rol|rolar|role|rola)/i
 
 export const damageWords = /(?:dmg|damage|dano|rollDmg|rolaDano|rollDamage)/i
 
+export const guardWords = /(?:guard|guarda)/i
+export const dodgeWords = /(?:dodge|doge|evasão|evasao|evazão|evazao)/i
+
 export const viewWords = fromList(["view", "ver", "visu", "visualizar"])
 export const charWords = fromList(["char", "chara", "charac",  "personagem", "character", "pers", "perso", "person"])
 export const restWords = fromList(["rest", "descanso", "descanço", "rst"])
