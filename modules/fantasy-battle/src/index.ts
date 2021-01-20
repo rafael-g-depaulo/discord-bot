@@ -15,6 +15,7 @@ import dmgTable from "./Commands/dmgTable"
 import viewBio from "./Commands/viewBio"
 import viewStats from "./Commands/viewStats"
 import takeDamage from "./Commands/takeDamage"
+import rollInitiative from "./Commands/rollInitiative"
 
 export { connect as dbConnect } from "@discord-bot/mongo"
 
@@ -37,6 +38,7 @@ export const FantasyBattle: Module = {
     viewBio,
     viewStats,
     takeDamage,
+    rollInitiative,
   ],
 }
 
