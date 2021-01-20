@@ -6,8 +6,8 @@ import { useDbConnection } from "@discord-bot/mongo"
 
 import { test, execute } from "./setAttribute"
 
-describe("Command: rollDmg", () => {
-  useDbConnection("Command_rollDmg")
+describe("Command: setAttribute", () => {
+  useDbConnection("Command_setAttribute")
 
   describe(".test", () => {
     it("works", () => {

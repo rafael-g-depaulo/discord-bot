@@ -3,11 +3,12 @@ import { capture, concat, fromList, optional, optionalSpace } from "@discord-bot
 
 import { attributeNameRegex, getAttributeByNickname } from "../Models/PlayerCharacter"
 
+import { commandWithFlags, setWords } from "../Utils/regex"
 import parseFlags, { FlagsObject } from "../Utils/CommandStep/parseArgs"
 import { logFailure, logSuccess } from "../Utils/commandLog"
 import rejectIfNotPlayerOrDm from "../Utils/CommandStep/rejectIfNotPlayerOrDm"
-import { commandWithFlags, setWords } from "../Utils/regex"
 import { getPlayerUser } from "../Utils/CommandStep/getUser"
+import { bonusString } from "../Utils/string"
 import getPlayerChar from "../Utils/CommandStep/getPlayerChar"
 
 export const test: RegexCommand.test = commandWithFlags(
@@ -26,10 +27,6 @@ export const test: RegexCommand.test = commandWithFlags(
     capture("attbNickname", attributeNameRegex),
   ),
 )
-
-const bonus2Str = (bonus: number) =>
-  bonus > 0 ? `(+${bonus})` :
-  bonus < 0 ? `(${bonus})`  : ""
 
 export const execute: RegexCommand.execute = async (message, regexResult) => {
   // if user isn't admin or Player or DM, ignore
@@ -72,7 +69,7 @@ export const execute: RegexCommand.execute = async (message, regexResult) => {
 
   await player.save()
 
-  const messageStr = `Ok! ${character.name}'s ${attbName} value changed from ${oldValue}${bonus2Str(oldBonus)} to ${newValue}${bonus2Str(newBonus)}`
+  const messageStr = `Ok! ${character.name}'s ${attbName} value changed from ${oldValue}${bonusString(oldBonus)} to ${newValue}${bonusString(newBonus)}`
   logSuccess("!setAttribute", message, flags)
   return message.channel.send(messageStr)
 }
