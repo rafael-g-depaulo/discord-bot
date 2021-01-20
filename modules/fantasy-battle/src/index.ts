@@ -11,6 +11,7 @@ import rollDmg from "./Commands/rollDmg"
 import setAttribute from "./Commands/setAttribute"
 import changeResource from "./Commands/changeResource"
 import setResourceScaling from "./Commands/setResourceScaling"
+import setDefenseScaling from "./Commands/setDefenseScaling"
 import dmgTable from "./Commands/dmgTable"
 import viewBio from "./Commands/viewBio"
 import viewStats from "./Commands/viewStats"
@@ -37,6 +38,7 @@ export const FantasyBattle: Module = {
     setAttribute,
     changeResource,
     setResourceScaling,
+    setDefenseScaling,
     dmgTable,
     viewBio,
     viewStats,
