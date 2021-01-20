@@ -15,7 +15,7 @@ export const shortRest: PcInstanceMethod<shortRest> = function(this) {
   const rolledMp = createDice(mpDiceProps).detailedRoll().total
 
   // const recoveredHp = Math.floor(0.25 * rolledHp)
-  const recoveredMp = Math.floor(0.25 * rolledMp)
+  const recoveredMp = Math.floor(0.5 * rolledMp)
 
   // this.hp.current = this.hp.current + recoveredHp
   this.mp.current = this.mp.current + recoveredMp
