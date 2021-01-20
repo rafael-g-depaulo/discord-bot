@@ -16,6 +16,7 @@ import viewBio from "./Commands/viewBio"
 import viewStats from "./Commands/viewStats"
 import takeDamage from "./Commands/takeDamage"
 import rollInitiative from "./Commands/rollInitiative"
+import setLevel from "./Commands/setLevel"
 
 export { connect as dbConnect } from "@discord-bot/mongo"
 
@@ -39,6 +40,7 @@ export const FantasyBattle: Module = {
     viewStats,
     takeDamage,
     rollInitiative,
+    setLevel,
   ],
 }
 
