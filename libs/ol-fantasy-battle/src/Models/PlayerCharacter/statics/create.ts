@@ -8,17 +8,21 @@ export interface createPcProps {
   name: string,
   atkAttb?: AttributeName,
   level?: number
+  hpDiceAttb?: AttributeName,
+  mpDiceAttb?: AttributeName,
 }
 
 export interface create {
   (props: createPcProps): PcDocument,
 }
 
-const create: PcStaticMethod<create> = function(this, { name, atkAttb, level }) {
+const create: PcStaticMethod<create> = function(this, { name, atkAttb, level, hpDiceAttb, mpDiceAttb }) {
   const pcProps: Pc = {
     name,
-    attributes: mockAttributes(),
+    attributes: mockAttributes(),  
     defaultAtkAttb: atkAttb,
+    hpDiceAttb,
+    mpDiceAttb,
     level,
   }
   // deal with bad props

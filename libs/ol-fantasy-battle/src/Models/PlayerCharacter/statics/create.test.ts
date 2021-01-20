@@ -13,19 +13,7 @@ describe('PlayerCharacter.createCharacter()', () => {
     })
   })
 
-  describe(`properties`, () => {
-    it(`passes direct props`, () => {
-      const pcProps: createPcProps = {
-        name: "Ssaak",
-        atkAttb: "Agility",
-        level: 3
-      }
-      const character = create.call(PcModel, pcProps)
-      expect(character.name).toBe("Ssaak")
-      expect(character.defaultAtkAttb).toBe("Agility")
-      expect(character.level).toBe(3)
-    })
-
+  describe("attributes", () => {
     it(`creates empty attributes`, () => {
       const character = create.call(PcModel, { name: "Mellhot" })
       expect(character.attributes).toMatchObject({
@@ -41,7 +29,29 @@ describe('PlayerCharacter.createCharacter()', () => {
       })
       expect(character.defaultAtkAttb).toBe("Might")
     })
+    
+    it(`has functioning attributes`, () => {
+      const char = create.call(PcModel, { name: "Horu" })
 
+      const agility0SkillRoll = char.rollAttribute("Agility")
+      const agility0DmgRoll = char.rollDmg("Agility")
+
+      char.attributes.Agility.bonus = 4
+      char.attributes.Agility.value = 1
+
+      const agility3SkillRoll = char.rollAttribute("Agility")
+      const agility3DmgRoll = char.rollDmg("Agility")
+
+      expect(agility0SkillRoll.diceArgs).toEqual(expect.objectContaining({ dieMax: 20, dieAmmount: 1, bonus: 0 }))
+      expect(agility0DmgRoll.diceArgs).toEqual(expect.objectContaining({ dieMax: 2, dieAmmount: 1, bonus: 0 }))
+      
+      expect(agility3SkillRoll.diceArgs).toEqual(expect.objectContaining({ dieMax: 20, dieAmmount: 1, bonus: 10 }))
+      expect(agility3DmgRoll.diceArgs).toEqual(expect.objectContaining({ dieMax: 6, dieAmmount: 2, bonus: 0 }))
+    })
+  })
+
+  
+  describe("resources", () => {
     it(`creates empty resources`, () => {
       const character = create.call(PcModel, { name: "Mellhot" })
       expect(character.hp.max).toBe(10)
@@ -75,6 +85,20 @@ describe('PlayerCharacter.createCharacter()', () => {
       expect(character.mpScaling.highestSpecial).toBe(1.5)
     })
 
+    it('has the correct default hp and mp attributes', () => {
+      const char = create.call(PcModel, { name: "Horu" })
+      expect(char.hpDiceAttb).toBe("Fortitude")
+      expect(char.mpDiceAttb).toBe("Learning")
+    })
+
+    it('accepts new hp/mp attributes', () => {
+      const char = create.call(PcModel, { name: "Horu", hpDiceAttb: "Might", mpDiceAttb: "Will" })
+      expect(char.hpDiceAttb).toBe("Might")
+      expect(char.mpDiceAttb).toBe("Will")
+    })
+  })
+
+  describe("defenses", () => {
     it(`creates defenses`, () => {
       const character = create.call(PcModel, { name: "Mellhot" })
       expect(character.guard.value).toBe(0)
@@ -83,7 +107,7 @@ describe('PlayerCharacter.createCharacter()', () => {
       expect(character.dodge.bonus).toBe(0)
     })
     
-    it(`creates empty defebse scaling`, () => {
+    it(`creates empty defense scaling`, () => {
       const character = create.call(PcModel, { name: "Mellhot" })
       // guard scaling
       expect(character.guard.value)            .toBe(0)
@@ -101,24 +125,19 @@ describe('PlayerCharacter.createCharacter()', () => {
       expect(character.dodgeScaling.Agility)   .toBe(0.75)
       expect(character.dodgeScaling.Perception).toBe(0.5)
     })
+  })
 
-    it(`has functioning attributes`, () => {
-      const char = create.call(PcModel, { name: "Horu" })
-
-      const agility0SkillRoll = char.rollAttribute("Agility")
-      const agility0DmgRoll = char.rollDmg("Agility")
-
-      char.attributes.Agility.bonus = 4
-      char.attributes.Agility.value = 1
-
-      const agility3SkillRoll = char.rollAttribute("Agility")
-      const agility3DmgRoll = char.rollDmg("Agility")
-
-      expect(agility0SkillRoll.diceArgs).toEqual(expect.objectContaining({ dieMax: 20, dieAmmount: 1, bonus: 0 }))
-      expect(agility0DmgRoll.diceArgs).toEqual(expect.objectContaining({ dieMax: 2, dieAmmount: 1, bonus: 0 }))
-      
-      expect(agility3SkillRoll.diceArgs).toEqual(expect.objectContaining({ dieMax: 20, dieAmmount: 1, bonus: 10 }))
-      expect(agility3DmgRoll.diceArgs).toEqual(expect.objectContaining({ dieMax: 6, dieAmmount: 2, bonus: 0 }))
+  describe(`properties`, () => {
+    it(`passes direct props`, () => {
+      const pcProps: createPcProps = {
+        name: "Ssaak",
+        atkAttb: "Agility",
+        level: 3
+      }
+      const character = create.call(PcModel, pcProps)
+      expect(character.name).toBe("Ssaak")
+      expect(character.defaultAtkAttb).toBe("Agility")
+      expect(character.level).toBe(3)
     })
   })
 })
