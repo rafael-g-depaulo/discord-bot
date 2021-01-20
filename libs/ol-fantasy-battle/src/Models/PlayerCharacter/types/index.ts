@@ -45,9 +45,11 @@ export interface Pc {
 // base document interface
 import { updateMaxResources } from "../methods/updateMaxResources"
 import { updateDefenses } from "../methods/updateDefenses"
-import { rollAttribute } from "../methods/rollAttribute"
 import { rollInitiative } from "../methods/rollInitiative"
+import { rollAttribute } from "../methods/rollAttribute"
 import { takeDamage } from "../methods/takeDamage"
+import { shortRest } from "../methods/shortRest"
+import { longRest } from "../methods/longRest"
 import { rollAtk } from "../methods/rollAtk"
 import { rollDmg } from "../methods/rollDmg"
 export interface BasePcDocument extends Pc, Document<Types.ObjectId> {
@@ -56,6 +58,8 @@ export interface BasePcDocument extends Pc, Document<Types.ObjectId> {
   rollInitiative: rollInitiative,
   rollAttribute: rollAttribute,
   takeDamage: takeDamage,
+  shortRest: shortRest,
+  longRest: longRest,
   rollAtk: rollAtk,
   rollDmg: rollDmg,
 

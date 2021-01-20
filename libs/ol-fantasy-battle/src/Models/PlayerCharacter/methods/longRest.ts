@@ -1,0 +1,34 @@
+import { createDice } from "@discord-bot/dice"
+import { getDmgDiceArg } from "../helpers"
+import { PcInstanceMethod } from "../types"
+import { Recovered } from "../types/Rest"
+
+export interface longRest {
+  (): Recovered,
+}
+
+export const longRest: PcInstanceMethod<longRest> = function(this) {
+  const hpDiceProps = getDmgDiceArg(this.attributes[this.hpDiceAttb].value)
+  const mpDiceProps = getDmgDiceArg(this.attributes[this.mpDiceAttb].value)
+
+  const rolledHp = createDice(hpDiceProps).detailedRoll().total
+  const rolledMp = createDice(mpDiceProps).detailedRoll().total
+
+  const recoveredHp = Math.floor(1.00 * rolledHp) + Math.floor(0.20 * this.hp.max)
+  const recoveredMp = Math.floor(1.50 * rolledMp) + Math.floor(0.25 * this.mp.max)
+
+  this.hp.current += recoveredHp
+  this.mp.current += recoveredMp
+
+  const overhealedHp = Math.max(0, this.hp.current - this.hp.max)
+  this.hp.current -= overhealedHp
+  const overhealedMp = Math.max(0, this.mp.current - this.mp.max)
+  this.mp.current -= overhealedMp
+
+  return {
+    hp: recoveredHp - overhealedHp,
+    mp: recoveredMp - overhealedMp,
+  }
+}
+
+export default longRest
