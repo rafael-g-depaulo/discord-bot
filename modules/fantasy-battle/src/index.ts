@@ -8,6 +8,7 @@ import deleteCharacter from "./Commands/deleteCharacter"
 import setAtkAttribute from "./Commands/setAtkAttribute"
 import rollAttribute from "./Commands/rollAttribute"
 import rollDmg from "./Commands/rollDmg"
+import rollAtk from "./Commands/rollAtk"
 import setAttribute from "./Commands/setAttribute"
 import changeResource from "./Commands/changeResource"
 import setResourceScaling from "./Commands/setResourceScaling"
@@ -20,6 +21,7 @@ import rollInitiative from "./Commands/rollInitiative"
 import setLevel from "./Commands/setLevel"
 import shortRest from "./Commands/shortRest"
 import longRest from "./Commands/longRest"
+import help from "./Commands/help"
 
 export { connect as dbConnect } from "@discord-bot/mongo"
 
@@ -35,6 +37,7 @@ export const FantasyBattle: Module = {
     setAtkAttribute,
     rollAttribute,
     rollDmg,
+    rollAtk,
     setAttribute,
     changeResource,
     setResourceScaling,
@@ -47,6 +50,7 @@ export const FantasyBattle: Module = {
     setLevel,
     shortRest,
     longRest,
+    help,
   ],
 }
 
