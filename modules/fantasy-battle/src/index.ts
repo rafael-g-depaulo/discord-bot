@@ -22,6 +22,7 @@ import setLevel from "./Commands/setLevel"
 import shortRest from "./Commands/shortRest"
 import longRest from "./Commands/longRest"
 import help from "./Commands/help"
+import createBackupCommand from "./Commands/createBackup"
 
 export { connect as dbConnect } from "@discord-bot/mongo"
 
@@ -35,7 +36,6 @@ export const FantasyBattle: Module = {
     setActiveChar,
     deleteCharacter,
     setAtkAttribute,
-    rollAttribute,
     rollDmg,
     rollAtk,
     setAttribute,
@@ -51,6 +51,8 @@ export const FantasyBattle: Module = {
     shortRest,
     longRest,
     help,
+    createBackupCommand,
+    rollAttribute,
   ],
 }
 
