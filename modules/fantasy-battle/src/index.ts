@@ -22,7 +22,8 @@ import setLevel from "./Commands/setLevel"
 import shortRest from "./Commands/shortRest"
 import longRest from "./Commands/longRest"
 import help from "./Commands/help"
-import createBackupCommand from "./Commands/createBackup"
+import createBackup from "./Commands/createBackup"
+import restoreBackup from "./Commands/restoreBackup"
 
 export { connect as dbConnect } from "@discord-bot/mongo"
 
@@ -51,7 +52,8 @@ export const FantasyBattle: Module = {
     shortRest,
     longRest,
     help,
-    createBackupCommand,
+    createBackup,
+    restoreBackup,
     rollAttribute,
   ],
 }
