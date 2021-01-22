@@ -25,6 +25,8 @@ import getOrCreate from "./statics/getOrCreate"
 PlayerUserSchema.statics.getOrCreate = getOrCreate
 import fromAuthor from "./statics/fromAuthor"
 PlayerUserSchema.statics.fromAuthor = fromAuthor
+import restoreUserBackup from "./statics/restoreUserBackup"
+PlayerUserSchema.statics.restoreUserBackup = restoreUserBackup
 
 // import and define virtuals
 import activeChar from "./virtuals/activeChar"

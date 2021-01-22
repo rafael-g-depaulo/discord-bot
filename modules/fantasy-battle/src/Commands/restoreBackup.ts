@@ -53,29 +53,18 @@ export const execute: RegexCommand.execute = async (message, regexResult) => {
       return message.channel.send(`A user with the discord id ${playerId} already exists in my database (${existingUser.username}). If you want to override that existing entry use the --force flag`)
     }
 
+    // restore PlayerUserDocument from given data
+    const newPlayerUser = await PlayerUserModel.restoreUserBackup(dataObj)
+    // if couldn't restore backup from JSON data, go to catch block
+    if (newPlayerUser === null) throw new Error("Couldn't restore backup from data")
+
     // delete old user if it exists, create and save new one
     if (existingUser) await existingUser.delete()
-    const newPlayerUser = new PlayerUserModel(dataObj)
-    newPlayerUser.characters = []
-    dataObj.characters.forEach(char => {
-      delete char._id
-      delete char.hp._id
-      delete char.mp._id
-      delete char.guard._id
-      delete char.dodge._id
 
-      const charDoc = new PcModel(char)
-      charDoc.hp = new ResourceModel(char.hp)
-      charDoc.mp = new ResourceModel(char.mp)
-      charDoc.guard = new DefenseModel(char.guard)
-      charDoc.dodge = new DefenseModel(char.dodge)
-
-      newPlayerUser.characters.push(charDoc)
-    })
-    await newPlayerUser.save({ checkKeys: true })
+    await newPlayerUser.save()
 
     logSuccess("!restoreBackup", message, flags)
-    message.channel.send(`Ok! Given backup for ${newPlayerUser.username} was restored and saved to my database. (They have ${newPlayerUser.characters.length} character${newPlayerUser.characters.length !== 1 ? "s" : ""})`)
+    message.channel.send(`Ok!!! Given backup for ${newPlayerUser.username} was restored and saved to my database. (They have ${newPlayerUser.characters.length} character${newPlayerUser.characters.length !== 1 ? "s" : ""})`)
   } catch (err) {
     logFailure("!restoreBackup", `failed with ${err}`, message, flags)
     message.channel.send(`Something wen't wrong when i was trying to restore your backup`)

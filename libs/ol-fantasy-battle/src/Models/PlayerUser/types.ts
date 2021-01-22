@@ -35,11 +35,13 @@ export interface PlayerUserPopulatedDocument extends BasePlayerUserDocument {}
 
 
 // interface for model, with all static methods defined
+import { restoreUserBackup } from "./statics/restoreUserBackup"
 import { getOrCreate } from "./statics/getOrCreate"
 import { fromAuthor } from "./statics/fromAuthor"
 import { getUser } from "./statics/getUser"
 import { create } from "./statics/create"
 export interface PlayerUserModel extends Model<PlayerUserDocument> {
+  restoreUserBackup: restoreUserBackup,
   getUser: getUser,
   createUser: create,
   getOrCreate: getOrCreate,
