@@ -30,6 +30,7 @@ export const mockMessage: mockMessage = (props = {}) => {
     member,
     guild,
     channel,
+    attachments: new Discord.Collection<string, Discord.MessageAttachment>(),
     
     // user-given mocks
     ...props,
