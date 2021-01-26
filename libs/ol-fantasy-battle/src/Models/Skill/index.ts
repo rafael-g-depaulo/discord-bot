@@ -17,7 +17,8 @@ import { SkillSchema } from "./schema"
 export { SkillSchema }
 
 // import and define static methods
-// import and define static methods
+import create from "./statics/create"
+SkillSchema.statics.createSkill = create
 
 // import and define virtuals
 // import and define virtuals

@@ -46,5 +46,7 @@ export interface SkillDocument extends BaseSkillDocument {}
 export interface SkillPopulatedDocument extends BaseSkillDocument {}
 
 // interface for model, with all static methods defined
+import { create } from "../statics/create"
 export interface SkillModel extends Model<SkillDocument> {
+  createSkill: create,
 }
