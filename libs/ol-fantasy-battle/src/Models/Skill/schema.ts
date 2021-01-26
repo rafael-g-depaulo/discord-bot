@@ -54,9 +54,6 @@ const SkillSchemaFields: SchemaFields<Skill> = {
     type: Number,
     default: 0,
   },
-  atkRoll: {
-    type: String,
-  },
   dmgAttribute: {
     type: String,
   },
@@ -70,11 +67,6 @@ const SkillSchemaFields: SchemaFields<Skill> = {
   },
   dmgExplosion: {
     type: Number,
-    default: 0,
-  },
-  dmgRoll: {
-    type: String,
-    default: "",
   },
 }
 export const SkillSchema = new Schema<Skill>(SkillSchemaFields)

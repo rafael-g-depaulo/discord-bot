@@ -23,19 +23,6 @@ describe("SkillModel", () => {
     dmgExplosion: 2,
   }
 
-  const fixedAttackSkill: Skill = {
-    name: "Gambit Cards",
-    description: "(magic item) This doesn't use the character's stats. instead, it uses custom dmg rolls",
-    actionType: "minor",
-    damageOrHeal: "damage",
-    skillType: "attack",
-    damageType: "magic",
-    hpCost: 0,
-    mpCost: 1,
-    atkRoll: "1d20+2",
-    dmgRoll: "1d4!!+1",
-  }
-
   const miscSkill: Skill = {
     name: "Pass Without a Trace",
     description: "For the next 1 hour, this character and their allies have advantage+3 to stealth rolls",
@@ -62,18 +49,6 @@ describe("SkillModel", () => {
       expect(attackSkillDoc.dmgAttribute)     .toBe(attackSkill.dmgAttribute)
       expect(attackSkillDoc.dmgAttributeBonus).toBe(attackSkill.dmgAttributeBonus)
       expect(attackSkillDoc.dmgExplosion)     .toBe(attackSkill.dmgExplosion)
-
-      const fixedAttackSkillDoc = new SkillModel(fixedAttackSkill)
-      expect(fixedAttackSkillDoc.name)        .toBe(fixedAttackSkill.name)
-      expect(fixedAttackSkillDoc.description) .toBe(fixedAttackSkill.description)
-      expect(fixedAttackSkillDoc.actionType)  .toBe(fixedAttackSkill.actionType)
-      expect(fixedAttackSkillDoc.damageOrHeal).toBe(fixedAttackSkill.damageOrHeal)
-      expect(fixedAttackSkillDoc.skillType)   .toBe(fixedAttackSkill.skillType)
-      expect(fixedAttackSkillDoc.damageType)  .toBe(fixedAttackSkill.damageType)
-      expect(fixedAttackSkillDoc.hpCost)      .toBe(fixedAttackSkill.hpCost)
-      expect(fixedAttackSkillDoc.mpCost)      .toBe(fixedAttackSkill.mpCost)
-      expect(fixedAttackSkillDoc.atkRoll)     .toBe(fixedAttackSkill.atkRoll)
-      expect(fixedAttackSkillDoc.dmgRoll)     .toBe(fixedAttackSkill.dmgRoll)
 
       const miscSkillDoc = new SkillModel(miscSkill)
       expect(miscSkillDoc.name)        .toBe(miscSkill.name)

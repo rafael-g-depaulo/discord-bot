@@ -29,14 +29,12 @@ export interface Skill {
   attribute?: AttributeName,
   bonus?: number,
   advantage?: number,
-  atkRoll?: string,
 
   // damage roll options
   dmgAttribute?: AttributeName,
   dmgAttributeBonus?: number,
   dmgAdvantage?: number,
   dmgExplosion?: number,
-  dmgRoll?: string,
 }
 
 // base document interface
