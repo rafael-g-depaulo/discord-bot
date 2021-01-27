@@ -50,6 +50,7 @@ import { updateDefenses } from "../methods/updateDefenses"
 import { rollInitiative } from "../methods/rollInitiative"
 import { rollAttribute } from "../methods/rollAttribute"
 import { takeDamage } from "../methods/takeDamage"
+import { rollSkill } from "../methods/rollSkill"
 import { shortRest } from "../methods/shortRest"
 import { longRest } from "../methods/longRest"
 import { rollAtk } from "../methods/rollAtk"
@@ -60,6 +61,7 @@ export interface BasePcDocument extends Pc, Document<Types.ObjectId> {
   rollInitiative: rollInitiative,
   rollAttribute: rollAttribute,
   takeDamage: takeDamage,
+  rollSkill: rollSkill,
   shortRest: shortRest,
   longRest: longRest,
   rollAtk: rollAtk,

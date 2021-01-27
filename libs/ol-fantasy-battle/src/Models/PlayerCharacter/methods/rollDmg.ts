@@ -19,7 +19,7 @@ const getAttributeDice = (dmgValue: number, args: DiceExtraArgs) => {
   // create diceArgs and add user overrides (advantage, bonus, explosion)
   const diceArgs: DiceProps = { ...getDmgDiceArg(dmgValue), ...args }
   // override args if explosion = 0 (i.e.: if didn't specify exploion in args, use the default)
-  if (args.explode === 0) diceArgs.explode = getDmgDiceArg(dmgValue).explode
+  if (!args.explode) diceArgs.explode = getDmgDiceArg(dmgValue).explode
   return useCache(JSON.stringify(diceArgs), () => createDice(diceArgs))
 }
 

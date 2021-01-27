@@ -57,6 +57,8 @@ import rollAttribute from "./methods/rollAttribute"
 PcSchema.methods.rollAttribute = rollAttribute
 import takeDamage from "./methods/takeDamage"
 PcSchema.methods.takeDamage = takeDamage
+import rollSkill from "./methods/rollSkill"
+PcSchema.methods.rollSkill = rollSkill
 import shortRest from "./methods/shortRest"
 PcSchema.methods.shortRest = shortRest
 import longRest from "./methods/longRest"
