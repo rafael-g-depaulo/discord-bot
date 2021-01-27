@@ -3,6 +3,7 @@ import { SchemaFields } from "../helpers"
 
 import { DefenseSchema } from "../PcDefense"
 import { ResourceSchema } from "../PcResource"
+import { SkillSchema } from "../Skill"
 import { Pc } from "./types"
 
 // mongoDb schema to define data type
@@ -132,5 +133,8 @@ const PcSchemaFields: SchemaFields<Pc> = {
     Perception: { ...ScalingItem, default: 0.5 },
     Deception:  { ...ScalingItem, default: 1 },
   },
+  skills: [{
+    type: SkillSchema,
+  }],
 }
 export const PcSchema = new Schema<Pc>(PcSchemaFields)

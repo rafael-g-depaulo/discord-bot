@@ -1,4 +1,4 @@
-import { Document, Model, Types } from "mongoose"
+  import { Document, Model, Types } from "mongoose"
 
 import { ResourceDocument } from "../../PcResource"
 
@@ -40,6 +40,8 @@ export interface Pc {
   // scaling for guard/dodge
   guardScaling?: DefenseScaling,
   dodgeScaling?: DefenseScaling,
+  // char's skills
+  skills: SkillDocument[],
 }
 
 // base document interface
@@ -102,6 +104,7 @@ export interface PcPopulatedDocument extends BasePcDocument {}
 import { create } from "../statics/create"
 import { DefenseScaling } from "./DefenseScaling"
 import { DefenseDocument } from "Models/PcDefense"
+import { SkillDocument } from "Models/Skill"
 export interface PcModel extends Model<PcDocument> {
   createCharacter: create,
 }

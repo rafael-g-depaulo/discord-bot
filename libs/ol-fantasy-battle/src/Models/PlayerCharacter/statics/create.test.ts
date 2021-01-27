@@ -140,4 +140,11 @@ describe('PlayerCharacter.createCharacter()', () => {
       expect(character.level).toBe(3)
     })
   })
+
+  describe(`skills`, () => {
+    it('creates empty skills on create', () => {
+      const character = create.call(PcModel, { name: "Mellhot" })
+      expect(character.skills.length).toEqual(0)
+    })
+  })
 })

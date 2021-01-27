@@ -16,7 +16,7 @@ export interface create {
   (props: createPcProps): PcDocument,
 }
 
-const create: PcStaticMethod<create> = function(this, { name, atkAttb, level, hpDiceAttb, mpDiceAttb }) {
+const create: PcStaticMethod<create> = function(this, { name, atkAttb, level = 1, hpDiceAttb, mpDiceAttb }) {
   const pcProps: Pc = {
     name,
     attributes: mockAttributes(),  
@@ -24,6 +24,7 @@ const create: PcStaticMethod<create> = function(this, { name, atkAttb, level, hp
     hpDiceAttb,
     mpDiceAttb,
     level,
+    skills: [],
   }
   // deal with bad props
   if (typeof name !== 'string' || name === "") throw new Error(`Fantasy Battle: createCharacter(): name prop missing or empty`)

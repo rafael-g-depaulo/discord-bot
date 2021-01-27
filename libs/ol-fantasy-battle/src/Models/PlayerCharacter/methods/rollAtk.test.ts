@@ -7,7 +7,8 @@ describe('PlayerCharacter.rollAtk()', () => {
   const mockPc = () => {
     const props: Pc = {
       name: "testName",
-      attributes: mockAttributes()
+      attributes: mockAttributes(),
+      skills: [],
     }
     return new PcModel(props)
   }
