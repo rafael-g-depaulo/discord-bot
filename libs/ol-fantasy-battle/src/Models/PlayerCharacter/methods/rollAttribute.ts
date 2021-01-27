@@ -1,5 +1,5 @@
 import { createDice, Dice, DiceArgs, DiceExtraArgs, DiceRollResults } from "@discord-bot/dice"
-import { PcInstanceMethod, AttributeName } from "../types"
+import { PcInstanceMethod, AttributeName, PcDocument } from "../types"
 
 export interface rollAttribute {
   (attbName: AttributeName, rollArgs?: DiceExtraArgs): DiceRollResults,
@@ -18,22 +18,24 @@ const getAttributeDice = (args: DiceArgs) => {
   return useCache(JSON.stringify(args), () => createDice(args))
 }
 
-export const rollAttribute: PcInstanceMethod<rollAttribute> = function(this, attbName, rollArgs) {
+export const getAttbArgs = (char: PcDocument, attbName: AttributeName, rollArgs?: DiceExtraArgs): DiceArgs => {
   const {
     bonus = 0,
     advantage = 0,
-    explode = 0,
   } = rollArgs ?? {}
 
-  const attributeValue = this.attributes[attbName].value + this.attributes[attbName].bonus
+  const attributeValue = char.attributes[attbName].value + char.attributes[attbName].bonus
 
-  return getAttributeDice({
+  return {
     bonus: attributeValue * 2 + bonus,
     dieMax: 20,
     advantage,
     dieAmmount: 1,
-    explode,
-  }).detailedRoll()
+  }
+}
+
+export const rollAttribute: PcInstanceMethod<rollAttribute> = function(this, attbName, rollArgs) {
+  return getAttributeDice(getAttbArgs(this, attbName, rollArgs)).detailedRoll()
 }
 
 export default rollAttribute
